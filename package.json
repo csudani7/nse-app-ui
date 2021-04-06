@@ -3,12 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@progress/kendo-licensing": "^1.1.4",
+    "@progress/kendo-react-dialogs": "^4.5.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "bootstrap": "^4.6.0",
     "react": "^17.0.2",
+    "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.2",
+    "react-icons": "^4.2.0",
+    "react-responsive-modal": "^6.0.1",
+    "react-router": "^5.2.0",
+    "react-router-config": "^5.1.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-tabs": "^3.2.1",
+    "reactjs-popup": "^2.0.4",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
