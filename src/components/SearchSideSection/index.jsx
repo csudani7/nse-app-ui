@@ -19,7 +19,7 @@ function SearchComponent() {
     return <Dropdown show={open} onToggle={onToggle} {...props}></Dropdown>;
   };
   return (
-    <div className="marketwatch-sidebar marketwatch-wrap ">
+    <div className="marketwatch-sidebar marketwatch-wrap">
       <div className="omnisearch-wrap">
         <span className="icon-search">
           <FaSearch />
@@ -40,8 +40,6 @@ function SearchComponent() {
       <div className="instruments">
         <div className="vddl-list list-flat">
           <ShareListItem />
-          {/* <ShareListItem/>
-            <ShareListItem/> */}
         </div>
       </div>
       <ul className="marketwatch-selector list-flat">

@@ -2183,7 +2183,7 @@ button.button-outline:hover {
   box-sizing: border-box;
 }
 .marketwatch-sidebar .instruments {
-  margin-bottom: 100px;
+  /* margin-bottom: 100px; */
   position: relative;
 }
 .marketwatch-sidebar .instruments .vddl-list {
