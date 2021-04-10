@@ -4,7 +4,7 @@ import "./index.css";
 function NavBar() {
   return (
     <div className="header">
-      <div className="wrapper" style={{ marginLeft: "89px" }}>
+      <div className="wrapper">
         <div className="header-left">
           <div className="pinned-instruments">
             <div className="instrument-widget">
@@ -58,7 +58,7 @@ function NavBar() {
             </a>{" "}
             <a
               href="/orders"
-              className="orders-nav-item router-link-exact-active router-link-active"
+              // className="orders-nav-item router-link-exact-active router-link-active"
               aria-current="page"
             >
               <span>Orders</span>
