@@ -1257,7 +1257,6 @@ input {
   font-family: kiteicons;
   font-style: normal;
   font-weight: 400;
-  speak: never;
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
@@ -2221,7 +2220,6 @@ button[data-balloon] {
   font-family: kiteicons;
   font-style: normal;
   font-weight: 400;
-  speak: never;
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
