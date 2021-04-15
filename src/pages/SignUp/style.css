@@ -12,4 +12,11 @@
 
 .login-form-button {
   width: 100%;
+  background-color: #ff5722!important;
+  color: white!important;
+}
+
+.loginLink{
+  color: #ff5722;
+  float: right
 }

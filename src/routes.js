@@ -11,7 +11,13 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import NotFoundPage from "./pages/NotFoundPage";
 
-const routes = [
+let verifiedUser = false;
+const token = localStorage.getItem('token');
+if(token){
+  verifiedUser = true;
+}
+
+const routes = verifiedUser ? [
   {
     path: "/account",
     component: AccountLayout,
@@ -94,6 +100,49 @@ const routes = [
       },
     ],
   },
+] :
+ [ {
+    path: "/account",
+    component: AccountLayout,
+    routes: [
+      {
+        path: "/account",
+        exact: true,
+        component: Login,
+        key: "account",
+      },
+      {
+        path: "/account/login",
+        exact: true,
+        component: Login,
+        key: "login",
+      },
+      {
+        path: "/account/sign-up",
+        exact: true,
+        component: SignUp,
+        key: "sign-up",
+      },
+      {
+        path: "*",
+        component: NotFoundPage,
+        key: "not-found",
+      },
+    ],
+  },
+  {
+    path: "/",
+    component: AccountLayout,
+    routes: [
+      {
+        path: ["/", "/dashboard" , "/orders" , '/holdings', '/positions', '/funds', 'apps'],
+        exact: true,
+        component: Login,
+        key: "account",
+      }
+     
+    ]
+  }
 ];
 
 /**

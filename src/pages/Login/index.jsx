@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 import "./style.css";
 import { Link } from "react-router-dom";
 import { Form, Input, Button, Typography, Card, Row, Col, Layout } from "antd";
@@ -12,9 +13,21 @@ const validationRules = {
 function Login(props) {
   const onFinish = (values) => {
     const query = {
-      body: { username: values.username, password: values.password },
+      body: { Email: values.username, Password: values.password },
     };
-    console.log(query, "onFinish");
+
+    axios.post('http://localhost:9000/api/v1/auth/login', query.body)
+          .then(res=> {
+            alert(res.data.message);
+            if(res.data.token){
+              localStorage.setItem('token', res.data.token);
+              props.history.push('/');
+            }
+          })
+          .catch(err => {
+            console.log(err, 'err');
+            alert("Login failed! Please try again!");
+          })
   };
 
   return (
@@ -57,14 +70,18 @@ function Login(props) {
               </Form.Item>
               <Form.Item>
                 <Button
-                  type="primary"
+                  // type="primary"
                   htmlType="submit"
                   className="login-form-button"
                 >
                   Log in
                 </Button>
+
+                <div style={{marginTop: '10px'}}>
                 Don't have an account?{" "}
-                <Link to="/account/sign-up">SignUp now!</Link>
+                <Link to="/account/sign-up" className='signUpLink'>SignUp now!</Link>
+                </div>
+              
               </Form.Item>
             </Form>
           </Row>
