@@ -1,13 +1,15 @@
 import React from "react";
-import axios from 'axios';
+import axios from "axios";
 import "./style.css";
 import { Link } from "react-router-dom";
 import { Form, Input, Button, Typography, Card, Row, Layout, Col } from "antd";
-import { UserOutlined, LockOutlined, MailOutlined} from "@ant-design/icons";
+import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 
 const validationRules = {
   fullName: [{ required: true, message: "Please input your full name!" }],
-  email: [{ required: true, type: "email", message: "The input is not valid email!" }],
+  email: [
+    { required: true, type: "email", message: "The input is not valid email!" },
+  ],
   password: [
     { required: true, message: "Please input your password!" },
     { min: 8, messages: "password must be at least 8 characters " },
@@ -43,29 +45,29 @@ function SignUp(props) {
         FullName: values.fullName,
         Email: values.email,
         Password: values.password,
-        Role: 'user'
+        Role: "user",
       },
     };
 
-    axios.post('http://localhost:9000/api/v1/auth/register', query.body)
-    .then(res=> {
-      alert(res.data.message);
-      if(res.data.token){
-        localStorage.setItem('token', res.data.token);
-        props.history.push('/');
-      }
-    })
-    .catch(err => {
-      console.log(err, 'err');
-      alert("Signup failed! Please try again!");
-    })
-
+    axios
+      .post("http://localhost:9000/api/v1/auth/register", query.body)
+      .then((res) => {
+        alert(res.data.message);
+        if (res.data.token) {
+          localStorage.setItem("token", res.data.token);
+          props.history.push("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err, "err");
+        alert("Signup failed! Please try again!");
+      });
   };
 
   return (
     <Layout className="signUp-layout">
       <Row justify="center">
-        <Card style={{ width: "360px" }}>
+        <Card className="signup-card">
           <Row justify="center">
             <Col xs={4} md={4}>
               <Link to="/">
@@ -77,8 +79,12 @@ function SignUp(props) {
             </Col>
           </Row>
 
-          <Typography.Title level={3} align="center">
-            Register in NSE
+          <Typography.Title
+            level={3}
+            align="center"
+            className="signup-typography-title"
+          >
+            Register to NSE
           </Typography.Title>
 
           <Row justify="center">
@@ -119,15 +125,14 @@ function SignUp(props) {
               </Form.Item>
 
               <Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="login-form-button"
-                >
+                <Button htmlType="submit" className="login-form-button">
                   Sign up
                 </Button>
-                <div style={{marginTop: '10px'}}>
-                Already user? <Link to="/account" className='loginLink'>Login here!</Link>
+                <div className="signup-bottom-section">
+                  Already user?{" "}
+                  <Link to="/account" className="login-link">
+                    Login here!
+                  </Link>
                 </div>
               </Form.Item>
             </Form>
