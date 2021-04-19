@@ -1,7 +1,10 @@
 import React from "react";
 import "./Dashboard.css";
+import { useGetAllMasterData } from "../../hooks";
 
 export default function Dashboard() {
+  const allMasterData = useGetAllMasterData();
+  console.log(allMasterData, "allMasterData");
   return (
     <div>
       <div className="page-content dashboard">
@@ -142,9 +145,9 @@ export default function Dashboard() {
                         className="axis-bottom"
                         transform="translate(0,120)"
                         fill="none"
-                        font-size="10"
-                        font-family="sans-serif"
-                        text-anchor="middle"
+                        fontSize="10"
+                        fontFamily="sans-serif"
+                        textAnchor="middle"
                       >
                         <path
                           className="domain"
@@ -195,9 +198,9 @@ export default function Dashboard() {
                       <g
                         className="axis-left"
                         fill="none"
-                        font-size="10"
-                        font-family="sans-serif"
-                        text-anchor="end"
+                        fontSize="10"
+                        fontFamily="sans-serif"
+                        textAnchor="end"
                       >
                         <path
                           className="domain"

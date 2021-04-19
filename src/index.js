@@ -1,16 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 import App from "./pages/App";
-import 'antd/dist/antd.css';
+import "antd/dist/antd.css";
 import "./index.css";
 
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from "./serviceWorker";
+
+const queryClient = new QueryClient();
 
 function BaseApp() {
   return (
-    <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
       <App />
-    </React.StrictMode>
+    </QueryClientProvider>
   );
 }
 
