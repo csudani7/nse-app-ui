@@ -10,20 +10,18 @@ export default function Orders() {
   const user = useContext(BuySellToggler);
   return (
     <>
-      <div className="row justify-content-center">
-        <MainContent />
-        {user && (
-          <Window
-            minimizeButton={false}
-            maximizeButton={false}
-            onResize={false}
-            initialWidth={540}
-            initialHeight={550}
-          >
-            <BuySellForm />
-          </Window>
-        )}
-      </div>
+      <MainContent />
+      {user && (
+        <Window
+          minimizeButton={false}
+          maximizeButton={false}
+          onResize={false}
+          initialWidth={540}
+          initialHeight={550}
+        >
+          <BuySellForm />
+        </Window>
+      )}
     </>
   );
 }

@@ -1,10 +1,6 @@
 import React from "react";
 import "./index.css";
 
-const handleLogout = () => {
-  localStorage.removeItem('token');
-}
-
 function NavBar() {
   return (
     <div className="header">
@@ -79,9 +75,6 @@ function NavBar() {
             <a href="/apps" className="">
               <span>Apps</span>
             </a>
-            <button onClick={handleLogout} className="btn btn-primary">
-              Logout
-            </button>
           </div>
           <div className="right-nav">
             <div className="user-nav perspective">

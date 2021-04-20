@@ -669,8 +669,6 @@ body.app-wrapper {
   font-weight: 600;
 }
 .stats-block {
-  margin-bottom: 50px;
-  padding-bottom: 50px;
   border-bottom: 1px solid var(--color-border-default);
 }
 .stats-block .secondary-title {
@@ -708,7 +706,7 @@ body.app-wrapper {
   text-transform: capitalize;
 }
 .portfolio-block .empty-state {
-  padding: 10px 40px;
+  padding: 10px 100px;
 }
 .dashboard .margin-block {
   position: relative;
@@ -1168,7 +1166,6 @@ input {
   font-family: kiteicons;
   font-style: normal;
   font-weight: 400;
-  speak: never;
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
@@ -1181,24 +1178,6 @@ input {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* .icon-droplet:before {
-    content: "\e84e";
-  }
-  .icon-pie-chart:before {
-    content: "\e89c";
-  }
-  /* .icon-search:before {
-    content: "\e8ae";
-  } */
-/* .icon-settings:before {
-    content: "\e8b0";
-  }
-  .icon-trending-up:before {
-    content: "\e8cf";
-  }
-  .icon-chevron-up:before {
-    content: "\e8f3";} */
-
 button {
   background-color: var(--color-bg-2);
   color: var(--color-text-3);
@@ -1883,4 +1862,17 @@ body {
       format("svg");
   font-weight: 400;
   font-style: normal;
+}
+
+.dashboard-layout {
+  padding-left: 45px;
+  padding-top: 32px;
+  background-color: #fff;
+}
+
+.username-title {
+  font-size: 24px;
+  font-weight: 400;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border-default);
 }
