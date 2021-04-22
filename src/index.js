@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { RecoilRoot } from "recoil";
 import App from "./pages/App";
 import "antd/dist/antd.css";
 import "./index.css";
@@ -11,9 +12,11 @@ const queryClient = new QueryClient();
 
 function BaseApp() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </RecoilRoot>
   );
 }
 

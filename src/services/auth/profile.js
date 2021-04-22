@@ -5,5 +5,5 @@ const axios = Axios.create({
   withCredentials: true,
 });
 
-export const getAllMasterData = (params) =>
-  axios.get("/getData", { headers: { Authorization: params } });
+export const getUserProfileData = (params) =>
+  axios.get("/auth/profile", { headers: { Authorization: params } });

@@ -1,18 +1,20 @@
 import React from "react";
-import { useGetAllMasterData } from "../../hooks";
+import { useRecoilValue } from "recoil";
+import { userProfileData } from "../../recoils/profile";
 import { PieChartOutlined } from "@ant-design/icons";
 import { BiDroplet } from "react-icons/bi";
 import "./Dashboard.css";
 
 export default function Dashboard() {
-  const allMasterData = useGetAllMasterData();
-  console.log(allMasterData, "allMasterData");
+  const profileData = useRecoilValue(userProfileData);
   return (
     <>
       <div className="dashboard-layout">
-        <h1 className="username-title">
-          Hi, <span className="nickname">Sudhir</span>
-        </h1>
+        {profileData && (
+          <h1 className="username-title">
+            Hi, <span className="nickname">{profileData.full_name}</span>
+          </h1>
+        )}
         <div
           className="margins-stats stats-block"
           style={{

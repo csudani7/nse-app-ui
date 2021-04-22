@@ -10,7 +10,10 @@ function AccountLayout(props) {
     <>
       <div className="account-layout">
         <Layout>
-          <Content className="site-layout">
+          <Content
+            className="site-layout"
+            style={{ display: "flex", justifyContent: "space-around" }}
+          >
             <div className="site-layout-background">
               {renderRoutes(route.routes)}
             </div>

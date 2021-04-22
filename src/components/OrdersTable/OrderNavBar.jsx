@@ -10,13 +10,13 @@ function OrderNavBar() {
       >
         <span>Orders</span>
       </a>
-      <a href="/orders/gtt" className="">
+      <a href="/orders">
         <span>GTT</span>
       </a>
-      <a href="/orders/baskets" className="">
+      <a href="/orders">
         <span>Baskets</span>
       </a>
-      <a href="/orders/sip" className="">
+      <a href="/orders">
         <span>SIP</span>
       </a>
     </div>

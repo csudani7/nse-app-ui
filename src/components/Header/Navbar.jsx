@@ -1,7 +1,38 @@
 import React from "react";
+import { isNil } from "lodash";
+import { withRouter } from "react-router";
+import clsx from "clsx";
+import { useRecoilState } from "recoil";
+import { FiLogOut } from "react-icons/fi";
+import { useGetUserProfile } from "../../hooks";
+import { userProfileData } from "../../recoils/profile";
+
 import "./index.css";
 
-function NavBar() {
+function NavBar(props) {
+  const { data } = useGetUserProfile();
+  const [profileData, setUserProfileData] = useRecoilState(userProfileData);
+
+  React.useEffect(() => {
+    if (!isNil(data)) {
+      const { user } = data;
+      setUserProfileData(user);
+    }
+  }, [data]);
+
+  const userInitial = React.useMemo(() => {
+    if (!isNil(data)) {
+      const {
+        user: { full_name },
+      } = data;
+      const fullName = full_name?.split(" ");
+      return fullName.shift().charAt(0) + fullName.pop().charAt(0);
+    }
+  }, [data]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+  };
   return (
     <div className="header">
       <div className="wrapper">
@@ -53,26 +84,59 @@ function NavBar() {
             />
           </a>
           <div className="app-nav">
-            <a href="/dashboard" className="">
+            <a
+              href="/dashboard"
+              className={clsx(
+                props.location.pathname === "/dashboard" &&
+                  "orders-nav-item router-link-exact-active router-link-active"
+              )}
+            >
               <span>Dashboard</span>
             </a>{" "}
             <a
               href="/orders"
-              // className="orders-nav-item router-link-exact-active router-link-active"
+              className={clsx(
+                props.location.pathname === "/orders" &&
+                  "orders-nav-item router-link-exact-active router-link-active"
+              )}
               aria-current="page"
             >
               <span>Orders</span>
             </a>{" "}
-            <a href="/holdings" className="">
+            <a
+              href="/holdings"
+              className={clsx(
+                props.location.pathname === "/holdings" &&
+                  "orders-nav-item router-link-exact-active router-link-active"
+              )}
+            >
               <span>Holdings</span>
             </a>{" "}
-            <a href="/positions" className="">
+            <a
+              href="/positions"
+              className={clsx(
+                props.location.pathname === "/positions" &&
+                  "orders-nav-item router-link-exact-active router-link-active"
+              )}
+            >
               <span>Positions</span>
             </a>{" "}
-            <a href="/funds" className="">
+            <a
+              href="/funds"
+              className={clsx(
+                props.location.pathname === "/funds" &&
+                  "orders-nav-item router-link-exact-active router-link-active"
+              )}
+            >
               <span>Funds</span>
             </a>{" "}
-            <a href="/apps" className="">
+            <a
+              href="/apps"
+              className={clsx(
+                props.location.pathname === "/apps" &&
+                  "orders-nav-item router-link-exact-active router-link-active"
+              )}
+            >
               <span>Apps</span>
             </a>
           </div>
@@ -91,14 +155,43 @@ function NavBar() {
                       backgroundColor: "rgba(156, 39, 176, 0.1)",
                       fontSize: "9px",
                       fontWeight: "300px",
-                      color: "rgb(156, 39, 176)",
                       lineHeight: "26px",
                     }}
                   >
-                    <span>SP</span>
+                    <div className="popover-wrapper">
+                      <div>
+                        <span style={{ color: "rgb(156, 39, 176)" }}>
+                          {userInitial}
+                        </span>
+                      </div>
+                      <div className="popover-content">
+                        <span
+                          style={{
+                            color: "#444444",
+                            fontSize: "16px",
+                            display: "flex",
+                            justifyContent: "center",
+                          }}
+                        >
+                          {profileData?.full_name}
+                        </span>
+                        <span style={{ color: "#0c0808", fontSize: "13px" }}>
+                          {profileData?.email}
+                        </span>
+                        <hr />
+                        <div
+                          style={{ color: "#0c0808" }}
+                          onClick={handleLogout}
+                        >
+                          <FiLogOut fontSize="16px" />
+                          <span style={{ fontSize: "14px", marginLeft: "5px" }}>
+                            logout
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>{" "}
-                <span className="user-id">XT5454</span>
+                </div>
               </a>
             </div>
           </div>
@@ -108,4 +201,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default withRouter(NavBar);

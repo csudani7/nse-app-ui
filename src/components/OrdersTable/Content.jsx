@@ -91,7 +91,7 @@ function Content() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr data-uid="0" className="">
+                  <tr data-uid="0">
                     <td className="order-timestamp">15:20:49</td>
                     <td className="transaction-type">
                       <span className="text-label blue small">BUY</span>
@@ -113,7 +113,7 @@ function Content() {
                       </span>
                     </td>
                   </tr>
-                  <tr data-uid="1" className="">
+                  <tr data-uid="1">
                     <td className="order-timestamp">14:46:01</td>
                     <td className="transaction-type">
                       <span className="text-label red small">SELL</span>
@@ -135,7 +135,7 @@ function Content() {
                       </span>
                     </td>
                   </tr>
-                  <tr data-uid="2" className="">
+                  <tr data-uid="2">
                     <td className="order-timestamp">14:44:29</td>
                     <td className="transaction-type">
                       <span className="text-label blue small">BUY</span>
@@ -163,7 +163,7 @@ function Content() {
                       </span>
                     </td>
                   </tr>
-                  <tr data-uid="3" className="">
+                  <tr data-uid="3">
                     <td className="order-timestamp">14:42:58</td>
                     <td className="transaction-type">
                       <span className="text-label blue small">BUY</span>
@@ -276,7 +276,7 @@ function Content() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr data-uid="28809736" className="">
+                  <tr data-uid="28809736">
                     <td className="trade-id">28809736</td>
                     <td className="fill-timestamp">14:46:01</td>
                     <td className="transaction-type">
@@ -292,7 +292,7 @@ function Content() {
                     <td className="quantity right">1</td>
                     <td className="average-price right">59.5</td>
                   </tr>
-                  <tr data-uid="28775972" className="">
+                  <tr data-uid="28775972">
                     <td className="trade-id">28775972</td>
                     <td className="fill-timestamp">14:42:58</td>
                     <td className="transaction-type">
