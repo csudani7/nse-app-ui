@@ -1,34 +1,39 @@
 import React from "react";
-import axios from "axios";
-import "./style.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import { Form, Input, Button, Typography, Card, Row, Col, Layout } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { useUserLogin } from "../../hooks";
+import { userToken, userProfileData } from "../../recoils/profile";
+
+import "./style.css";
 
 const validationRules = {
   username: [{ required: true, message: "Please input your Username!" }],
   password: [{ required: true, message: "Please input your Password!" }],
 };
 
-function Login(props) {
+export default function Login() {
+  const history = useHistory();
+  const [loginParams, setLoginParams] = React.useState({});
+  const [, setUserToken] = useRecoilState(userToken);
+  const [, setUserProfileData] = useRecoilState(userProfileData);
+  const { data, isSuccess } = useUserLogin(loginParams);
+
+  React.useEffect(() => {
+    if (isSuccess && data?.token && data?.user) {
+      setUserToken(data?.token);
+      setUserProfileData(data?.user);
+      history.push("/dashboard");
+    }
+  }, [isSuccess, data]);
+
   const onFinish = (values) => {
     const query = {
-      body: { Email: values.username, Password: values.password },
+      Email: values.username,
+      Password: values.password,
     };
-
-    axios
-      .post("http://localhost:9000/api/v1/auth/login", query.body)
-      .then((res) => {
-        alert(res.data.message);
-        if (res.data.token) {
-          localStorage.setItem("token", res.data.token);
-          props.history.push("/");
-        }
-      })
-      .catch((err) => {
-        console.log(err, "err");
-        alert("Login failed! Please try again!");
-      });
+    setLoginParams(query);
   };
 
   return (
@@ -89,5 +94,3 @@ function Login(props) {
     </Layout>
   );
 }
-
-export default Login;

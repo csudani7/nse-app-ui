@@ -1,6 +1,8 @@
 import MainLayout from "./layout/MainLayout";
 import AccountLayout from "./layout/AccountLayout";
-// import { withAuth } from "./hoc";
+
+import { withAuth } from "./hoc";
+
 import Dashboard from "./pages/Dashboard";
 import Orders from "./pages/Orders";
 import Positions from "./pages/Positions";
@@ -11,13 +13,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import NotFoundPage from "./pages/NotFoundPage";
 
-let verifiedUser = false;
-const token = localStorage.getItem('token');
-if(token){
-  verifiedUser = true;
-}
-
-const routes = verifiedUser ? [
+const routes = [
   {
     path: "/account",
     component: AccountLayout,
@@ -54,43 +50,43 @@ const routes = verifiedUser ? [
       {
         path: "/",
         exact: true,
-        component: Dashboard,
+        component: withAuth(Dashboard),
         key: "dashboard",
       },
       {
         path: "/dashboard",
         exact: true,
-        component: Dashboard,
+        component: withAuth(Dashboard),
         key: "dashboard",
       },
       {
         path: "/orders",
         exact: true,
-        component: Orders,
+        component: withAuth(Orders),
         key: "Orders",
       },
       {
         path: "/holdings",
         exact: true,
-        component: Holdings,
+        component: withAuth(Holdings),
         key: "holdings",
       },
       {
         path: "/positions",
         exact: true,
-        component: Positions,
+        component: withAuth(Positions),
         key: "positions",
       },
       {
         path: "/funds",
         exact: true,
-        component: Funds,
+        component: withAuth(Funds),
         key: "funds",
       },
       {
         path: "/apps",
         exact: true,
-        component: Apps,
+        component: withAuth(Apps),
         key: "apps",
       },
       {
@@ -100,49 +96,6 @@ const routes = verifiedUser ? [
       },
     ],
   },
-] :
- [ {
-    path: "/account",
-    component: AccountLayout,
-    routes: [
-      {
-        path: "/account",
-        exact: true,
-        component: Login,
-        key: "account",
-      },
-      {
-        path: "/account/login",
-        exact: true,
-        component: Login,
-        key: "login",
-      },
-      {
-        path: "/account/sign-up",
-        exact: true,
-        component: SignUp,
-        key: "sign-up",
-      },
-      {
-        path: "*",
-        component: NotFoundPage,
-        key: "not-found",
-      },
-    ],
-  },
-  {
-    path: "/",
-    component: AccountLayout,
-    routes: [
-      {
-        path: ["/", "/dashboard" , "/orders" , '/holdings', '/positions', '/funds', 'apps'],
-        exact: true,
-        component: Login,
-        key: "account",
-      }
-     
-    ]
-  }
 ];
 
 /**

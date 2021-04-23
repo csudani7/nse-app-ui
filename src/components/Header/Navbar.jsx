@@ -21,7 +21,7 @@ function NavBar(props) {
   }, [data]);
 
   const userInitial = React.useMemo(() => {
-    if (!isNil(data)) {
+    if (data !== undefined && data.success) {
       const {
         user: { full_name },
       } = data;
@@ -31,8 +31,9 @@ function NavBar(props) {
   }, [data]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("nseAuthToken");
   };
+
   return (
     <div className="header">
       <div className="wrapper">

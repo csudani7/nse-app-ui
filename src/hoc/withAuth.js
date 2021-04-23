@@ -1,24 +1,24 @@
 import React, { useEffect, useCallback } from "react";
+import { useRecoilValue } from "recoil";
 import { useHistory } from "react-router-dom";
-// import { useSelector } from 'react-redux';
+import { userProfileData } from "../recoils/profile";
 
 export default function (WrapperComponent) {
   function Authenticate(props) {
     const history = useHistory();
-    // const authSelector = useSelector(selector => selector.auth);
-    // const { isAuthenticated } = authSelector;
+    const profileData = useRecoilValue(userProfileData);
 
     const handleRedirect = useCallback(() => {
-      // if (!isAuthenticated && !localStorage.getItem("studearn")) {
-      history.push("/account");
-      // }
-    }, [history]);
+      if (!profileData && !localStorage.getItem("nseAuthToken")) {
+        history.push("/account");
+      }
+    }, [history, profileData]);
 
     useEffect(() => {
       handleRedirect();
     }, [handleRedirect]);
 
-    return <WrapperComponent {...props} />;
+    return profileData ? <WrapperComponent {...props} /> : "";
   }
 
   return Authenticate;

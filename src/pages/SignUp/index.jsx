@@ -1,9 +1,10 @@
 import React from "react";
-import axios from "axios";
-import "./style.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Form, Input, Button, Typography, Card, Row, Layout, Col } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
+import { useUserRegister } from "../../hooks";
+
+import "./style.css";
 
 const validationRules = {
   fullName: [{ required: true, message: "Please input your full name!" }],
@@ -38,30 +39,25 @@ const validationRules = {
   ],
 };
 
-function SignUp(props) {
+export default function SignUp() {
+  const history = useHistory();
+  const [signUpParams, setSignUpParams] = React.useState({});
+  const { isSuccess } = useUserRegister(signUpParams);
+
+  // React.useEffect(() => {
+  //   if (isSuccess) {
+  //     history.push("/account/login");
+  //   }
+  // }, [isSuccess]);
+
   const onFinish = (values) => {
     const query = {
-      body: {
-        FullName: values.fullName,
-        Email: values.email,
-        Password: values.password,
-        Role: "user",
-      },
+      FullName: values.fullName,
+      Email: values.email,
+      Password: values.password,
+      Role: "user",
     };
-
-    axios
-      .post("http://localhost:9000/api/v1/auth/register", query.body)
-      .then((res) => {
-        alert(res.data.message);
-        if (res.data.token) {
-          localStorage.setItem("token", res.data.token);
-          props.history.push("/");
-        }
-      })
-      .catch((err) => {
-        console.log(err, "err");
-        alert("Signup failed! Please try again!");
-      });
+    setSignUpParams(query);
   };
 
   return (
@@ -142,5 +138,3 @@ function SignUp(props) {
     </Layout>
   );
 }
-
-export default SignUp;
