@@ -1,12 +1,12 @@
 import React from "react";
 import OrderNavBar from "./OrderNavBar";
-import Content from "./Content";
+import OrdersTable from "./OrdersTable";
 
-export default function MainContent() {
+export default function OrdersWrapper() {
   return (
     <div className="backgrnd">
       <OrderNavBar />
-      <Content />
+      <OrdersTable />
     </div>
   );
 }

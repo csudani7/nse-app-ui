@@ -4,7 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { FiDownloadCloud } from "react-icons/fi";
 import { BiDoughnutChart } from "react-icons/bi";
 
-function Content() {
+export default function OrdersTable() {
   return (
     <div className="page-content">
       <div className="orderbook">
@@ -18,6 +18,7 @@ function Content() {
 
           <div className="completed-orders">
             <div tabIndex="1" className="data-table fold-header">
+              {/* ExecutedOrderTable:Toolbar */}
               <div className="toolbar">
                 {" "}
                 <span className="search">
@@ -27,7 +28,7 @@ function Content() {
                   <span
                     className="clear icon icon-times"
                     style={{ display: "none" }}
-                  ></span>
+                  />
                   <div className="search-input su-input-group">
                     <input
                       type="search"
@@ -63,6 +64,8 @@ function Content() {
                   </span>
                 </span>{" "}
               </div>
+
+              {/* ExecutedTable */}
               <table>
                 <thead>
                   <tr>
@@ -186,7 +189,7 @@ function Content() {
                     </td>
                   </tr>
                 </tbody>
-                <tfoot></tfoot>
+                <tfoot />
               </table>
             </div>
           </div>
@@ -204,6 +207,7 @@ function Content() {
           </header>
           <div className="trades">
             <div tabIndex="1" className="data-table fold-header">
+              {/* OpenOrderTable:Toolbar */}
               <div className="toolbar">
                 {" "}
                 <span className="search">
@@ -249,6 +253,8 @@ function Content() {
                   </span>
                 </span>{" "}
               </div>
+
+              {/* OpenOrderTable */}
               <table>
                 <thead>
                   <tr>
@@ -309,7 +315,7 @@ function Content() {
                     <td className="average-price right">59.5</td>
                   </tr>
                 </tbody>
-                <tfoot></tfoot>
+                <tfoot />
               </table>
             </div>
           </div>
@@ -318,5 +324,3 @@ function Content() {
     </div>
   );
 }
-
-export default Content;

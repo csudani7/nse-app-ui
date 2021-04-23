@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Window } from "@progress/kendo-react-dialogs";
 import BuySellForm from "../../components/SearchSideSection/BuySellForm";
 import { BuySellToggler } from "../../components/SearchSideSection/Context";
-import MainContent from "../../components/OrdersTable";
+import OrdersTable from "../../components/OrdersTable";
 
 import "../../index.css";
 
@@ -10,7 +10,7 @@ export default function Orders() {
   const user = useContext(BuySellToggler);
   return (
     <>
-      <MainContent />
+      <OrdersTable />
       {user && (
         <Window
           minimizeButton={false}
