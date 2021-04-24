@@ -1,8 +1,10 @@
 import React from "react";
-import { isNil } from "lodash";
 import { withRouter } from "react-router";
-import clsx from "clsx";
+import { useHistory } from "react-router-dom";
 import { useRecoilState } from "recoil";
+import clsx from "clsx";
+import { isNil } from "lodash";
+import { Popover } from "antd";
 import { FiLogOut } from "react-icons/fi";
 import { useGetUserProfile } from "../../hooks";
 import { userProfileData } from "../../recoils/profile";
@@ -10,6 +12,7 @@ import { userProfileData } from "../../recoils/profile";
 import "./index.css";
 
 function NavBar(props) {
+  const history = useHistory();
   const { data } = useGetUserProfile();
   const [profileData, setUserProfileData] = useRecoilState(userProfileData);
 
@@ -32,7 +35,40 @@ function NavBar(props) {
 
   const handleLogout = () => {
     localStorage.removeItem("nseAuthToken");
+    history.push("/account/login");
   };
+
+  const popoverContent = (
+    <>
+      <span
+        style={{
+          color: "#444444",
+          fontSize: "16px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        {profileData?.full_name}
+      </span>
+      <span style={{ color: "#0c0808", fontSize: "13px" }}>
+        {profileData?.email}
+      </span>
+      <hr />
+      <div
+        style={{
+          color: "#0c0808",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          cursor: "pointer",
+        }}
+        onClick={handleLogout}
+      >
+        <FiLogOut fontSize="16px" />
+        <span style={{ fontSize: "14px", marginLeft: "5px" }}>logout</span>
+      </div>
+    </>
+  );
 
   return (
     <div className="header">
@@ -159,38 +195,11 @@ function NavBar(props) {
                       lineHeight: "26px",
                     }}
                   >
-                    <div className="popover-wrapper">
-                      <div>
-                        <span style={{ color: "rgb(156, 39, 176)" }}>
-                          {userInitial}
-                        </span>
-                      </div>
-                      <div className="popover-content">
-                        <span
-                          style={{
-                            color: "#444444",
-                            fontSize: "16px",
-                            display: "flex",
-                            justifyContent: "center",
-                          }}
-                        >
-                          {profileData?.full_name}
-                        </span>
-                        <span style={{ color: "#0c0808", fontSize: "13px" }}>
-                          {profileData?.email}
-                        </span>
-                        <hr />
-                        <div
-                          style={{ color: "#0c0808" }}
-                          onClick={handleLogout}
-                        >
-                          <FiLogOut fontSize="16px" />
-                          <span style={{ fontSize: "14px", marginLeft: "5px" }}>
-                            logout
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    <Popover content={popoverContent}>
+                      <span style={{ color: "rgb(156, 39, 176)" }}>
+                        {userInitial}
+                      </span>
+                    </Popover>
                   </div>
                 </div>
               </a>
