@@ -33,7 +33,7 @@ export default function Dashboard() {
                 <div className="primary-stats five columns m5">
                   <div className="value">
                     <span data-balloon="₹32.87" data-balloon-pos="up">
-                      32.87
+                      {profileData.credit}
                     </span>
                   </div>
                   <div className="label">Margin available</div>

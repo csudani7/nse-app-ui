@@ -1,23 +1,79 @@
-import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Dropdown } from "react-bootstrap";
-import ShareListItem from "./ShareListItem";
-import "./Settings.css";
+import React from "react";
+import { Menu, Dropdown, Button, InputNumber } from "antd";
 import { FiSettings } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
 
+import ShareListItem from "./ShareListItem";
+import { useAddFunds } from "../../hooks";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./Settings.css";
+
 function SearchComponent() {
-  const DropdownPersist = (props) => {
-    const [open, setOpen] = useState(false);
-    const onToggle = (isOpen, ev, metadata) => {
-      if (metadata.source === "select") {
-        setOpen(true);
-        return;
-      }
-      setOpen(isOpen);
-    };
-    return <Dropdown show={open} onToggle={onToggle} {...props}></Dropdown>;
+  const [funds, setFunds] = React.useState(undefined);
+  const [flag, setFlag] = React.useState(false);
+  useAddFunds(funds);
+  console.log(funds, "funds");
+  const onChange = (value) => {
+    if (flag) {
+      const params = {
+        Credit: value,
+      };
+      setFunds(params);
+    }
   };
+  const handleAddFunds = () => {
+    setFlag(true);
+  };
+  const menuItems = (
+    <Menu style={{ width: 120 }}>
+      <Menu.Item>
+        <span class="dim">Change</span>{" "}
+        <span
+          class="help"
+          data-balloon="Price change can be either calculated based on previous close price or day open price."
+          data-balloon-pos="up"
+          data-balloon-length="large"
+        >
+          <span class="icon icon-info"></span>
+        </span>
+      </Menu.Item>
+      <Menu.Item>
+        {/* Radio Button */}
+        <label for="radio-240" class="su-radio-label">
+          Open price
+        </label>
+      </Menu.Item>
+      <Menu.Item>
+        {/* Radio Button */}
+        <label for="radio-240" class="su-radio-label">
+          Close price
+        </label>
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item>
+        <span class="dim">Change Format</span>
+      </Menu.Item>
+      <Menu.Item>
+        <label for="radio-243" class="su-radio-label">
+          Percentage
+        </label>
+      </Menu.Item>
+      <Menu.Item>
+        <label for="radio-243" class="su-radio-label">
+          absolute
+        </label>
+      </Menu.Item>
+      <Menu.Item>
+        <InputNumber min={1} defaultValue={0} onChange={onChange} />
+      </Menu.Item>
+      <Menu.Item>
+        <Button type="primary" size={"default"} onClick={handleAddFunds}>
+          Add Funds
+        </Button>
+      </Menu.Item>
+    </Menu>
+  );
   return (
     <div className="marketwatch-sidebar marketwatch-wrap">
       <div className="omnisearch-wrap">
@@ -60,122 +116,9 @@ function SearchComponent() {
         </li>
 
         <li className="block" style={{ paddingLeft: "100px" }}>
-          <DropdownPersist title="Dropdown">
-            <Dropdown.Toggle
-              style={{
-                backgroundColor: "white",
-                borderStyle: "white",
-                borderWidth: "0",
-              }}
-            >
-              <FiSettings color="grey" />
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <div style={{ width: "80%" }}>
-                <li eventKey="1" className="change block">
-                  <div class="head">
-                    <span class="dim">Change</span>{" "}
-                    <span
-                      class="help"
-                      data-balloon="Price change can be either calculated based on previous close price or day open price."
-                      data-balloon-pos="up"
-                      data-balloon-length="large"
-                    >
-                      <span class="icon icon-info"></span>
-                    </span>
-                  </div>
-                  <div class="su-radio-group change-type" id="blocklabel">
-                    <div class="su-radio-wrap checked" id="radiogroup1">
-                      <input
-                        id="radio-240"
-                        type="radio"
-                        label="Close price"
-                        class="su-radio"
-                        value="close"
-                      />{" "}
-                      <label for="radio-240" class="su-radio-label">
-                        Close price
-                      </label>
-                    </div>
-                    <div class="su-radio-wrap" id="radiogroup2">
-                      <input
-                        id="radio-241"
-                        type="radio"
-                        label="Open price"
-                        class="su-radio"
-                        value="open"
-                      />{" "}
-                      <label for="radio-241" class="su-radio-label">
-                        Open price
-                      </label>
-                    </div>
-                  </div>
-                </li>
-                <li eventKey="2" className="change block">
-                  <div class="head">
-                    <span class="dim">Change Format</span>
-                  </div>
-                  <div
-                    class="su-radio-group change-type-format"
-                    id="blocklabel"
-                  >
-                    <div class="su-radio-wrap checked" id="radiogroup1">
-                      <input
-                        id="radio-243"
-                        type="radio"
-                        label="Percentage"
-                        class="su-radio"
-                        value="percentage"
-                      />{" "}
-                      <label for="radio-243" class="su-radio-label">
-                        Percentage
-                      </label>
-                    </div>
-                    <div class="su-radio-wrap" id="radiogroup2">
-                      <input
-                        id="radio-244"
-                        type="radio"
-                        label="Absolute"
-                        class="su-radio"
-                        value="absolute"
-                      />{" "}
-                      <label for="radio-244" class="su-radio-label">
-                        Absolute
-                      </label>
-                    </div>
-                  </div>
-                </li>
-                <li eventKey="3" className="change block">
-                  <div class="head">
-                    <span class="dim">Add Funds</span>
-                  </div>
-                  <div>
-                    <input
-                      id="text-001"
-                      type="text"
-                      label="Percentage"
-                      style={{ width: "100%", marginTop: "5px" }}
-                    ></input>
-                    <button
-                      type="button"
-                      style={{
-                        padding: "2px",
-                        marginLeft: "5px",
-                        marginTop: "20px",
-                        width: "50%",
-                      }}
-                      class="button-small button-outline"
-                      data-balloon="Add Funds"
-                      data-balloon-pos="up"
-                    >
-                      Add
-                    </button>
-                  </div>
-                </li>
-                <Dropdown.Divider />
-              </div>
-            </Dropdown.Menu>
-          </DropdownPersist>
+          <Dropdown overlay={menuItems} placement="topRight">
+            <FiSettings color="grey" />
+          </Dropdown>
         </li>
       </ul>
     </div>
