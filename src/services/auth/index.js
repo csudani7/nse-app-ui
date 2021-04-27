@@ -34,8 +34,6 @@ export const getUserRegister = async (params) => {
     if (status === 200 && data?.token) {
       message.success(data?.message);
       return data;
-    } else {
-      throw new Error(data?.message || "some thing went wrong!");
     }
   } catch (error) {
     message.error(error);

@@ -1,10 +1,13 @@
 import React from "react";
-import "./index.css";
+import moment from "moment";
 import { FaSearch } from "react-icons/fa";
 import { FiDownloadCloud } from "react-icons/fi";
 import { BiDoughnutChart } from "react-icons/bi";
 
-export default function OrdersTable() {
+import "./index.css";
+
+export default function OrdersTable(props) {
+  const { allOpenOrders, allExecutedOrders } = props;
   return (
     <div className="page-content">
       <div className="orderbook">
@@ -12,7 +15,7 @@ export default function OrdersTable() {
           <header className="row data-table-header">
             <h3 className="page-title small">
               Executed orders
-              <span>(4)</span>
+              <span>({allExecutedOrders?.numofdata})</span>
             </h3>
           </header>
 
@@ -94,100 +97,44 @@ export default function OrdersTable() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr data-uid="0">
-                    <td className="order-timestamp">15:20:49</td>
-                    <td className="transaction-type">
-                      <span className="text-label blue small">BUY</span>
-                    </td>
-                    <td className="instrument">
-                      <span className="tradingsymbol">
-                        <span>IDFCFIRSTB</span>
-                      </span>{" "}
-                      <span className="exchange text-xxsmall dim">NSE</span>
-                    </td>
-                    <td className="product">MIS</td>
-                    <td className="quantity right">0 / 1</td>
-                    <td className="average-price right">
-                      <span>58.00</span>
-                    </td>
-                    <td className="order-status">
-                      <span className="text-label small order-status-label">
-                        <span>CANCELLED</span>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr data-uid="1">
-                    <td className="order-timestamp">14:46:01</td>
-                    <td className="transaction-type">
-                      <span className="text-label red small">SELL</span>
-                    </td>
-                    <td className="instrument">
-                      <span className="tradingsymbol">
-                        <span>IDFCFIRSTB</span>
-                      </span>{" "}
-                      <span className="exchange text-xxsmall dim">NSE</span>
-                    </td>
-                    <td className="product">MIS</td>
-                    <td className="quantity right">1 / 1</td>
-                    <td className="average-price right">
-                      <span>59.50</span>
-                    </td>
-                    <td className="order-status">
-                      <span className="text-label small order-status-label green">
-                        <span>COMPLETE</span>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr data-uid="2">
-                    <td className="order-timestamp">14:44:29</td>
-                    <td className="transaction-type">
-                      <span className="text-label blue small">BUY</span>
-                    </td>
-                    <td className="instrument">
-                      <span className="tradingsymbol">
-                        <span>IDFCFIRSTB</span>
-                      </span>{" "}
-                      <span className="exchange text-xxsmall dim">NSE</span>
-                    </td>
-                    <td className="product">MIS</td>
-                    <td className="quantity right">0 / 10000</td>
-                    <td className="average-price right">
-                      <span>59.00</span>
-                    </td>
-                    <td className="order-status">
-                      <span className="text-label small order-status-label red">
-                        <span
-                          data-balloon="Insufficient funds. Required margin is 118023.50 but available margin is 32.91. Check the orderbook for open orders."
-                          data-balloon-pos="up"
-                          data-balloon-length="large"
-                        >
-                          REJECTED
-                        </span>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr data-uid="3">
-                    <td className="order-timestamp">14:42:58</td>
-                    <td className="transaction-type">
-                      <span className="text-label blue small">BUY</span>
-                    </td>
-                    <td className="instrument">
-                      <span className="tradingsymbol">
-                        <span>IDFCFIRSTB</span>
-                      </span>{" "}
-                      <span className="exchange text-xxsmall dim">NSE</span>
-                    </td>
-                    <td className="product">MIS</td>
-                    <td className="quantity right">1 / 1</td>
-                    <td className="average-price right">
-                      <span>59.50</span>
-                    </td>
-                    <td className="order-status">
-                      <span className="text-label small order-status-label green">
-                        <span>COMPLETE</span>
-                      </span>
-                    </td>
-                  </tr>
+                  {allExecutedOrders &&
+                    allExecutedOrders?.data?.map((orders, index) => {
+                      return (
+                        <tr data-uid={index}>
+                          <td className="order-timestamp">
+                            {moment
+                              .utc(orders.createdAt)
+                              .local()
+                              .format("HH:mm:ss")}
+                          </td>
+                          <td className="transaction-type">
+                            <span className="text-label blue small">
+                              {orders.TransactionType}
+                            </span>
+                          </td>
+                          <td className="instrument">
+                            <span className="tradingsymbol">
+                              <span>{orders.SymbolName}</span>
+                            </span>{" "}
+                            <span className="exchange text-xxsmall dim">
+                              {orders.ExchangeSegment}
+                            </span>
+                          </td>
+                          <td className="product">{orders.ProductType}</td>
+                          <td className="quantity right">
+                            {orders.OrderQuantity}
+                          </td>
+                          <td className="average-price right">
+                            <span>{orders.OrderPrice}</span>
+                          </td>
+                          <td className="order-status">
+                            <span className="text-label small order-status-label">
+                              <span>{orders.Status}</span>
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
                 <tfoot />
               </table>
@@ -202,7 +149,7 @@ export default function OrdersTable() {
                 <span>Trades</span>{" "}
                 <span className="icon icon-chevron-up"></span>
               </span>{" "}
-              <span>(2)</span>
+              <span>({allOpenOrders?.numofdata})</span>
             </h3>
           </header>
           <div className="trades">
@@ -282,38 +229,40 @@ export default function OrdersTable() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr data-uid="28809736">
-                    <td className="trade-id">28809736</td>
-                    <td className="fill-timestamp">14:46:01</td>
-                    <td className="transaction-type">
-                      <span className="text-label red small">SELL</span>
-                    </td>
-                    <td className="instrument">
-                      <span className="tradingsymbol">
-                        <span>IDFCFIRSTB</span>
-                      </span>{" "}
-                      <span className="exchange text-xxsmall dim">NSE</span>
-                    </td>
-                    <td className="product">MIS</td>
-                    <td className="quantity right">1</td>
-                    <td className="average-price right">59.5</td>
-                  </tr>
-                  <tr data-uid="28775972">
-                    <td className="trade-id">28775972</td>
-                    <td className="fill-timestamp">14:42:58</td>
-                    <td className="transaction-type">
-                      <span className="text-label blue small">BUY</span>
-                    </td>
-                    <td className="instrument">
-                      <span className="tradingsymbol">
-                        <span>IDFCFIRSTB</span>
-                      </span>{" "}
-                      <span className="exchange text-xxsmall dim">NSE</span>
-                    </td>
-                    <td className="product">MIS</td>
-                    <td className="quantity right">1</td>
-                    <td className="average-price right">59.5</td>
-                  </tr>
+                  {allOpenOrders &&
+                    allOpenOrders?.data?.map((orders, index) => {
+                      return (
+                        <tr data-uid={index}>
+                          <td className="trade-id">{orders.OrderUserid}</td>
+                          <td className="fill-timestamp">
+                            {moment
+                              .utc(orders.createdAt)
+                              .local()
+                              .format("HH:mm:ss")}
+                          </td>
+                          <td className="transaction-type">
+                            <span className="text-label red small">
+                              {orders.TransactionType}
+                            </span>
+                          </td>
+                          <td className="instrument">
+                            <span className="tradingsymbol">
+                              <span>{orders.SymbolName}</span>
+                            </span>{" "}
+                            <span className="exchange text-xxsmall dim">
+                              {orders.ExchangeSegment}
+                            </span>
+                          </td>
+                          <td className="product">{orders.ProductType}</td>
+                          <td className="quantity right">
+                            {orders.OrderQuantity}
+                          </td>
+                          <td className="average-price right">
+                            {orders.OrderPrice}
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
                 <tfoot />
               </table>

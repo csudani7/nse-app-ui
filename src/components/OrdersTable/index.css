@@ -696,7 +696,7 @@ body-wrapper {
   margin-right: 10px;
 }
 .page-content {
-  padding: 30px 20px 30px 50px;
+  padding: 30px 20px 30px 30px;
   position: relative;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -1269,27 +1269,6 @@ input {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* .icon-download:before {
-  content: "\e84c";
-}
-.icon-search:before {
-  content: "\e8ae";
-}
-.icon-settings:before {
-  content: "\e8b0";
-}
-.icon-times:before {
-  content: "\e8ec";
-}
-.icon-chevron-down:before {
-  content: "\e8f0";
-}
-.icon-chevron-up:before {
-  content: "\e8f3";
-}
-.icon-console:before {
-  content: "\e900";
-} */
 .perspective {
   -webkit-perspective: 1000px;
   perspective: 1000px;
@@ -1297,6 +1276,7 @@ input {
 .data-table-header {
   display: inline-block;
   padding-bottom: 10px;
+  padding-left: 18px;
 }
 .data-table-header .page-title {
   margin: 0;
