@@ -3,8 +3,8 @@ import { Menu, Dropdown, Button, InputNumber } from "antd";
 import { FiSettings } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
 
-import ShareListItem from "./ShareListItem";
-import { useAddFunds } from "../../hooks";
+import AddedSymbolList from "./AddedSymbolList";
+import { useAddFunds, useGetAllUserAddedSymbols } from "../../hooks";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Settings.css";
@@ -13,7 +13,7 @@ function SearchComponent() {
   const [funds, setFunds] = React.useState(undefined);
   const [flag, setFlag] = React.useState(false);
   useAddFunds(funds);
-  console.log(funds, "funds");
+  const { data: getAllUserAddedSymbols } = useGetAllUserAddedSymbols();
   const onChange = (value) => {
     if (flag) {
       const params = {
@@ -95,7 +95,7 @@ function SearchComponent() {
       </div>
       <div className="instruments">
         <div className="vddl-list list-flat">
-          <ShareListItem />
+          <AddedSymbolList getAllUserAddedSymbols={getAllUserAddedSymbols} />
         </div>
       </div>
       <ul className="marketwatch-selector list-flat">
@@ -116,7 +116,7 @@ function SearchComponent() {
         </li>
 
         <li className="block" style={{ paddingLeft: "100px" }}>
-          <Dropdown overlay={menuItems} placement="topRight">
+          <Dropdown overlay={menuItems} placement="topCenter">
             <FiSettings color="grey" />
           </Dropdown>
         </li>

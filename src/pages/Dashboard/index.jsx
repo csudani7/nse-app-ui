@@ -32,7 +32,10 @@ export default function Dashboard() {
               <div className="row">
                 <div className="primary-stats five columns m5">
                   <div className="value">
-                    <span data-balloon="₹32.87" data-balloon-pos="up">
+                    <span
+                      data-balloon={`₹${profileData.credit}`}
+                      data-balloon-pos="up"
+                    >
                       {profileData.credit}
                     </span>
                   </div>

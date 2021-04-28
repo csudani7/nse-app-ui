@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Form, Input, Button, Typography, Card, Row, Layout, Col } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { useUserRegister } from "../../hooks";
@@ -40,9 +40,8 @@ const validationRules = {
 };
 
 export default function SignUp() {
-  const history = useHistory();
   const [signUpParams, setSignUpParams] = React.useState({});
-  const { isSuccess } = useUserRegister(signUpParams);
+  useUserRegister(signUpParams);
 
   // React.useEffect(() => {
   //   if (isSuccess) {
