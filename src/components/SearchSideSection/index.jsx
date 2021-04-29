@@ -2,18 +2,22 @@ import React from "react";
 import { Menu, Dropdown, Button, InputNumber } from "antd";
 import { FiSettings } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
-
 import AddedSymbolList from "./AddedSymbolList";
-import { useAddFunds, useGetAllUserAddedSymbols } from "../../hooks";
+import { useAddFunds } from "../../hooks";
+import { useGetAllSymbols, useGetAllUserAddedSymbols } from "../../hooks";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Settings.css";
 
 function SearchComponent() {
+  const { data: getAllSymbols } = useGetAllSymbols();
+  const { data: getAllUserAddedSymbols } = useGetAllUserAddedSymbols();
   const [funds, setFunds] = React.useState(undefined);
   const [flag, setFlag] = React.useState(false);
+  const [isSymbolListOpen, setIsSymbolListOpen] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState(undefined);
   useAddFunds(funds);
-  const { data: getAllUserAddedSymbols } = useGetAllUserAddedSymbols();
+
   const onChange = (value) => {
     if (flag) {
       const params = {
@@ -74,6 +78,21 @@ function SearchComponent() {
       </Menu.Item>
     </Menu>
   );
+  const handleSearchInput = (e) => {
+    setSearchQuery(e.target.value);
+    setIsSymbolListOpen(true);
+  };
+
+  const filteredSymbolData = React.useMemo(() => {
+    if (searchQuery && getAllSymbols) {
+      const query = searchQuery.toUpperCase();
+      if (searchQuery === " ") return getAllSymbols?.data;
+      if (searchQuery !== " " || searchQuery !== undefined) {
+        return getAllSymbols?.data.filter((i) => i.Name.includes(query));
+      }
+      return getAllSymbols?.data;
+    }
+  }, [searchQuery, getAllSymbols]);
   return (
     <div className="marketwatch-sidebar marketwatch-wrap">
       <div className="omnisearch-wrap">
@@ -88,34 +107,35 @@ function SearchComponent() {
               placeholder="Search eg: infy bse, nifty fut weekly, gold mcx"
               autoComplete="off"
               className="search-input-field"
+              onChange={(e) => handleSearchInput(e)}
             />
-            <span className="counts">2 / 50</span>
+            <span className="counts">
+              {getAllUserAddedSymbols?.data?.length} /{" "}
+              {getAllSymbols?.data?.length}
+            </span>
           </div>
         </div>
       </div>
-      <div className="instruments">
-        <div className="vddl-list list-flat">
-          <AddedSymbolList getAllUserAddedSymbols={getAllUserAddedSymbols} />
+      {filteredSymbolData !== undefined && isSymbolListOpen ? (
+        <div className="instruments">
+          <div className="vddl-list list-flat">
+            <AddedSymbolList getAllUserAddedSymbols={filteredSymbolData} />
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="instruments">
+          <div className="vddl-list list-flat">
+            <AddedSymbolList
+              getAllUserAddedSymbols={getAllUserAddedSymbols?.data}
+            />
+          </div>
+        </div>
+      )}
       <ul className="marketwatch-selector list-flat">
-        <li className="item selected" data-balloon="1" data-balloon-pos="up">
-          1
-        </li>
-        <li className="item" data-balloon="2" data-balloon-pos="up">
-          2
-        </li>
-        <li className="item" data-balloon="3" data-balloon-pos="up">
-          3
-        </li>
-        <li className="item" data-balloon="4" data-balloon-pos="up">
-          4
-        </li>
-        <li className="item" data-balloon="5" data-balloon-pos="up">
-          5
-        </li>
-
-        <li className="block" style={{ paddingLeft: "100px" }}>
+        <li
+          className="block"
+          style={{ paddingBottom: "3px", paddingRight: "20px", float: "right" }}
+        >
           <Dropdown overlay={menuItems} placement="topCenter">
             <FiSettings color="grey" />
           </Dropdown>

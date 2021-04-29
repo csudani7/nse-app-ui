@@ -5,5 +5,8 @@ const axios = Axios.create({
   withCredentials: true,
 });
 
+export const getAllSymbols = (params) =>
+  axios.get("/getData", { headers: { Authorization: params } });
+
 export const getAllUserAddedSymbols = (params) =>
   axios.get("/getSymbol", { headers: { Authorization: params } });

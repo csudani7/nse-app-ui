@@ -8,7 +8,7 @@ export default function AddedSymbolList(props) {
   const { getAllUserAddedSymbols } = props;
   return (
     <>
-      {getAllUserAddedSymbols?.data?.map((symbols, index) => {
+      {getAllUserAddedSymbols?.map((symbols, index) => {
         return (
           <div
             key={index}

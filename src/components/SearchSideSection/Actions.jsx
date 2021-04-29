@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import BuySellForm from "./BuySellForm";
 import { BuySellToggler } from "./Context";
 import { Modal } from "react-responsive-modal";
-import "react-responsive-modal/styles.css";
 import { FaTrash } from "react-icons/fa";
 import { FiAlignCenter } from "react-icons/fi";
 import { GrLineChart } from "react-icons/gr";
-import { HiDotsHorizontal } from "react-icons/hi";
+import { IoIosAdd } from "react-icons/io";
+
+import "react-responsive-modal/styles.css";
 
 export default function Actions() {
   const [open, setOpen] = useState(false);
@@ -47,21 +48,21 @@ export default function Actions() {
               S
             </button>
           </span>
-          <span data-balloon="Market Depth (D)" data-balloon-pos="up">
+          <span data-balloon="Market Depth" data-balloon-pos="up">
             <button type="button" className="button-outline">
               <span className="icon icon-align-center">
                 <FiAlignCenter />
               </span>
             </button>
           </span>
-          <span data-balloon="Chart (C)" data-balloon-pos="up">
+          <span data-balloon="Chart" data-balloon-pos="up">
             <button type="button" className="button-outline">
               <span className="icon icon-trending-up">
                 <GrLineChart />
               </span>
             </button>
           </span>
-          <span data-balloon="Delete (del)" data-balloon-pos="up">
+          <span data-balloon="Delete" data-balloon-pos="up">
             <button type="button" className="button-outline">
               <span className="icon icon-trash">
                 <FaTrash />
@@ -73,11 +74,11 @@ export default function Actions() {
               <button
                 type="button"
                 className="context-menu-button button-outline"
-                data-balloon="More"
+                data-balloon="Add"
                 data-balloon-pos="up"
               >
                 <span className="icon icon-ellipsis">
-                  <HiDotsHorizontal />
+                  <IoIosAdd />
                 </span>
               </button>
             </div>
