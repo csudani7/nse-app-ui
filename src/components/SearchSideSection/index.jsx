@@ -32,39 +32,39 @@ function SearchComponent() {
   const menuItems = (
     <Menu style={{ width: 120 }}>
       <Menu.Item>
-        <span class="dim">Change</span>{" "}
+        <span className="dim">Change</span>{" "}
         <span
-          class="help"
+          className="help"
           data-balloon="Price change can be either calculated based on previous close price or day open price."
           data-balloon-pos="up"
           data-balloon-length="large"
         >
-          <span class="icon icon-info"></span>
+          <span className="icon icon-info"></span>
         </span>
       </Menu.Item>
       <Menu.Item>
         {/* Radio Button */}
-        <label for="radio-240" class="su-radio-label">
+        <label for="radio-240" className="su-radio-label">
           Open price
         </label>
       </Menu.Item>
       <Menu.Item>
         {/* Radio Button */}
-        <label for="radio-240" class="su-radio-label">
+        <label for="radio-240" className="su-radio-label">
           Close price
         </label>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item>
-        <span class="dim">Change Format</span>
+        <span className="dim">Change Format</span>
       </Menu.Item>
       <Menu.Item>
-        <label for="radio-243" class="su-radio-label">
+        <label for="radio-243" className="su-radio-label">
           Percentage
         </label>
       </Menu.Item>
       <Menu.Item>
-        <label for="radio-243" class="su-radio-label">
+        <label for="radio-243" className="su-radio-label">
           absolute
         </label>
       </Menu.Item>
