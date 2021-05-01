@@ -25,3 +25,6 @@ export const modifyTradeOrder = (orderID, token) =>
 
 export const cancelTradeOrder = (orderID, token) =>
   axios.put(`/cancelOrder/${orderID}`, { headers: { Authorization: token } });
+
+export const placeTradesOrder = (params, token) =>
+  axios.post("/placeTrade", params, { headers: { Authorization: token } });
