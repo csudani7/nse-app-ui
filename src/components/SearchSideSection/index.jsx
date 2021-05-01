@@ -2,12 +2,12 @@ import React from "react";
 import { Menu, Dropdown, Button, InputNumber, Radio } from "antd";
 import { FiSettings } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
-import AddedSymbolList from "./AddedSymbolList";
+import AddedSymbolList from "./SymbolList/AddedSymbolList";
 import { useAddFunds } from "../../hooks";
 import { useGetAllSymbols, useGetAllUserAddedSymbols } from "../../hooks";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Settings.css";
+import "./index.css";
 
 function SearchComponent() {
   const { data: getAllSymbols } = useGetAllSymbols();

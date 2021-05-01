@@ -748,14 +748,14 @@ body.app-wrapper {
   -webkit-box-shadow: 0 0 5px 0 rgba(var(--color-border-5--rgb), 0.1);
   box-shadow: 0 0 5px 0 rgba(var(--color-border-5--rgb), 0.1);
 }
-.app .container .container-left .marketwatch-wrap {
+.marketwatch-wrap {
   position: fixed;
   height: 100%;
   width: 400px;
   z-index: 1;
   overflow-y: auto;
 }
-.app .container .container-right {
+.container-right {
   -webkit-box-flex: 1;
   -ms-flex: 1 1;
   flex: 1 1;
@@ -1403,7 +1403,7 @@ input {
   color: var(--color-text-2);
 }
 .su-input-group .su-input-label {
-  display: block;
+  /* display: block; */
   visibility: hidden;
   z-index: 5;
   position: absolute;
@@ -1421,7 +1421,7 @@ input {
   animation: none;
 }
 .su-radio-group .su-radio-wrap {
-  display: inline-block;
+  /* display: inline-block; */
   margin-right: 20px;
 }
 .su-radio-group .su-radio-wrap:last-child {
@@ -1433,7 +1433,7 @@ input {
 }
 .su-radio-group .su-radio,
 .su-radio-group .su-radio-label {
-  display: inline-block;
+  /* display: inline-block; */
   vertical-align: middle;
   cursor: pointer;
 }
@@ -1442,7 +1442,7 @@ input {
   border-bottom: 1px solid rgba(var(--color-border-4--rgb), 0);
 }
 .su-radio-group .su-radio + .su-radio-label:before {
-  content: "";
+  content: " ";
   background-color: var(--color-bg-default);
   border: 2px solid var(--color-border-2);
   display: inline-block;
@@ -1453,6 +1453,9 @@ input {
   margin: -1px 5px 0 0;
   text-align: center;
   border-radius: 50%;
+}
+#radiogroup2 {
+  display: grid;
 }
 .su-radio-group .su-radio:checked + .su-radio-label:before {
   padding: 4px;
@@ -1743,33 +1746,6 @@ input {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* .icon-reload:before {
-  content: "\e800";
-}
-.icon-download:before {
-  content: "\e84c";
-}
-.icon-info:before {
-  content: "\e86b";
-}
-.icon-search:before {
-  content: "\e8ae";
-}
-.icon-settings:before {
-  content: "\e8b0";
-}
-.icon-times:before {
-  content: "\e8ec";
-}
-.icon-chevron-down:before {
-  content: "\e8f0";
-}
-.icon-chevron-up:before {
-  content: "\e8f3";
-}
-.icon-console:before {
-  content: "\e900";
-} */
 button {
   background-color: var(--color-bg-2);
   color: var(--color-text-3);
@@ -1936,10 +1912,6 @@ button.button-outline:hover {
 .order-window {
   border-radius: 3px 3px 0 0;
   background-color: var(--color-bg-default);
-  -webkit-box-shadow: 0 0 2px 0 rgba(var(--color-border-5--rgb), 0.2),
-    0 4px 10px 0 rgba(var(--color-border-5--rgb), 0.05);
-  box-shadow: 0 0 2px 0 rgba(var(--color-border-5--rgb), 0.2),
-    0 4px 10px 0 rgba(var(--color-border-5--rgb), 0.05);
 }
 .order-window .no {
   margin: 0 0 10px 0;
@@ -1948,6 +1920,7 @@ button.button-outline:hover {
   font-size: 1.5em;
 }
 .order-window .drag-handle {
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -2083,10 +2056,6 @@ button.button-outline:hover {
   color: #fff;
   background-color: var(--color-bg-5);
 }
-.order-window.sell header {
-  color: #fff;
-  background-color: var(--color-bg-6) !important;
-}
 .order-window.buy header .exchange-selector .su-radio + .su-radio-label:before {
   padding: 4px;
   background-color: var(--color-bg-5);
@@ -2103,7 +2072,7 @@ button.button-outline:hover {
   border-color: var(--color-border-6);
 }
 .order-window .gtt {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   padding: 10px 20px;
   border-top: 1px solid var(--color-border-default);
 }
@@ -2170,7 +2139,6 @@ button.button-outline:hover {
 .orderbook .trades-wrap .page-title .title {
   cursor: pointer;
 }
-/* yaha tak */
 .marketwatch-sidebar {
   background-color: var(--color-bg-default);
 }
@@ -2407,6 +2375,10 @@ body {
   }
   .order-window {
     bottom: 0 !important;
+    left: 50%;
+    width: 500px;
+    margin-left: -250px;
+    position: fixed;
     background-color: var(--color-bg-default);
     -webkit-box-shadow: 0 0 30px var(--color-border-default);
     box-shadow: 0 0 30px var(--color-border-default);
@@ -2840,4 +2812,10 @@ body {
     font-weight: 400;
     font-style: normal;
   }
+}
+.funds {
+  width: 50%;
+}
+.ant-modal-body {
+  padding: 12px !important;
 }

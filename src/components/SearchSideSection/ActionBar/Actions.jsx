@@ -5,7 +5,7 @@ import { FaTrash } from "react-icons/fa";
 import { FiAlignCenter } from "react-icons/fi";
 import { GrLineChart } from "react-icons/gr";
 import { IoIosAdd } from "react-icons/io";
-import { BuyForm, SellForm } from "./BuySellForms";
+import { BuyForm, SellForm } from "../BuySellForms";
 
 export default function Actions() {
   const draggleRef = React.createRef();

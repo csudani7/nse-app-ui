@@ -1,6 +1,6 @@
 import React from "react";
 import { FaAngleDown } from "react-icons/fa";
-import Actions from "./Actions";
+import Actions from "../ActionBar/Actions";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
