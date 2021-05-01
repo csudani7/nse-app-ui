@@ -1,14 +1,12 @@
 import React from "react";
-import "./Form.css";
 
 export default function BuyForm(props) {
   return (
-    <span>
+    <>
       <form
         data-drag-boundary="true"
         className="order-window layer-2 place buy"
       >
-        <div className="drag-handle"></div>
         <header>
           <div className="row">
             <div className="eight columns">
@@ -450,6 +448,6 @@ export default function BuyForm(props) {
           </footer>
         </section>
       </form>
-    </span>
+    </>
   );
 }

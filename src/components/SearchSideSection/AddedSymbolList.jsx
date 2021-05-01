@@ -12,30 +12,24 @@ export default function AddedSymbolList(props) {
         return (
           <div
             key={index}
-            className="vddl-draggable instrument down index0"
+            className="vddl-draggable instrument down"
             draggable="true"
           >
-            <div>
-              <div className="info">
-                <span className="symbol">
-                  <span>
-                    <span className="nice-name">{symbols.Name}</span>
-                  </span>
-                </span>{" "}
-                <span className="price">
-                  <span>
-                    <span className="dim">
-                      -58.49 <span className="text-xxsmall">%</span>
-                    </span>
-                  </span>
-                  <span className="change-indicator icon icon-chevron-down">
-                    <FaAngleDown />
-                  </span>
-                  <span className="last-price">23.60</span>
+            <div className="info">
+              <span className="symbol">
+                <span className="nice-name">{symbols.Name}</span>
+              </span>{" "}
+              <span className="price">
+                <span className="dim">
+                  -58.49 <span className="text-xxsmall">%</span>
                 </span>
-              </div>
-              <Actions />
+                <span className="change-indicator icon icon-chevron-down">
+                  <FaAngleDown />
+                </span>
+                <span className="last-price">23.60</span>
+              </span>
             </div>
+            <Actions />
           </div>
         );
       })}

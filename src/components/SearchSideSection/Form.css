@@ -1731,7 +1731,6 @@ input {
   font-family: kiteicons;
   font-style: normal;
   font-weight: 400;
-  speak: never;
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
@@ -1941,11 +1940,6 @@ button.button-outline:hover {
     0 4px 10px 0 rgba(var(--color-border-5--rgb), 0.05);
   box-shadow: 0 0 2px 0 rgba(var(--color-border-5--rgb), 0.2),
     0 4px 10px 0 rgba(var(--color-border-5--rgb), 0.05);
-  width: 550px;
-  /* position: ; */
-  /* z-index: 99; */
-  /* bottom: 0; */
-  left: calc(50% - 275px);
 }
 .order-window .no {
   margin: 0 0 10px 0;
@@ -1954,7 +1948,6 @@ button.button-outline:hover {
   font-size: 1.5em;
 }
 .order-window .drag-handle {
-  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -2089,6 +2082,10 @@ button.button-outline:hover {
 .order-window.buy header {
   color: #fff;
   background-color: var(--color-bg-5);
+}
+.order-window.sell header {
+  color: #fff;
+  background-color: var(--color-bg-6) !important;
 }
 .order-window.buy header .exchange-selector .su-radio + .su-radio-label:before {
   padding: 4px;
@@ -2410,7 +2407,6 @@ body {
   }
   .order-window {
     bottom: 0 !important;
-    width: 500px;
     background-color: var(--color-bg-default);
     -webkit-box-shadow: 0 0 30px var(--color-border-default);
     box-shadow: 0 0 30px var(--color-border-default);
