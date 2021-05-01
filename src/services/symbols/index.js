@@ -10,3 +10,6 @@ export const getAllSymbols = (params) =>
 
 export const getAllUserAddedSymbols = (params) =>
   axios.get("/getSymbol", { headers: { Authorization: params } });
+
+export const storeSymbolDataInServer = (params) =>
+  axios.get("/storeData/14", { headers: { Authorization: params } });

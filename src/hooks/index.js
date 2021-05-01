@@ -8,3 +8,4 @@ export { default as useAddFunds } from "./useAddFunds";
 export { default as useGetAllUserAddedSymbols } from "./useGetAllUserAddedSymbols";
 export { default as useGetAllSymbols } from "./useGetAllSymbols";
 export { default as useGetAllCompletedTradesData } from "./useGetAllCompletedTradesData";
+export { default as useStoreDataInServer } from "./useStoreDataInServer";
