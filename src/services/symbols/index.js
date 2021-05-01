@@ -13,3 +13,6 @@ export const getAllUserAddedSymbols = (params) =>
 
 export const storeSymbolDataInServer = (params) =>
   axios.get("/storeData/14", { headers: { Authorization: params } });
+
+export const deleteSymbolDataFromServer = (params) =>
+  axios.get("/deleteCollection", { headers: { Authorization: params } });

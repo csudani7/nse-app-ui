@@ -9,3 +9,4 @@ export { default as useGetAllUserAddedSymbols } from "./useGetAllUserAddedSymbol
 export { default as useGetAllSymbols } from "./useGetAllSymbols";
 export { default as useGetAllCompletedTradesData } from "./useGetAllCompletedTradesData";
 export { default as useStoreDataInServer } from "./useStoreDataInServer";
+export { default as useDeleteStoredSymbolCollection } from "./useDeleteStoredSymbolCollection";
