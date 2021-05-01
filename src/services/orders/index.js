@@ -16,3 +16,12 @@ export const getAllExecutedOrder = (params) =>
 
 export const getAllCompletedTrades = (params) =>
   axios.get("/getCompletedTrade", { headers: { Authorization: params } });
+
+export const placeTradeOrder = (params, token) =>
+  axios.post("/placeOrder", params, { headers: { Authorization: token } });
+
+export const modifyTradeOrder = (orderID, token) =>
+  axios.put(`/modifyOrder/${orderID}`, { headers: { Authorization: token } });
+
+export const cancelTradeOrder = (orderID, token) =>
+  axios.put(`/cancelOrder/${orderID}`, { headers: { Authorization: token } });
