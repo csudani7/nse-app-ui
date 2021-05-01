@@ -21,6 +21,7 @@ function NavBar(props) {
       const { user } = data;
       setUserProfileData(user);
     }
+    // eslint-disable-next-line
   }, [data]);
 
   const userInitial = React.useMemo(() => {

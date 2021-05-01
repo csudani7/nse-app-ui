@@ -13,3 +13,6 @@ export const getAllOpenOrders = (params) =>
 
 export const getAllExecutedOrder = (params) =>
   axios.get("/getExecutedOrder", { headers: { Authorization: params } });
+
+export const getAllCompletedTrades = (params) =>
+  axios.get("/getCompletedTrade", { headers: { Authorization: params } });

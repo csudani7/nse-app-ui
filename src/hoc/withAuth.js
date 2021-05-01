@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import { useHistory } from "react-router-dom";
 import { userProfileData } from "../recoils/profile";
 
-export default function (WrapperComponent) {
+export default function RootComponent(WrapperComponent) {
   function Authenticate(props) {
     const history = useHistory();
     const profileData = useRecoilValue(userProfileData);

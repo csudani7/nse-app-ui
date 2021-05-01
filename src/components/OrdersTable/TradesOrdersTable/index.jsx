@@ -4,17 +4,16 @@ import { FiDownloadCloud } from "react-icons/fi";
 import { BiDoughnutChart } from "react-icons/bi";
 
 export default function TradesOrdersTable(props) {
-  const { allOpenOrders } = props;
+  const { allCompletedTrades } = props;
   return (
     <div>
       <section className="trades-wrap table-wrapper">
         <header className="row data-table-header">
           <h3 className="page-title small">
             <span className="title">
-              <span>Trades</span>{" "}
-              <span className="icon icon-chevron-up"></span>
+              <span>Trades</span> <span className="icon icon-chevron-up"></span>
             </span>{" "}
-            <span>({allOpenOrders?.numofdata})</span>
+            <span>({allCompletedTrades?.numofdata})</span>
           </h3>
         </header>
         <div className="trades">
@@ -94,11 +93,11 @@ export default function TradesOrdersTable(props) {
                 </tr>
               </thead>
               <tbody>
-                {allOpenOrders &&
-                  allOpenOrders?.data?.map((orders, index) => {
+                {allCompletedTrades &&
+                  allCompletedTrades?.data?.map((orders, index) => {
                     return (
                       <tr key={index} data-uid={index}>
-                        <td className="trade-id">{orders.OrderUserid}</td>
+                        <td className="trade-id">{orders.OrderId}</td>
                         <td className="fill-timestamp">
                           {moment
                             .utc(orders.createdAt)
@@ -120,10 +119,10 @@ export default function TradesOrdersTable(props) {
                         </td>
                         <td className="product">{orders.ProductType}</td>
                         <td className="quantity right">
-                          {orders.OrderQuantity}
+                          {orders.TradeQuantity}
                         </td>
                         <td className="average-price right">
-                          {orders.OrderPrice}
+                          {orders.TradePrice}
                         </td>
                       </tr>
                     );

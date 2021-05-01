@@ -26,6 +26,7 @@ export default function Login() {
       setUserProfileData(data?.user);
       history.push("/dashboard");
     }
+    // eslint-disable-next-line
   }, [isSuccess, data]);
 
   const onFinish = (values) => {

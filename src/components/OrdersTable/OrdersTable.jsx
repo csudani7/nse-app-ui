@@ -6,14 +6,13 @@ import TradesOrdersTable from "./TradesOrdersTable";
 import "./index.css";
 
 export default function OrdersTable(props) {
-  const { allOpenOrders, allExecutedOrders } = props;
+  const { allOpenOrders, allExecutedOrders, allCompletedTrades } = props;
   return (
     <div className="page-content">
       <div className="orderbook">
         <OpenOrdersTable allOpenOrders={allOpenOrders} />
         <ExecutedOrdersTable allExecutedOrders={allExecutedOrders} />
-        {/* NEED to pass ALL Completed Orders as a Trades table */}
-        <TradesOrdersTable allOpenOrders={allOpenOrders} />
+        <TradesOrdersTable allCompletedTrades={allCompletedTrades} />
       </div>
     </div>
   );
