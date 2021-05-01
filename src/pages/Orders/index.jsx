@@ -9,7 +9,7 @@ import {
   useGetAllCompletedTradesData,
 } from "../../hooks";
 
-import "../../index.css";
+import "./index.css";
 
 export default function Orders() {
   const user = useContext(BuySellToggler);

@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, Dropdown, Button, InputNumber } from "antd";
+import { Menu, Dropdown, Button, InputNumber, Radio } from "antd";
 import { FiSettings } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
 import AddedSymbolList from "./AddedSymbolList";
@@ -43,16 +43,18 @@ function SearchComponent() {
         </span>
       </Menu.Item>
       <Menu.Item>
-        {/* Radio Button */}
-        <label for="radio-240" className="su-radio-label">
-          Open price
-        </label>
+        <Radio>
+          <label for="radio-240" className="su-radio-label">
+            Open price
+          </label>
+        </Radio>
       </Menu.Item>
       <Menu.Item>
-        {/* Radio Button */}
-        <label for="radio-240" className="su-radio-label">
-          Close price
-        </label>
+        <Radio>
+          <label for="radio-240" className="su-radio-label">
+            Close price
+          </label>
+        </Radio>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item>

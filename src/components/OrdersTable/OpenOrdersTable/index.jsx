@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 import moment from "moment";
 import { FiDownloadCloud } from "react-icons/fi";
 import { BiDoughnutChart } from "react-icons/bi";
@@ -11,7 +12,8 @@ export default function OpenOrdersTable(props) {
         <header className="row data-table-header">
           <h3 className="page-title small">
             <span className="title">
-              <span>Open Orders</span> <span className="icon icon-chevron-up"></span>
+              <span>Open Orders</span>{" "}
+              <span className="icon icon-chevron-up"></span>
             </span>{" "}
             <span>({allOpenOrders?.numofdata})</span>
           </h3>
@@ -69,26 +71,29 @@ export default function OpenOrdersTable(props) {
             <table>
               <thead>
                 <tr>
-                  <th className="trade-id sortable">
-                    <span>Trade ID</span>
+                  <th className="fill-timestamp">
+                    <span>Time</span>
                   </th>
-                  <th className="fill-timestamp sortable">
-                    <span>Fill time</span>
-                  </th>
-                  <th className="transaction-type sortable">
+                  <th className="transaction-type">
                     <span>Type</span>
                   </th>
-                  <th className="instrument sortable">
+                  <th className="instrument">
                     <span>Instrument</span>
                   </th>
-                  <th className="product sortable">
+                  <th className="product">
                     <span>Product</span>
                   </th>
-                  <th className="quantity right sortable">
+                  <th className="quantity right">
                     <span>Qty.</span>
                   </th>
-                  <th className="average-price right sortable">
-                    <span>Avg. Price</span>
+                  <th className="average-price right">
+                    <span>LTP</span>
+                  </th>
+                  <th className="average-price right">
+                    <span>Price</span>
+                  </th>
+                  <th className="average-price">
+                    <span>Status</span>
                   </th>
                 </tr>
               </thead>
@@ -97,7 +102,6 @@ export default function OpenOrdersTable(props) {
                   allOpenOrders?.data?.map((orders, index) => {
                     return (
                       <tr key={index} data-uid={index}>
-                        <td className="trade-id">{orders.OrderUserid}</td>
                         <td className="fill-timestamp">
                           {moment
                             .utc(orders.createdAt)
@@ -105,7 +109,12 @@ export default function OpenOrdersTable(props) {
                             .format("HH:mm:ss")}
                         </td>
                         <td className="transaction-type">
-                          <span className="text-label red small">
+                          <span
+                            className={clsx(
+                              "text-label small",
+                              orders.TransactionType === "Buy" ? "blue" : "red"
+                            )}
+                          >
                             {orders.TransactionType}
                           </span>
                         </td>
@@ -121,8 +130,14 @@ export default function OpenOrdersTable(props) {
                         <td className="quantity right">
                           {orders.OrderQuantity}
                         </td>
+                        <td className="quantity right">67.65</td>
                         <td className="average-price right">
                           {orders.OrderPrice}
+                        </td>
+                        <td className="transaction-type">
+                          <span className="text-label small uppercase">
+                            {orders.Status}
+                          </span>
                         </td>
                       </tr>
                     );

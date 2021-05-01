@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 import moment from "moment";
 import { FaSearch } from "react-icons/fa";
 import { FiDownloadCloud } from "react-icons/fi";
@@ -105,7 +106,12 @@ export default function ExecutedOrdersTable(props) {
                             .format("HH:mm:ss")}
                         </td>
                         <td className="transaction-type">
-                          <span className="text-label blue small">
+                          <span
+                            className={clsx(
+                              "text-label small",
+                              orders.TransactionType === "Buy" ? "blue" : "red"
+                            )}
+                          >
                             {orders.TransactionType}
                           </span>
                         </td>
@@ -125,8 +131,17 @@ export default function ExecutedOrdersTable(props) {
                           <span>{orders.OrderPrice}</span>
                         </td>
                         <td className="order-status">
-                          <span className="text-label small order-status-label">
-                            <span>{orders.Status}</span>
+                          <span
+                            className={clsx(
+                              "text-label small order-status-label",
+                              orders.Status === "Completed"
+                                ? "green"
+                                : orders.Status === "Rejected"
+                                ? "red"
+                                : ""
+                            )}
+                          >
+                            <span className="uppercase">{orders.Status}</span>
                           </span>
                         </td>
                       </tr>
