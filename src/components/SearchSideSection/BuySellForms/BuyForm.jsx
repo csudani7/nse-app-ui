@@ -1,76 +1,53 @@
 import React from "react";
-import { Radio } from "antd";
+import clsx from "clsx";
+import { message, Radio } from "antd";
+import { usePlaceOrder } from "../../../hooks";
 
 export default function BuyForm(props) {
+  const { typeVal, handleCancel } = props;
+  const [quantityValue, setQuantityValue] = React.useState(0);
+  const [orderType, setOrderType] = React.useState("MARKET");
+  const [buyOrderParams, setBuyOrderParams] = React.useState({});
+  const { data, isSuccess } = usePlaceOrder(buyOrderParams);
+
+  React.useEffect(() => {
+    if (isSuccess && data.status_code === 201) {
+      message.success(data.message);
+    }
+  }, [data, isSuccess]);
+
+  const handleSubmitBuyForm = (event) => {
+    event.preventDefault();
+    const params = {
+      transactionType: typeVal,
+      exchangeSegment: "NSECM",
+      exchangeInstrumentId: 22,
+      symbolName: "ICICI",
+      orderQuantity: Number(quantityValue),
+      orderType: orderType,
+      productType: "MIS",
+      orderPrice: 77.3,
+      triggerPrice: 0,
+      disclosedQuantity: 0,
+      duration: "Day",
+    };
+    setBuyOrderParams(params);
+  };
+
+  const handleQuantityChange = (event) => {
+    setQuantityValue(event.target.value);
+  };
+
+  const onOrderTypeChange = (event) => {
+    setOrderType(event.target.value);
+  };
+
   return (
     <>
       <form
-        data-drag-boundary="true"
         className="order-window layer-2 place buy"
+        onSubmit={handleSubmitBuyForm}
       >
-        <header>
-          <div className="row">
-            <div className="eight columns">
-              <div className="instrument">
-                <span className="transaction-type"></span>{" "}
-                <span className="tradingsymbol">
-                  <span className="name">ACC</span>{" "}
-                  <span className="exchange">NSE</span>
-                </span>
-                ×<span className="qty">1 Qty</span>
-              </div>
-            </div>
-            <div className="four columns text-right">
-              <div className="wrap-right">
-                <div className="nudge"></div>
-                <div>
-                  <span data-balloon="Toggle Buy / Sell" data-balloon-pos="up">
-                    <div className="su-switch-group tx-toggle">
-                      <input
-                        id="switch-143"
-                        type="checkbox"
-                        stateon="SELL"
-                        stateoff="BUY"
-                        label=""
-                        className="su-switch"
-                        value="BUY"
-                      />{" "}
-                      <label className="su-switch-control"></label>
-                    </div>
-                  </span>{" "}
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href="https://kite.trade/docs/kite/orders/#orders"
-                    className="info"
-                    data-balloon="Help"
-                    data-balloon-pos="up"
-                  >
-                    <span className="icon icon-info"></span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="exchange-selector">
-            <div className="su-radio-group">
-              <div className="exchange su-radio-wrap">
-                <Radio>
-                  <label className="su-radio-label">
-                    BSE: <span className="last-price">₹1,859.05</span>
-                  </label>
-                </Radio>
-              </div>
-              <div className="exchange su-radio-wrap checked">
-                <Radio>
-                  <label className="su-radio-label">
-                    NSE: <span className="last-price">₹1,861.95</span>
-                  </label>
-                </Radio>
-              </div>
-            </div>
-          </div>
-        </header>
         <section className="wrap">
           <div className="variety">
             <div className="su-radio-group">
@@ -166,7 +143,6 @@ export default function BuyForm(props) {
                     <label className="su-input-label su-visible">Qty.</label>{" "}
                     <input
                       type="number"
-                      placeholder=""
                       autoCorrect="off"
                       min="1"
                       step="1"
@@ -176,11 +152,17 @@ export default function BuyForm(props) {
                       animate="true"
                       label="Qty."
                       dynamicwidthsize="8"
+                      onChange={handleQuantityChange}
                     />
                   </div>
                 </div>
                 <div className="four columns price">
-                  <div className="no su-input-group su-static-label">
+                  <div
+                    className={clsx(
+                      "no su-input-group su-static-label",
+                      orderType === "MARKET" && "disabled"
+                    )}
+                  >
                     <label className="su-input-label su-visible">Price</label>{" "}
                     <input
                       type="number"
@@ -193,6 +175,7 @@ export default function BuyForm(props) {
                       animate="true"
                       label="Price"
                       dynamicwidthsize="8"
+                      disabled={orderType === "MARKET"}
                     />
                   </div>
                 </div>
@@ -224,29 +207,27 @@ export default function BuyForm(props) {
                       data-balloon="Buy at market price"
                       data-balloon-pos="down"
                     >
-                      <Radio>
-                        <label
-                          className="su-radio-label"
-                          title="Buy at market price"
-                        >
-                          Market
-                        </label>
-                      </Radio>
-                    </div>
-                    <div
-                      className="su-radio-wrap checked"
-                      tooltip-pos="down"
-                      data-balloon="Buy at a preferred price"
-                      data-balloon-pos="down"
-                    >
-                      <Radio>
-                        <label
-                          className="su-radio-label"
-                          title="Buy at a preferred price"
-                        >
-                          Limit
-                        </label>
-                      </Radio>
+                      <Radio.Group
+                        onChange={onOrderTypeChange}
+                        value={orderType}
+                      >
+                        <Radio value="MARKET">
+                          <label
+                            className="su-radio-label"
+                            title="Buy at market price"
+                          >
+                            Market
+                          </label>
+                        </Radio>
+                        <Radio value="LIMIT">
+                          <label
+                            className="su-radio-label"
+                            title="Buy at market price"
+                          >
+                            Limit
+                          </label>
+                        </Radio>
+                      </Radio.Group>
                     </div>
                   </div>
                 </div>
@@ -311,10 +292,14 @@ export default function BuyForm(props) {
                 </div>
               </div>
               <div className="six columns text-right actions">
-                <button type="submit" className="submit">
+                <button type="submit" className="submit" onClick={handleCancel}>
                   <span>Buy</span>
                 </button>{" "}
-                <button type="button" className="button-outline cancel">
+                <button
+                  type="button"
+                  className="button-outline cancel"
+                  onClick={handleCancel}
+                >
                   Cancel
                 </button>
               </div>

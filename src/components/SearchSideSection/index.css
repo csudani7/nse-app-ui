@@ -2027,7 +2027,7 @@ button.button-outline:hover {
   display: none;
 }
 .order-window .body {
-  padding: 20px 20px 15px 20px;
+  padding: 20px 30px 0px 30px;
 }
 .order-window .body .su-radio-label span {
   color: var(--color-text-2);
@@ -2056,6 +2056,10 @@ button.button-outline:hover {
   color: #fff;
   background-color: var(--color-bg-5);
 }
+.order-window.sell header {
+  color: #fff;
+  background-color: var(--color-bg-6);
+}
 .order-window.buy header .exchange-selector .su-radio + .su-radio-label:before {
   padding: 4px;
   background-color: var(--color-bg-5);
@@ -2070,6 +2074,10 @@ button.button-outline:hover {
 .order-window.buy .actions .submit {
   background-color: var(--color-bg-5);
   border-color: var(--color-border-6);
+}
+.order-window.sell .actions .submit {
+  background-color: var(--color-bg-6);
+  border-color: var(--color-border-7);
 }
 .order-window .gtt {
   /* margin-top: 10px; */
@@ -2817,5 +2825,8 @@ body {
   width: 50%;
 }
 .ant-modal-body {
-  padding: 12px !important;
+  padding: 0px !important;
+}
+.ant-modal-header {
+  padding: 0px !important;
 }

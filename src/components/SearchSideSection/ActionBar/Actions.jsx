@@ -63,6 +63,7 @@ export default function Actions(props) {
           <Modal
             title={
               <div
+                className="order-window layer-2 place buy"
                 style={{
                   width: "100%",
                   cursor: "move",
@@ -76,7 +77,29 @@ export default function Actions(props) {
                   setBuyDisabled(true);
                 }}
               >
-                Buy Order
+                <header>
+                  <div className="row">
+                    <div className="eight columns">
+                      <div className="instrument">
+                        <span className="transaction-type"></span>{" "}
+                        <span className="tradingsymbol">
+                          <span className="name">ACC</span>{" "}
+                          <span className="exchange">NSE</span>
+                        </span>
+                        ×<span className="qty">1 Qty</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="exchange-selector">
+                    <div className="su-radio-group">
+                      <div className="exchange su-radio-wrap checked">
+                        <label className="su-radio-label">
+                          NSE: <span className="last-price">₹1,861.95</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </header>
               </div>
             }
             visible={buyVisible}
@@ -93,7 +116,7 @@ export default function Actions(props) {
               </Draggable>
             )}
           >
-            <BuyForm typeVal="Buy" />
+            <BuyForm typeVal="Buy" handleCancel={handleCancel} />
           </Modal>
         </span>
         <span data-balloon="Sell (S)" data-balloon-pos="up">
@@ -107,6 +130,7 @@ export default function Actions(props) {
           <Modal
             title={
               <div
+                className="order-window layer-2 place sell"
                 style={{
                   width: "100%",
                   cursor: "move",
@@ -120,7 +144,29 @@ export default function Actions(props) {
                   setSellDisabled(true);
                 }}
               >
-                Sell Order
+                <header>
+                  <div className="row">
+                    <div className="eight columns">
+                      <div className="instrument">
+                        <span className="transaction-type"></span>{" "}
+                        <span className="tradingsymbol">
+                          <span className="name">HDFC</span>{" "}
+                          <span className="exchange">NSE</span>
+                        </span>
+                        ×<span className="qty">1 Qty</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="exchange-selector">
+                    <div className="su-radio-group">
+                      <div className="exchange su-radio-wrap checked">
+                        <label className="su-radio-label">
+                          NSE: <span className="last-price">₹1,861.95</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </header>
               </div>
             }
             visible={sellVisible}
@@ -137,7 +183,7 @@ export default function Actions(props) {
               </Draggable>
             )}
           >
-            <SellForm typeVal="sell" />
+            <SellForm typeVal="Sell" handleCancel={handleCancel} />
           </Modal>
         </span>
         <span data-balloon="Market Depth" data-balloon-pos="up">
