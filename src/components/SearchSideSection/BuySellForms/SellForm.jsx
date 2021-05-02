@@ -312,7 +312,7 @@ export default function SellForm(props) {
               </div>
               <div className="six columns text-right actions">
                 <button type="submit" className="submit">
-                  <span>Buy</span>
+                  <span>Sell</span>
                 </button>{" "}
                 <button type="button" className="button-outline cancel">
                   Cancel

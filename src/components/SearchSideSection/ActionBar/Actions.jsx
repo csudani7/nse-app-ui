@@ -7,7 +7,8 @@ import { GrLineChart } from "react-icons/gr";
 import { IoIosAdd } from "react-icons/io";
 import { BuyForm, SellForm } from "../BuySellForms";
 
-export default function Actions() {
+export default function Actions(props) {
+  const { isUserAddedSymbolList } = props;
   const draggleRef = React.createRef();
   const [buyVisible, setBuyVisible] = useState(false);
   const [buyDisabled, setBuyDisabled] = useState(true);
@@ -160,13 +161,15 @@ export default function Actions() {
             </span>{" "}
           </button>
         </span>
-        <span data-balloon="Add" data-balloon-pos="up">
-          <button type="button" className="button-outline">
-            <span className="icon icon-add">
-              <IoIosAdd />
-            </span>{" "}
-          </button>
-        </span>
+        {!isUserAddedSymbolList && (
+          <span data-balloon="Add" data-balloon-pos="up">
+            <button type="button" className="button-outline">
+              <span className="icon icon-add">
+                <IoIosAdd />
+              </span>{" "}
+            </button>
+          </span>
+        )}
       </span>
     </>
   );

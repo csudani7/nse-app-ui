@@ -121,7 +121,10 @@ function SearchComponent() {
       {filteredSymbolData !== undefined && isSymbolListOpen ? (
         <div className="instruments">
           <div className="vddl-list list-flat">
-            <AddedSymbolList getAllUserAddedSymbols={filteredSymbolData} />
+            <AddedSymbolList
+              getAllUserAddedSymbols={filteredSymbolData}
+              isUserAddedSymbolList={false}
+            />
           </div>
         </div>
       ) : (
@@ -129,6 +132,7 @@ function SearchComponent() {
           <div className="vddl-list list-flat">
             <AddedSymbolList
               getAllUserAddedSymbols={getAllUserAddedSymbols?.data}
+              isUserAddedSymbolList={true}
             />
           </div>
         </div>

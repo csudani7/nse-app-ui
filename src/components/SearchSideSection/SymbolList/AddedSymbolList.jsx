@@ -5,16 +5,12 @@ import Actions from "../ActionBar/Actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function AddedSymbolList(props) {
-  const { getAllUserAddedSymbols } = props;
+  const { getAllUserAddedSymbols, isUserAddedSymbolList } = props;
   return (
     <>
       {getAllUserAddedSymbols?.map((symbols, index) => {
         return (
-          <div
-            key={index}
-            className="vddl-draggable instrument down"
-            draggable="true"
-          >
+          <div key={index} className="vddl-draggable instrument down">
             <div className="info">
               <span className="symbol">
                 <span className="nice-name">{symbols.Name}</span>
@@ -29,7 +25,7 @@ export default function AddedSymbolList(props) {
                 <span className="last-price">23.60</span>
               </span>
             </div>
-            <Actions />
+            <Actions isUserAddedSymbolList={isUserAddedSymbolList} />
           </div>
         );
       })}
