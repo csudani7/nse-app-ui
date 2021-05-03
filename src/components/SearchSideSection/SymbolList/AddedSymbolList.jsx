@@ -5,7 +5,11 @@ import Actions from "../ActionBar/Actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function AddedSymbolList(props) {
-  const { getAllUserAddedSymbols, isUserAddedSymbolList } = props;
+  const {
+    getAllUserAddedSymbols,
+    isUserAddedSymbolList,
+    isUserSymbolList,
+  } = props;
   return (
     <>
       {getAllUserAddedSymbols?.map((symbols, index) => {
@@ -25,7 +29,10 @@ export default function AddedSymbolList(props) {
                 <span className="last-price">23.60</span>
               </span>
             </div>
-            <Actions isUserAddedSymbolList={isUserAddedSymbolList} />
+            <Actions
+              isUserAddedSymbolList={isUserAddedSymbolList}
+              isUserSymbolList={isUserSymbolList}
+            />
           </div>
         );
       })}

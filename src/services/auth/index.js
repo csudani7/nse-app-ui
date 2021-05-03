@@ -1,9 +1,21 @@
 import Axios from "axios";
 import { message } from "antd";
 
-const axios = Axios.create({
-  baseURL: "http://localhost:9000/api/v1/auth",
+const init = {
+  cache: "no-cache",
+  credentials: "same-origin",
+  headers: {
+    "content-type": "application/json",
+  },
+  mode: "cors",
+  redirect: "follow",
+  referrer: "no-referrer",
   withCredentials: true,
+};
+const baseAPIUrl = process.env.REACT_APP_API_SERVER;
+const axios = Axios.create({
+  baseURL: `${baseAPIUrl}/auth`,
+  init,
 });
 
 export const getUserLogin = async (params) => {

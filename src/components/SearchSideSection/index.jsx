@@ -124,6 +124,7 @@ function SearchComponent() {
             <AddedSymbolList
               getAllUserAddedSymbols={filteredSymbolData}
               isUserAddedSymbolList={false}
+              isUserSymbolList={false}
             />
           </div>
         </div>
@@ -133,6 +134,7 @@ function SearchComponent() {
             <AddedSymbolList
               getAllUserAddedSymbols={getAllUserAddedSymbols?.data}
               isUserAddedSymbolList={true}
+              isUserSymbolList={true}
             />
           </div>
         </div>

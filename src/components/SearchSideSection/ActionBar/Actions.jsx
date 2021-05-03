@@ -8,7 +8,7 @@ import { IoIosAdd } from "react-icons/io";
 import { BuyForm, SellForm } from "../BuySellForms";
 
 export default function Actions(props) {
-  const { isUserAddedSymbolList } = props;
+  const { isUserAddedSymbolList, isUserSymbolList } = props;
   const draggleRef = React.createRef();
   const [buyVisible, setBuyVisible] = useState(false);
   const [buyDisabled, setBuyDisabled] = useState(true);
@@ -48,6 +48,14 @@ export default function Actions(props) {
       top: -targetRect?.top + uiData?.y,
       bottom: clientHeight - (targetRect?.bottom - uiData?.y),
     });
+  };
+
+  const handleAddSymbolToList = (e) => {
+    console.log(e.target, "handleAddSymbolToList");
+  };
+
+  const handleDeleteSymbolFromList = (e) => {
+    console.log(e, "handleDeleteSymbolFromList");
   };
   return (
     <>
@@ -200,16 +208,26 @@ export default function Actions(props) {
             </span>
           </button>
         </span>
-        <span data-balloon="Delete" data-balloon-pos="up">
-          <button type="button" className="button-outline">
-            <span className="icon icon-trash">
-              <FaTrash />
-            </span>{" "}
-          </button>
-        </span>
+        {isUserSymbolList && (
+          <span data-balloon="Delete" data-balloon-pos="up">
+            <button
+              type="button"
+              className="button-outline"
+              onClick={(e) => handleDeleteSymbolFromList(e)}
+            >
+              <span className="icon icon-trash">
+                <FaTrash />
+              </span>{" "}
+            </button>
+          </span>
+        )}
         {!isUserAddedSymbolList && (
           <span data-balloon="Add" data-balloon-pos="up">
-            <button type="button" className="button-outline">
+            <button
+              type="button"
+              className="button-outline"
+              onClick={(e) => handleAddSymbolToList(e)}
+            >
               <span className="icon icon-add">
                 <IoIosAdd />
               </span>{" "}
