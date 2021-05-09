@@ -13,6 +13,7 @@
     "clsx": "^1.1.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
+    "mongoose": "^5.12.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-draggable": "^4.4.3",
@@ -22,7 +23,8 @@
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "recoil": "^0.2.0"
+    "recoil": "^0.2.0",
+    "xts-marketdata-api": "^3.0.6"
   },
   "scripts": {
     "start": "react-scripts start",
