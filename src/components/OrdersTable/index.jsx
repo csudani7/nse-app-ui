@@ -11,9 +11,9 @@ export default function OrdersWrapper(props) {
       <OrderNavBar />
       <div className="page-content">
         <div className="orderbook">
-          <OpenOrdersTable allOpenOrders={allOpenOrders} />
-          <ExecutedOrdersTable allExecutedOrders={allExecutedOrders} />
-          <TradesOrdersTable allCompletedTrades={allCompletedTrades} />
+         {allOpenOrders && allOpenOrders.length > 0 && <OpenOrdersTable allOpenOrders={allOpenOrders} />} 
+         {allExecutedOrders && allExecutedOrders.length > 0 && <ExecutedOrdersTable allExecutedOrders={allExecutedOrders} /> }
+         {allCompletedTrades && allCompletedTrades.length > 0 && <TradesOrdersTable allCompletedTrades={allCompletedTrades} />}
         </div>
       </div>
     </div>

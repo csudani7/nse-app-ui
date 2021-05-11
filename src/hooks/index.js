@@ -15,5 +15,5 @@ export { default as usePlaceOrder } from "./usePlaceOrder";
 export { default as useModifyTradeOrder } from "./useModifyTradeOrder";
 export { default as useCancelOrder } from "./useCancelOrder";
 export { default as useAddSymbol } from "./useAddSymbol";
-export { default as useDeleteSymbol } from "./useDeleteSymbol";
+ export { default as useDeleteSymbol } from "./useDeleteSymbol";
 export { default as usePlaceTradesOrder } from "./usePlaceTradesOrder";

@@ -1,19 +1,44 @@
 import React, { useState } from "react";
-import { Modal } from "antd";
+import { message, Modal } from "antd";
 import Draggable from "react-draggable";
 import { FaTrash } from "react-icons/fa";
 import { FiAlignCenter } from "react-icons/fi";
 import { GrLineChart } from "react-icons/gr";
 import { IoIosAdd } from "react-icons/io";
 import { BuyForm, SellForm } from "../BuySellForms";
+import { useAddSymbol, useDeleteSymbol } from "../../../hooks";
 
 export default function Actions(props) {
-  const { isUserAddedSymbolList, isUserSymbolList } = props;
+  const { currentSymbol, isUserAddedSymbolList, isUserSymbolList } = props;
   const draggleRef = React.createRef();
   const [buyVisible, setBuyVisible] = useState(false);
   const [buyDisabled, setBuyDisabled] = useState(true);
   const [sellVisible, setSellVisible] = useState(false);
   const [sellDisabled, setSellDisabled] = useState(true);
+
+  const [addSymbol, setAddSymbol] = useState({});
+  const { data, isSuccess } = useAddSymbol(addSymbol);
+
+  const [symbolDeleteId, setSymbolDeleteId] = useState(null)
+  const { deleteSymbolData, isSuccessDeleteSymbol } = useDeleteSymbol(symbolDeleteId)
+
+
+  React.useEffect(() => {
+    if (isSuccess && data.status_code === 201) {
+      message.success(data.message);
+    } else if (isSuccess === false && data?.status_code === 500) {
+      message.error(data.message);
+    }  
+  }, [data, isSuccess]);
+
+  React.useEffect(() => {
+    if (isSuccessDeleteSymbol && deleteSymbolData.status_code === 201) {
+      message.success(deleteSymbolData.message);
+    } else if (isSuccessDeleteSymbol === false && deleteSymbolData?.status_code === 500) {
+      message.error(deleteSymbolData.message);
+    }
+  }, [deleteSymbolData, isSuccessDeleteSymbol])
+
   const [bounds, setBounds] = useState({
     left: 0,
     top: 0,
@@ -50,12 +75,20 @@ export default function Actions(props) {
     });
   };
 
-  const handleAddSymbolToList = (e) => {
-    console.log(e.target, "handleAddSymbolToList");
+  const handleAddSymbolToList = async (e) => {
+    let request = {
+      "exchangeSegment": currentSymbol.ExchangeSegment,
+      "exchangeInstrumentID": currentSymbol.ExchangeInstrumentID,
+      "description": currentSymbol.Description,
+      "symbolName": currentSymbol.Name,
+      "seriesName": currentSymbol.Series
+    }
+    setAddSymbol(request)
   };
 
   const handleDeleteSymbolFromList = (e) => {
-    console.log(e, "handleDeleteSymbolFromList");
+    const _ID = currentSymbol._id
+    setSymbolDeleteId(_ID)
   };
   return (
     <>
@@ -68,6 +101,7 @@ export default function Actions(props) {
           >
             B{" "}
           </button>
+          {console.log('currentSymbol', currentSymbol)}
           <Modal
             title={
               <div
@@ -91,7 +125,7 @@ export default function Actions(props) {
                       <div className="instrument">
                         <span className="transaction-type"></span>{" "}
                         <span className="tradingsymbol">
-                          <span className="name">ACC</span>{" "}
+                          <span className="name">ACC- {currentSymbol}</span>{" "} 
                           <span className="exchange">NSE</span>
                         </span>
                         ×<span className="qty">1 Qty</span>

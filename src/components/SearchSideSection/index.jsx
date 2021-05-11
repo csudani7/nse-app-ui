@@ -16,7 +16,15 @@ function SearchComponent() {
   const [flag, setFlag] = React.useState(false);
   const [isSymbolListOpen, setIsSymbolListOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState(undefined);
-  useAddFunds(funds);
+  // console.log('funds', funds);
+  const { dataFunds, isSuccessFunds } = useAddFunds(funds)
+
+
+  React.useEffect(() => {
+    if (dataFunds) {
+      // 
+    }
+  }, [dataFunds, isSuccessFunds])
 
   const onChange = (value) => {
     if (flag) {
@@ -30,7 +38,7 @@ function SearchComponent() {
     setFlag(true);
   };
   const menuItems = (
-    <Menu style={{ width: 120 }}>
+    <Menu style={{ width: 200, paddingLeft: '20px' }}>
       <Menu.Item>
         <span className="dim">Change</span>{" "}
         <span
@@ -144,7 +152,7 @@ function SearchComponent() {
           className="block"
           style={{ paddingBottom: "3px", paddingRight: "20px", float: "right" }}
         >
-          <Dropdown overlay={menuItems} placement="topCenter">
+          <Dropdown overlay={menuItems} trigger={['click']} placement="topCenter">
             <FiSettings color="grey" />
           </Dropdown>
         </li>
