@@ -65,56 +65,77 @@ export default function AddedSymbolList(props) {
 
   // }, [])
 
+  // const getContinueDataBySymbol = React.useCallback(() => {
+  //   getAllUserAddedSymbols?.map(async (symbolUpdate) => {
+  //     try {
+  //       let masterRes = await callMasterAPI([symbolUpdate])
+  //       if (masterRes) {
+  //         let LTP = masterRes?.Touchline?.LastTradedPrice
 
+  //         /** CLOSE PRICE */
+  //         let Close = masterRes?.Touchline?.Close
+  //         let CloseChangeInPriceInPer = (((LTP - Close) / LTP) * 100).toFixed(2);
+  //         let CloseChangeInPriceInAbs = (LTP - Close).toFixed(2);
 
+  //         //open formula
+  //         let Open = masterRes?.Touchline?.Open
+  //         let OpenChangeInPriceInPer = (((LTP - Open) / LTP) * 100).toFixed(2);
+  //         let OpenChangeInPriceInAbs = (LTP - Open).toFixed(2);
 
-  if (isUserAddedSymbolList) {
+  //         // if changeInPrice is +ve then arrow up and green color
+  //         // else arrow down and red color
+  //         symbolUpdate.LTP = LTP
+  //         symbolUpdate.OpenChangeInPriceInPer = OpenChangeInPriceInPer
+  //         symbolUpdate.OpenChangeInPriceInAbs = OpenChangeInPriceInAbs
 
-    // const someMethodName  = React.useCallback(() => { 
-    //   Put your API logic here
-    //   }),[Write your all dependency];
+  //         symbolUpdate.CloseChangeInPriceInPer = CloseChangeInPriceInPer
+  //         symbolUpdate.CloseChangeInPriceInAbs = CloseChangeInPriceInAbs
+  //       }
+  //     } catch (error) {
+  //       console.error('Error', error)
+  //     }
+  //   })
+  // }), [getContinueDataBySymbol];
 
+  // React.useEffect(() => {
+  //   if (isUserAddedSymbolList) {
+  //     getContinueDataBySymbol();
+  //   }
+  // }), [getContinueDataBySymbol, isUserAddedSymbolList]);
 
-    //   React.useEffect(() => {
-    //   someMethodName():
-    //   }),[someMethodName]);
+  setInterval(() => {
+    getAllUserAddedSymbols?.map(async (symbolUpdate) => {
+      try {
+        let masterRes = await callMasterAPI([symbolUpdate])
+        if (masterRes) {
+          let LTP = masterRes?.Touchline?.LastTradedPrice
 
-    setInterval(() => {
-      getAllUserAddedSymbols?.map(async (symbolUpdate) => {
-        try {
-          let masterRes = await callMasterAPI([symbolUpdate])
-          if (masterRes) {
-            let LTP = masterRes?.Touchline?.LastTradedPrice
+          /** CLOSE PRICE */
+          let Close = masterRes?.Touchline?.Close
+          let CloseChangeInPriceInPer = (((LTP - Close) / LTP) * 100).toFixed(2);
+          let CloseChangeInPriceInAbs = (LTP - Close).toFixed(2);
 
-            /** CLOSE PRICE */
-            let Close = masterRes?.Touchline?.Close
-            let CloseChangeInPriceInPer = (((LTP - Close) / LTP) * 100).toFixed(2);
-            let CloseChangeInPriceInAbs = (LTP - Close).toFixed(2);
+          //open formula
+          let Open = masterRes?.Touchline?.Open
+          let OpenChangeInPriceInPer = (((LTP - Open) / LTP) * 100).toFixed(2);
+          let OpenChangeInPriceInAbs = (LTP - Open).toFixed(2);
 
-            //open formula
-            let Open = masterRes?.Touchline?.Open
-            let OpenChangeInPriceInPer = (((LTP - Open) / LTP) * 100).toFixed(2);
-            let OpenChangeInPriceInAbs = (LTP - Open).toFixed(2);
+          // if changeInPrice is +ve then arrow up and green color
+          // else arrow down and red color
+          symbolUpdate.LTP = LTP
+          symbolUpdate.OpenChangeInPriceInPer = OpenChangeInPriceInPer
+          symbolUpdate.OpenChangeInPriceInAbs = OpenChangeInPriceInAbs
 
-            // if changeInPrice is +ve then arrow up and green color
-            // else arrow down and red color
-            symbolUpdate.LTP = LTP
-            symbolUpdate.OpenChangeInPriceInPer = OpenChangeInPriceInPer
-            symbolUpdate.OpenChangeInPriceInAbs = OpenChangeInPriceInAbs
-
-            symbolUpdate.CloseChangeInPriceInPer = CloseChangeInPriceInPer
-            symbolUpdate.CloseChangeInPriceInAbs = CloseChangeInPriceInAbs
-          }
-        } catch (error) {
-          console.error('Error', error)
+          symbolUpdate.CloseChangeInPriceInPer = CloseChangeInPriceInPer
+          symbolUpdate.CloseChangeInPriceInAbs = CloseChangeInPriceInAbs
         }
-      })
-
-    }, 5000);
-  }
+      } catch (error) {
+        console.error('Error', error)
+      }
+    })
+  }, 5000);
 
   const getFilteredCalculatedNumber = symbol => {
-    // console.log('filterd', symbol);
     if (symbol.OpenChangeInPriceInPer) return symbol.OpenChangeInPriceInPer
     else if (symbol.OpenChangeInPriceInAbs) return symbol.OpenChangeInPriceInAbs
     else if (symbol.CloseChangeInPriceInPer) return symbol.CloseChangeInPriceInPer
@@ -147,7 +168,7 @@ export default function AddedSymbolList(props) {
                 </span>
               </span>
             </div>
- 
+
             <Actions
               currentSymbol={symbols}
               isUserAddedSymbolList={isUserAddedSymbolList}

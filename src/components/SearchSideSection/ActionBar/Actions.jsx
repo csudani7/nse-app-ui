@@ -101,7 +101,6 @@ export default function Actions(props) {
           >
             B{" "}
           </button>
-          {console.log('currentSymbol', currentSymbol)}
           <Modal
             title={
               <div
@@ -125,8 +124,8 @@ export default function Actions(props) {
                       <div className="instrument">
                         <span className="transaction-type"></span>{" "}
                         <span className="tradingsymbol">
-                          <span className="name">ACC- {currentSymbol}</span>{" "} 
-                          <span className="exchange">NSE</span>
+                          <span className="name">{currentSymbol?.Name} </span>{" "} 
+                          <span className="exchange">{currentSymbol?.Series}</span>
                         </span>
                         ×<span className="qty">1 Qty</span>
                       </div>
@@ -136,7 +135,7 @@ export default function Actions(props) {
                     <div className="su-radio-group">
                       <div className="exchange su-radio-wrap checked">
                         <label className="su-radio-label">
-                          NSE: <span className="last-price">₹1,861.95</span>
+                          {currentSymbol?.ExchangeSegment}: <span className="last-price">₹{currentSymbol?.LTP}</span>
                         </label>
                       </div>
                     </div>
@@ -158,7 +157,7 @@ export default function Actions(props) {
               </Draggable>
             )}
           >
-            <BuyForm typeVal="Buy" handleCancel={handleCancel} />
+            <BuyForm typeVal="Buy"  handleCancel={handleCancel} />
           </Modal>
         </span>
         <span data-balloon="Sell (S)" data-balloon-pos="up">
@@ -192,8 +191,8 @@ export default function Actions(props) {
                       <div className="instrument">
                         <span className="transaction-type"></span>{" "}
                         <span className="tradingsymbol">
-                          <span className="name">HDFC</span>{" "}
-                          <span className="exchange">NSE</span>
+                          <span className="name">{currentSymbol?.Name}</span>{" "}
+                          <span className="exchange">{currentSymbol?.Series}</span>
                         </span>
                         ×<span className="qty">1 Qty</span>
                       </div>
@@ -203,7 +202,7 @@ export default function Actions(props) {
                     <div className="su-radio-group">
                       <div className="exchange su-radio-wrap checked">
                         <label className="su-radio-label">
-                          NSE: <span className="last-price">₹1,861.95</span>
+                          {currentSymbol?.ExchangeSegment}: <span className="last-price">₹{currentSymbol?.LTP}</span>
                         </label>
                       </div>
                     </div>
