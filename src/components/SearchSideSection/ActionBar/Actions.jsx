@@ -92,7 +92,7 @@ export default function Actions(props) {
   };
   return (
     <>
-      <span className="actions" id="hovar">
+      <span className="actions " id="hovar1">
         <span data-balloon="Buy (B)" data-balloon-pos="up">
           <button
             type="button"

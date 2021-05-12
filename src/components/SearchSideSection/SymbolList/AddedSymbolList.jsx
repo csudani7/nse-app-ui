@@ -11,6 +11,7 @@ export default function AddedSymbolList(props) {
     isUserSymbolList,
   } = props;
 
+
   // const [isHoverAction, setIsHoverAction] = React.useState(false)
 
   // React.useEffect(() => {
@@ -105,6 +106,7 @@ export default function AddedSymbolList(props) {
 
   setInterval(() => {
     getAllUserAddedSymbols?.map(async (symbolUpdate) => {
+
       try {
         let masterRes = await callMasterAPI([symbolUpdate])
         if (masterRes) {
@@ -146,10 +148,19 @@ export default function AddedSymbolList(props) {
   return (
     <>
       {getAllUserAddedSymbols?.map((symbols, index) => {
+  let customRef = React.createRef();
+
         let PER = getFilteredCalculatedNumber(symbols)
         const returnRedGreenClass = (PER > 0 ? "text-success " : 'text-danger')
         return (
-          <div key={index} className="vddl-draggable instrument down">
+          <div key={index} className="vddl-draggable instrument down"
+            onMouseEnter={(e => {
+              customRef.current.className = ''
+            })}
+            onMouseLeave={(e => {
+              customRef.current.className = 'hide'
+            })}
+            >
             <div className={"info " + returnRedGreenClass}>
               <span className="symbol">
                 <span className="nice-name">{symbols.Name} </span>
@@ -168,12 +179,13 @@ export default function AddedSymbolList(props) {
                 </span>
               </span>
             </div>
-
-            <Actions
-              currentSymbol={symbols}
-              isUserAddedSymbolList={isUserAddedSymbolList}
-              isUserSymbolList={isUserSymbolList}
-            />
+            <div ref={customRef} className="hide">
+              <Actions
+                currentSymbol={symbols}
+                isUserAddedSymbolList={isUserAddedSymbolList}
+                isUserSymbolList={isUserSymbolList}
+              />
+            </div>
           </div>
         );
       })}
