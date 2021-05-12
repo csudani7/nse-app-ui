@@ -65,9 +65,45 @@ export default function AddedSymbolList(props) {
   // socketConnection();
 
   // }, [])
+let newData = []
+   const getContinueDataBySymbol = React.useCallback(() => {
+    return getAllUserAddedSymbols?.map(async (symbolUpdate) => {
+      try {
+        let masterRes = await callMasterAPI([symbolUpdate])
+        if (masterRes) {
+          let LTP = masterRes?.Touchline?.LastTradedPrice
+          /** CLOSE PRICE */
+          let Close = masterRes?.Touchline?.Close
+          let CloseChangeInPriceInPer = (((LTP - Close) / LTP) * 100).toFixed(2);
+          let CloseChangeInPriceInAbs = (LTP - Close).toFixed(2);
+          //open formula
+          let Open = masterRes?.Touchline?.Open
+          let OpenChangeInPriceInPer = (((LTP - Open) / LTP) * 100).toFixed(2);
+          let OpenChangeInPriceInAbs = (LTP - Open).toFixed(2);
+          // if changeInPrice is +ve then arrow up and green color
+          // else arrow down and red color
+          symbolUpdate.LTP = LTP
+          symbolUpdate.OpenChangeInPriceInPer = OpenChangeInPriceInPer
+          symbolUpdate.OpenChangeInPriceInAbs = OpenChangeInPriceInAbs
+          symbolUpdate.CloseChangeInPriceInPer = CloseChangeInPriceInPer
+          symbolUpdate.CloseChangeInPriceInAbs = CloseChangeInPriceInAbs
+        }
+      } catch (error) {
+        console.error('Error', error)
+      }
+    })
+  }, [ getAllUserAddedSymbols]);
 
-  // const getContinueDataBySymbol = React.useCallback(() => {
+  React.useEffect(() => {
+    if (isUserAddedSymbolList) {
+      newData = getContinueDataBySymbol() 
+    }
+  }, [getContinueDataBySymbol, isUserAddedSymbolList])  
+
+  console.log('newData', newData);
+  // setInterval(() => {
   //   getAllUserAddedSymbols?.map(async (symbolUpdate) => {
+
   //     try {
   //       let masterRes = await callMasterAPI([symbolUpdate])
   //       if (masterRes) {
@@ -96,46 +132,7 @@ export default function AddedSymbolList(props) {
   //       console.error('Error', error)
   //     }
   //   })
-  // }), [getContinueDataBySymbol];
-
-  // React.useEffect(() => {
-  //   if (isUserAddedSymbolList) {
-  //     getContinueDataBySymbol();
-  //   }
-  // }), [getContinueDataBySymbol, isUserAddedSymbolList]);
-
-  setInterval(() => {
-    getAllUserAddedSymbols?.map(async (symbolUpdate) => {
-
-      try {
-        let masterRes = await callMasterAPI([symbolUpdate])
-        if (masterRes) {
-          let LTP = masterRes?.Touchline?.LastTradedPrice
-
-          /** CLOSE PRICE */
-          let Close = masterRes?.Touchline?.Close
-          let CloseChangeInPriceInPer = (((LTP - Close) / LTP) * 100).toFixed(2);
-          let CloseChangeInPriceInAbs = (LTP - Close).toFixed(2);
-
-          //open formula
-          let Open = masterRes?.Touchline?.Open
-          let OpenChangeInPriceInPer = (((LTP - Open) / LTP) * 100).toFixed(2);
-          let OpenChangeInPriceInAbs = (LTP - Open).toFixed(2);
-
-          // if changeInPrice is +ve then arrow up and green color
-          // else arrow down and red color
-          symbolUpdate.LTP = LTP
-          symbolUpdate.OpenChangeInPriceInPer = OpenChangeInPriceInPer
-          symbolUpdate.OpenChangeInPriceInAbs = OpenChangeInPriceInAbs
-
-          symbolUpdate.CloseChangeInPriceInPer = CloseChangeInPriceInPer
-          symbolUpdate.CloseChangeInPriceInAbs = CloseChangeInPriceInAbs
-        }
-      } catch (error) {
-        console.error('Error', error)
-      }
-    })
-  }, 5000);
+  // }, 5000);
 
   const getFilteredCalculatedNumber = symbol => {
     if (symbol.OpenChangeInPriceInPer) return symbol.OpenChangeInPriceInPer
@@ -148,7 +145,7 @@ export default function AddedSymbolList(props) {
   return (
     <>
       {getAllUserAddedSymbols?.map((symbols, index) => {
-  let customRef = React.createRef();
+        let customRef = React.createRef();
 
         let PER = getFilteredCalculatedNumber(symbols)
         const returnRedGreenClass = (PER > 0 ? "text-success " : 'text-danger')
@@ -160,7 +157,7 @@ export default function AddedSymbolList(props) {
             onMouseLeave={(e => {
               customRef.current.className = 'hide'
             })}
-            >
+          >
             <div className={"info " + returnRedGreenClass}>
               <span className="symbol">
                 <span className="nice-name">{symbols.Name} </span>
