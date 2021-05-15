@@ -116,7 +116,11 @@ export default function PositionTable() {
                                   "text-label small",
                                   orders.TransactionType === "Buy"
                                     ? "blue"
-                                    : "red"
+                                    : orders.TransactionType === "Sell"
+                                    ? "red"
+                                    : orders.TransactionType === ""
+                                    ? "grey"
+                                    : ""
                                 )}
                               >
                                 {orders.TransactionType}

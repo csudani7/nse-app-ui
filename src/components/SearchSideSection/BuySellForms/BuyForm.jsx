@@ -9,7 +9,7 @@ export default function BuyForm(props) {
   const [orderType, setOrderType] = React.useState("MARKET");
   const [buyOrderParams, setBuyOrderParams] = React.useState({});
   const { data, isSuccess } = usePlaceOrder(buyOrderParams);
-
+  const [TriggerType, setTriggerType] = React.useState("SL");
   React.useEffect(() => {
     if (isSuccess && data.status_code === 201) {
       message.success(data.message);
@@ -40,6 +40,9 @@ export default function BuyForm(props) {
 
   const onOrderTypeChange = (event) => {
     setOrderType(event.target.value);
+  };
+  const onBuyTypeChange = (e) => {
+    setTriggerType(e.target.value);
   };
 
   return (
@@ -188,7 +191,7 @@ export default function BuyForm(props) {
                       autoCorrect="off"
                       min="0"
                       step="0.05"
-                      disabled="disabled"
+                      disabled={TriggerType === "SL"}
                       nativeerror="true"
                       staticlabel="true"
                       animate="true"
@@ -231,43 +234,49 @@ export default function BuyForm(props) {
                     </div>
                   </div>
                 </div>
+
                 <div className="four columns trigger">
                   <div className="su-radio-group text-right order-type">
-                    <div
-                      className="su-radio-wrap"
-                      tooltip-pos="down"
-                      data-balloon="Buy at a preferred price with a stoploss"
-                      data-balloon-pos="down"
-                    >
-                      <Radio>
-                        <label
-                          className="su-radio-label"
-                          title="Buy at a preferred price with a stoploss"
-                        >
-                          SL
-                        </label>
-                      </Radio>
-                    </div>
-                    <div
-                      className="su-radio-wrap"
-                      tooltip-pos="down"
-                      data-balloon="Buy at market price with stoploss"
-                      data-balloon-pos="down"
-                    >
-                      <Radio>
-                        <label
-                          className="su-radio-label"
-                          title="Buy at market price with stoploss"
-                        >
-                          SL-M
-                        </label>
-                      </Radio>
-                    </div>
+                    <Radio.Group onChange={onBuyTypeChange} value={TriggerType}>
+                      <div
+                        className="su-radio-wrap"
+                        tooltip-pos="down"
+                        data-balloon="Buy at a preferred price with a stoploss"
+                        data-balloon-pos="down"
+                      >
+                        <Radio>
+                          <label
+                            className="su-radio-label"
+                            title="Buy at a preferred price with a stoploss"
+                            value="SL"
+                          >
+                            SL
+                          </label>
+                        </Radio>
+                      </div>
+                      <div
+                        className="su-radio-wrap"
+                        tooltip-pos="down"
+                        data-balloon="Buy at market price with stoploss"
+                        data-balloon-pos="down"
+                      >
+                        <Radio>
+                          <label
+                            className="su-radio-label"
+                            title="Buy at market price with stoploss"
+                            value="SL-M"
+                          >
+                            SL-M
+                          </label>
+                        </Radio>
+                      </div>
+                    </Radio.Group>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
           <footer className="footer">
             <div className="row">
               <div className="six columns">

@@ -138,6 +138,8 @@ export default function ExecutedOrdersTable(props) {
                                 ? "green"
                                 : orders.Status === "Rejected"
                                 ? "red"
+                                : orders.Status === "Cancelled"
+                                ? "grey"
                                 : ""
                             )}
                           >

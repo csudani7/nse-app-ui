@@ -4,8 +4,14 @@ import moment from "moment";
 import { FiDownloadCloud } from "react-icons/fi";
 import { BiDoughnutChart } from "react-icons/bi";
 
+// const handleQty = () => {
+//   return (<>
+//     {orders.OrderApprovedQuantity}/ {orders.OrderQuantity}
+//   </>)
+// }
 export default function OpenOrdersTable(props) {
   const { allOpenOrders } = props;
+
   return (
     <div>
       <section className="trades-wrap table-wrapper">
@@ -128,9 +134,28 @@ export default function OpenOrdersTable(props) {
                         </td>
                         <td className="product">{orders.ProductType}</td>
                         <td className="quantity right">
-                          {orders.OrderQuantity}
+                          {() => {
+                            if (orders.TransactionType === "Buy") {
+                              if (orders.LastTradedPrice >= orders.OrderPrice) {
+                                return (<>
+                                  {orders.TotalBuyQuantity} / {orders.TotalTradedQuantity}
+                                </>)
+                              }
+                            }
+                            else if (orders.TransactionType === "Sell") {
+                              if (orders.LastTradedPrice <= orders.OrderPrice) {
+                                return (<>
+                                  {orders.TotalSellQuantity} / {orders.TotalTradedQuantity}
+                                </>)
+                              }
+                            }
+                            else {
+                              return <>0</>
+                            }
+                          }}
                         </td>
-                        <td className="quantity right">67.65</td>
+
+                        <td className="quantity right">{orders.LTP} </td>
                         <td className="average-price right">
                           {orders.OrderPrice}
                         </td>
