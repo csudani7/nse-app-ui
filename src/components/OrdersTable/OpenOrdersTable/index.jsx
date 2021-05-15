@@ -4,11 +4,6 @@ import moment from "moment";
 import { FiDownloadCloud } from "react-icons/fi";
 import { BiDoughnutChart } from "react-icons/bi";
 
-// const handleQty = () => {
-//   return (<>
-//     {orders.OrderApprovedQuantity}/ {orders.OrderQuantity}
-//   </>)
-// }
 export default function OpenOrdersTable(props) {
   const { allOpenOrders } = props;
 
@@ -137,20 +132,24 @@ export default function OpenOrdersTable(props) {
                           {() => {
                             if (orders.TransactionType === "Buy") {
                               if (orders.LastTradedPrice >= orders.OrderPrice) {
-                                return (<>
-                                  {orders.TotalBuyQuantity} / {orders.TotalTradedQuantity}
-                                </>)
+                                return (
+                                  <>
+                                    {orders.TotalBuyQuantity} /{" "}
+                                    {orders.TotalTradedQuantity}
+                                  </>
+                                );
                               }
-                            }
-                            else if (orders.TransactionType === "Sell") {
+                            } else if (orders.TransactionType === "Sell") {
                               if (orders.LastTradedPrice <= orders.OrderPrice) {
-                                return (<>
-                                  {orders.TotalSellQuantity} / {orders.TotalTradedQuantity}
-                                </>)
+                                return (
+                                  <>
+                                    {orders.TotalSellQuantity} /{" "}
+                                    {orders.TotalTradedQuantity}
+                                  </>
+                                );
                               }
-                            }
-                            else {
-                              return <>0</>
+                            } else {
+                              return <>0</>;
                             }
                           }}
                         </td>

@@ -4,8 +4,9 @@ import moment from "moment";
 import { FiDownloadCloud } from "react-icons/fi";
 import { BiDoughnutChart } from "react-icons/bi";
 
-export default function PositionTable() {
-  const allOpenOrders = [];
+export default function PositionTable(props) {
+  const { allExecutedOrders } = props;
+
   return (
     <div className="backgrnd">
       <div className="page-content">
@@ -17,7 +18,7 @@ export default function PositionTable() {
                   <span>Positions</span>{" "}
                   <span className="icon icon-chevron-up"></span>
                 </span>{" "}
-                <span>({allOpenOrders?.numofdata})</span>
+                <span>({allExecutedOrders?.numofdata})</span>
               </h3>
             </header>
             <div className="trades">
@@ -73,44 +74,42 @@ export default function PositionTable() {
                 <table>
                   <thead>
                     <tr>
-                      <th className="fill-timestamp">
-                        <span>Time</span>
-                      </th>
-                      <th className="transaction-type">
-                        <span>Type</span>
-                      </th>
-                      <th className="instrument">
-                        <span>Instrument</span>
-                      </th>
                       <th className="product">
                         <span>Product</span>
                       </th>
+
+                      <th className="instrument">
+                        <span>Instrument</span>
+                      </th>
+
                       <th className="quantity right">
                         <span>Qty.</span>
+                      </th>
+                      <th className="average-price">
+                        <span>Avg.</span>
                       </th>
                       <th className="average-price right">
                         <span>LTP</span>
                       </th>
                       <th className="average-price right">
-                        <span>Price</span>
+                        <span>P&L</span>
                       </th>
                       <th className="average-price">
-                        <span>Status</span>
+                        <span>Chg.</span>
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {allOpenOrders &&
-                      allOpenOrders?.data?.map((orders, index) => {
+                    {allExecutedOrders &&
+                      allExecutedOrders?.data?.map((orders, index) => {
                         return (
-                          <tr key={index} data-uid={index}>
-                            <td className="fill-timestamp">
-                              {moment
-                                .utc(orders.createdAt)
-                                .local()
-                                .format("HH:mm:ss")}
-                            </td>
-                            <td className="transaction-type">
+                          <tr
+                            key={index}
+                            data-uid={index}
+                            style={orders.OrderQuantity == 0 ? "color" : "grey"}
+                          >
+                            <td className="product">{orders.ProductType}</td>
+                            {/* <td className="transaction-type">
                               <span
                                 className={clsx(
                                   "text-label small",
@@ -125,7 +124,7 @@ export default function PositionTable() {
                               >
                                 {orders.TransactionType}
                               </span>
-                            </td>
+                            </td> */}
                             <td className="instrument">
                               <span className="tradingsymbol">
                                 <span>{orders.SymbolName}</span>
@@ -134,17 +133,44 @@ export default function PositionTable() {
                                 {orders.ExchangeSegment}
                               </span>
                             </td>
-                            <td className="product">{orders.ProductType}</td>
+
                             <td className="quantity right">
                               {orders.OrderQuantity}
                             </td>
-                            <td className="quantity right">67.65</td>
+                            <td className="quantity right">
+                              {orders.LastTradedPrice}
+                            </td>
                             <td className="average-price right">
-                              {orders.OrderPrice}
+                              {() => {
+                                let Avg =
+                                  orders.OrderPrice / orders.OrderQuantity;
+                                if (
+                                  orders.OrderQuantity < 0 &&
+                                  Avg < orders.LastTradedPrice
+                                ) {
+                                  return <>+(Avg-{orders.LastTradedPrice})</>;
+                                }
+                                if (
+                                  orders.OrderQuantity > 0 &&
+                                  Avg > orders.LastTradedPrice
+                                ) {
+                                  return <>(Avg-{orders.LastTradedPrice})</>;
+                                }
+                              }}
                             </td>
                             <td className="transaction-type">
-                              <span className="text-label small uppercase">
-                                {orders.Status}
+                              <span
+                                className={clsx("text-label small uppercase")}
+                              >
+                                {() => {
+                                  let Avg =
+                                    orders.OrderPrice / orders.OrderQuantity;
+                                  let P_L = orders.LastTradedPrice - Avg;
+                                  console.log(P_L);
+                                  var Chg = (P_L * 100) / Avg;
+                                  console.log(Chg);
+                                  return <>{Chg}</>;
+                                }}
                               </span>
                             </td>
                           </tr>
