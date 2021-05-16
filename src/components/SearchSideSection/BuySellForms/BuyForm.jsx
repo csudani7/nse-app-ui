@@ -10,6 +10,7 @@ export default function BuyForm(props) {
   const [buyOrderParams, setBuyOrderParams] = React.useState({});
   const { data, isSuccess } = usePlaceOrder(buyOrderParams);
   const [TriggerType, setTriggerType] = React.useState("SL");
+  const [PositionType, setPositionType] = React.useState("Intraday");
   React.useEffect(() => {
     if (isSuccess && data.status_code === 201) {
       message.success(data.message);
@@ -43,6 +44,9 @@ export default function BuyForm(props) {
   };
   const onBuyTypeChange = (e) => {
     setTriggerType(e.target.value);
+  };
+  const onPositionTypeChange = (e) => {
+    setPositionType(e.target.value);
   };
 
   return (
@@ -106,38 +110,40 @@ export default function BuyForm(props) {
           </div>
           <div className="body">
             <div className="product row">
-              <div className="su-radio-group">
-                <div
-                  className="type four columns su-radio-wrap"
-                  data-balloon="Margin Intraday Squareoff: Requires lower margin. Has to be exited before market close."
-                  data-balloon-pos="up"
-                  data-balloon-length="large"
-                >
-                  <Radio>
-                    <label
-                      className="su-radio-label"
-                      title="Margin Intraday Squareoff: Requires lower margin. Has to be exited before market close."
-                    >
-                      Intraday <span>MIS</span>
-                    </label>
-                  </Radio>
+              <Radio.Group onChange={onPositionTypeChange} value={PositionType}>
+                <div className="su-radio-group">
+                  <div
+                    className="type four columns su-radio-wrap"
+                    data-balloon="Margin Intraday Squareoff: Requires lower margin. Has to be exited before market close."
+                    data-balloon-pos="up"
+                    data-balloon-length="large"
+                  >
+                    <Radio value="Intraday">
+                      <label
+                        className="su-radio-label"
+                        title="Margin Intraday Squareoff: Requires lower margin. Has to be exited before market close."
+                      >
+                        Intraday <span>MIS</span>
+                      </label>
+                    </Radio>
+                  </div>
+                  <div
+                    className="type four columns su-radio-wrap checked"
+                    data-balloon="CashNCarry: Longterm investment. Requires full upfront margin."
+                    data-balloon-pos="up"
+                    data-balloon-length="large"
+                  >
+                    <Radio value="Longterm">
+                      <label
+                        className="su-radio-label"
+                        title="CashNCarry: Longterm investment. Requires full upfront margin."
+                      >
+                        Longterm <span>CNC</span>
+                      </label>
+                    </Radio>
+                  </div>
                 </div>
-                <div
-                  className="type four columns su-radio-wrap checked"
-                  data-balloon="CashNCarry: Longterm investment. Requires full upfront margin."
-                  data-balloon-pos="up"
-                  data-balloon-length="large"
-                >
-                  <Radio>
-                    <label
-                      className="su-radio-label"
-                      title="CashNCarry: Longterm investment. Requires full upfront margin."
-                    >
-                      Longterm <span>CNC</span>
-                    </label>
-                  </Radio>
-                </div>
-              </div>
+              </Radio.Group>
             </div>
             <div className="fields">
               <div className="row">
@@ -238,38 +244,36 @@ export default function BuyForm(props) {
                 <div className="four columns trigger">
                   <div className="su-radio-group text-right order-type">
                     <Radio.Group onChange={onBuyTypeChange} value={TriggerType}>
-                      <div
+                      {/* <div
                         className="su-radio-wrap"
                         tooltip-pos="down"
                         data-balloon="Buy at a preferred price with a stoploss"
                         data-balloon-pos="down"
-                      >
-                        <Radio>
-                          <label
-                            className="su-radio-label"
-                            title="Buy at a preferred price with a stoploss"
-                            value="SL"
-                          >
-                            SL
-                          </label>
-                        </Radio>
-                      </div>
-                      <div
+                      > */}
+                      <Radio value="SL">
+                        <label
+                          className="su-radio-label"
+                          title="Buy at a preferred price with a stoploss"
+                        >
+                          SL
+                        </label>
+                      </Radio>
+                      {/* </div> */}
+                      {/* <div
                         className="su-radio-wrap"
                         tooltip-pos="down"
                         data-balloon="Buy at market price with stoploss"
                         data-balloon-pos="down"
-                      >
-                        <Radio>
-                          <label
-                            className="su-radio-label"
-                            title="Buy at market price with stoploss"
-                            value="SL-M"
-                          >
-                            SL-M
-                          </label>
-                        </Radio>
-                      </div>
+                      > */}
+                      <Radio value="SL-M">
+                        <label
+                          className="su-radio-label"
+                          title="Buy at market price with stoploss"
+                        >
+                          SL-M
+                        </label>
+                      </Radio>
+                      {/* </div> */}
                     </Radio.Group>
                   </div>
                 </div>

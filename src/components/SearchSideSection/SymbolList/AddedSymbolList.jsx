@@ -160,7 +160,7 @@ let newData = []
           >
             <div className={"info " + returnRedGreenClass}>
               <span className="symbol">
-                <span className="nice-name">{symbols.Name} </span>
+                <span className="nice-name">{symbols.Description} </span>
               </span>{" "}
               <span className="price">
                 <span className="dim">

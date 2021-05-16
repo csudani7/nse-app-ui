@@ -98,7 +98,7 @@ function SearchComponent() {
       const query = searchQuery.toUpperCase();
       if (searchQuery === " ") return getAllSymbols?.data;
       if (searchQuery !== " " || searchQuery !== undefined) {
-        return getAllSymbols?.data.filter((i) => i.Name.includes(query));
+        return getAllSymbols?.data.filter((i) => i.Description.includes(query));
       }
       return getAllSymbols?.data;
     }
