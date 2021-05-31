@@ -1,5 +1,5 @@
-import { XtsMarketDataAPI } from "xts-marketdata-api";
-// , WS
+import { XtsMarketDataAPI } from 'xts-marketdata-api'
+// , WS 
 const secretKey = process.env.REACT_APP_XTSSecretKey;
 const appKey = process.env.REACT_APP_XTSAppKey;
 const url = process.env.REACT_APP_XTSUrl;
@@ -7,100 +7,93 @@ const url = process.env.REACT_APP_XTSUrl;
 const xtsMarketDataAPI = new XtsMarketDataAPI(url);
 // let xtsMarketDataWS = null
 
-// console.log(xtsMarketDataAPI)
 //calling the logIn API
 const loginRequest = {
-  secretKey,
-  appKey,
+    secretKey,
+    appKey,
 };
 
 export const getXTSAPIToken = async () => {
-  const logIn = await xtsMarketDataAPI.logIn(loginRequest);
-  return logIn;
-};
+    const logIn = await xtsMarketDataAPI.logIn(loginRequest);
+    return logIn
+}
 
 export const callMasterAPI = async (settingLiveData) => {
-  let logIn = await getXTSAPIToken();
-  if (logIn && logIn.type === xtsMarketDataAPI.responseTypes.success) {
-    // let userID = logIn.result.userID;
-    // xtsMarketDataWS = new WS(url);
+    let logIn = await getXTSAPIToken()
+    // checking for valid loginRequest
+    if (logIn && logIn.type === xtsMarketDataAPI.responseTypes.success) {
+        // let userID = logIn.result.userID;
+        // xtsMarketDataWS = new WS(url);
 
-    // //Instantiating the socket instance
-    // var socketInitRequest = {
-    //     userID: userID,
-    //     publishFormat: 'JSON',
-    //     broadcastMode: 'Full',
-    //     token: logIn.result.token, // Token Generated after successful LogIn
-    // };
-    // xtsMarketDataWS.init(socketInitRequest);
+        // //Instantiating the socket instance
+        // var socketInitRequest = {
+        //     userID: userID,
+        //     publishFormat: 'JSON',
+        //     broadcastMode: 'Full',
+        //     token: logIn.result.token, // Token Generated after successful LogIn
+        // };
+        // xtsMarketDataWS.init(socketInitRequest);
 
-    //Registering the socket Events
-    // let liveRes =
-    // await registerEvents();
-    // console.log
-    let finalResponse = await fetch_live_data_based_on_token(settingLiveData);
-    // console.log(finalResponse);
-    // console.log(finalResponse)
-    return finalResponse;
-  } else {
-    console.error(logIn);
-  }
+        //Registering the socket Events
+        // let liveRes = 
+        // await registerEvents();
+
+        let finalResponse = fetch_live_data_based_on_token(settingLiveData);
+        return finalResponse
+    } else {
+        console.error(logIn);
+    }
 };
 async function fetch_live_data_based_on_token(settingLiveData) {
-  // 1501: Touchline
-  // 1502: Market Data
-  // 1504: Index Data
-  // 1505: Candle Data
-  // 1510: OpenInterest
+    // 1501: Touchline
+    // 1502: Market Data
+    // 1504: Index Data
+    // 1505: Candle Data
+    // 1510: OpenInterest
 
-  var instrumentsData = [];
-  if (settingLiveData && settingLiveData.length) {
-    for (var i = 0; i < settingLiveData.length; ++i) {
-      if (settingLiveData[i].ExchangeSegment === "NSECM") {
-        instrumentsData.push({
-          exchangeSegment: 1,
-          exchangeInstrumentID: settingLiveData[i].ExchangeInstrumentID,
-        });
-      } else if (settingLiveData[i].ExchangeSegment === "NSEFO") {
-        instrumentsData.push({
-          exchangeSegment: 2,
-          exchangeInstrumentID: settingLiveData[i].ExchangeInstrumentID,
-        });
-      } else if (settingLiveData[i].ExchangeSegment === "BSECM") {
-        instrumentsData.push({
-          exchangeSegment: 11,
-          exchangeInstrumentID: settingLiveData[i].ExchangeInstrumentID,
-        });
-      } else {
-        console.log("Sorry!");
-      }
+    var instrumentsData = [];
+    if (settingLiveData && settingLiveData.length) {
+        for (var i = 0; i < settingLiveData.length; ++i) {
+            if (settingLiveData[i].ExchangeSegment === "NSECM") {
+                instrumentsData.push({ "exchangeSegment": 1, "exchangeInstrumentID": settingLiveData[i].ExchangeInstrumentID });
+            }
+            else if (settingLiveData[i].ExchangeSegment === "NSEFO") {
+                instrumentsData.push({ "exchangeSegment": 2, "exchangeInstrumentID": settingLiveData[i].ExchangeInstrumentID });
+            }
+            else if (settingLiveData[i].ExchangeSegment === "BSECM") {
+                instrumentsData.push({ "exchangeSegment": 11, "exchangeInstrumentID": settingLiveData[i].ExchangeInstrumentID });
+            }
+            else {
+                console.log("Sorry!");
+            }
+        }
     }
-  }
 
-  // let subscriptionRequest = {
-  //     instruments: instrumentsData,
-  //     xtsMessageCode: process.env.REACT_APP_EventCode,
-  // };
+    // let subscriptionRequest = {
+    //     instruments: instrumentsData,
+    //     xtsMessageCode: process.env.REACT_APP_EventCode,
+    // };
 
-  // subscribe instrument to get market data
-  // let subscriptionResponse = await subscription(subscriptionRequest);
+    // subscribe instrument to get market data
+    // let subscriptionResponse = await subscription(subscriptionRequest);
 
-  if (instrumentsData && instrumentsData.length) {
-    let isTradeSymbol = false;
-    let getQuotesRequest = {
-      isTradeSymbol: isTradeSymbol,
-      instruments: instrumentsData,
-      xtsMessageCode: process.env.REACT_APP_EventCode,
-      publishFormat: "JSON",
-    };
 
-    // get details of instrument
-    let finalGetQuotes = await getQuotes(getQuotesRequest);
-    // console.log(finalGetQuotes)
-    return finalGetQuotes;
-  } else {
-    return null;
-  }
+    if (instrumentsData && instrumentsData.length) {
+        let isTradeSymbol = false;
+        let getQuotesRequest = {
+            isTradeSymbol: isTradeSymbol,
+            instruments: instrumentsData,
+            xtsMessageCode: process.env.REACT_APP_EventCode,
+            publishFormat: 'JSON',
+        };
+
+        // get details of instrument
+        let finalGetQuotes = await getQuotes(getQuotesRequest);
+        return finalGetQuotes;
+    } else {
+        return null
+    }
+
 }
 
 // var subscription = async function (subscriptionRequest) {
@@ -140,11 +133,6 @@ var getQuotes = async function (getQuotesRequest) {
 
 //     // else if (process.env.EventCode == 1504) {
 //     //     await new Ide(data).save();
-//     // }tt
-
-//     // else if (process.env.EventCode == 1505) {
-//     //     await new Cde(data).save();
-//     // }
 
 //     // else if (process.env.EventCode == 1510) {
 //     //     await new Oie(data).save();

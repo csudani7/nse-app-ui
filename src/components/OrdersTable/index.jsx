@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
+=======
+import React from "react";
+>>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
 import OrderNavBar from "./OrderNavBar";
 import OpenOrdersTable from "./OpenOrdersTable";
 import ExecutedOrdersTable from "./ExecutedOrdersTable";

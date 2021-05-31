@@ -43,8 +43,6 @@ export default function SignUp() {
   const [signUpParams, setSignUpParams] = React.useState({});
   const { mutate } = useUserRegister(signUpParams);
 
-
-
   const onFinish = (values) => {
     const query = {
       FullName: values.fullName,
