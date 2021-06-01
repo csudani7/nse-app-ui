@@ -4,23 +4,20 @@ import Actions from "../ActionBar/Actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { callMasterAPI } from "../../../services/xts-connection";
 
-<<<<<<< HEAD
 function AddedSymbolList(props) {
-  const { getAllUserAddedSymbols, isUserAddedSymbolList, isUserSymbolList } =
-    props;
-
-
-  const [updatedUserSymboList, setUpdatedUserSymboList] = React.useState([]);
-=======
-export default function AddedSymbolList(props) {
   const {
     getAllUserAddedSymbols,
     isUserAddedSymbolList,
     isUserSymbolList,
   } = props;
 
+  // function AddedSymbolList(props) {
+  //   const { getAllUserAddedSymbols, isUserAddedSymbolList, isUserSymbolList } =
+  //     props;
+  
+  
+  //   const [updatedUserSymboList, setUpdatedUserSymboList] = React.useState([]);
 
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
   // const [isHoverAction, setIsHoverAction] = React.useState(false)
 
   // React.useEffect(() => {
@@ -32,11 +29,8 @@ export default function AddedSymbolList(props) {
   //   const socketIO = socketIOClient(ENDPOINT, {
   //     path: '/marketdata/socket.io',
   //     query: {
-<<<<<<< HEAD
   //       token: XTSToken, 
-=======
   //       token: XTSToken,
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
   //       userID: XTSuserID
   //     }
   //   });
@@ -49,11 +43,8 @@ export default function AddedSymbolList(props) {
 
   //   socketIO.on("1502-JSON-Full",function(data){
   //     console.log("data is "+data);
-<<<<<<< HEAD
   //    });
-=======
   //    }); 
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
 
   //   socketIO.on('onJoined', function () {
   //     console.info("JOINED!");

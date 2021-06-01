@@ -1,11 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router";
-<<<<<<< HEAD
 import { useHistory, Link } from "react-router-dom";
 
-=======
-import { useHistory } from "react-router-dom";
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
 import { useRecoilState } from "recoil";
 import clsx from "clsx";
 import { isNil } from "lodash";
@@ -122,41 +118,24 @@ function NavBar(props) {
           </div>
         </div>
         <div className="header-right">
-<<<<<<< HEAD
           <Link to="/" className="logo">
-=======
-          <a href="/" className="logo">
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
             <img
               src="https://kite.zerodha.com/static/images/kite-logo.svg"
               alt="Kite logo"
             />
-<<<<<<< HEAD
           </Link>
           <div className="app-nav">
             <Link
               to="/"
-=======
-          </a>
-          <div className="app-nav">
-            <a
-              href="/dashboard"
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
               className={clsx(
                 props.location.pathname === "/dashboard" &&
                   "orders-nav-item router-link-exact-active router-link-active"
               )}
             >
               <span>Dashboard</span>
-<<<<<<< HEAD
             </Link>{" "}
             <Link
               to="/orders"
-=======
-            </a>{" "}
-            <a
-              href="/orders"
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
               className={clsx(
                 props.location.pathname === "/orders" &&
                   "orders-nav-item router-link-exact-active router-link-active"
@@ -164,71 +143,43 @@ function NavBar(props) {
               aria-current="page"
             >
               <span>Orders</span>
-<<<<<<< HEAD
             </Link>{" "}
             <Link
               to="/holdings"
-=======
-            </a>{" "}
-            <a
-              href="/holdings"
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
               className={clsx(
                 props.location.pathname === "/holdings" &&
                   "orders-nav-item router-link-exact-active router-link-active"
               )}
             >
               <span>Holdings</span>
-<<<<<<< HEAD
             </Link>{" "}
             <Link
               to="/positions"
-=======
-            </a>{" "}
-            <a
-              href="/positions"
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
               className={clsx(
                 props.location.pathname === "/positions" &&
                   "orders-nav-item router-link-exact-active router-link-active"
               )}
             >
               <span>Positions</span>
-<<<<<<< HEAD
             </Link>{" "}
             <Link
               to="/funds"
-=======
-            </a>{" "}
-            <a
-              href="/funds"
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
               className={clsx(
                 props.location.pathname === "/funds" &&
                   "orders-nav-item router-link-exact-active router-link-active"
               )}
             >
               <span>Funds</span>
-<<<<<<< HEAD
             </Link>{" "}
             <Link
               to="/apps"
-=======
-            </a>{" "}
-            <a
-              href="/apps"
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
               className={clsx(
                 props.location.pathname === "/apps" &&
                   "orders-nav-item router-link-exact-active router-link-active"
               )}
             >
               <span>Apps</span>
-<<<<<<< HEAD
             </Link>
-=======
-            </a>
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
           </div>
           <div className="right-nav">
             <div className="user-nav perspective">

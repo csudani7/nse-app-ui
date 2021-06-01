@@ -161,11 +161,8 @@ export default function PositionTable(props) {
                               <span
                                 className={clsx("text-label small uppercase")}
                               >
-<<<<<<< HEAD
                                 {/* {() => {
-=======
                                 {() => {
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
                                   let Avg =
                                     orders.OrderPrice / orders.OrderQuantity;
                                   let P_L = orders.LastTradedPrice - Avg;
@@ -173,11 +170,8 @@ export default function PositionTable(props) {
                                   var Chg = (P_L * 100) / Avg;
                                   console.log(Chg);
                                   return <>{Chg}</>;
-<<<<<<< HEAD
                                 }} */}
-=======
-                                }}
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
+                                
                               </span>
                             </td>
                           </tr>

@@ -2978,11 +2978,8 @@
   "resolved" "https://registry.npmjs.org/blob/-/blob-0.0.5.tgz"
   "version" "0.0.5"
 
-<<<<<<< HEAD
 "bluebird@^3.5.0", "bluebird@^3.5.1", "bluebird@3.5.1":
-=======
 "bluebird@^3.5.0", "bluebird@3.5.1":
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
   "integrity" "sha512-MKiLiV+I1AA596t9w1sQJ8jkiSr5+ZKi0WKrYGUn6d1Fx+Ij4tIj+m2WMQSGczs5jZVxV339chE8iwk6F64wjA=="
   "resolved" "https://registry.npmjs.org/bluebird/-/bluebird-3.5.1.tgz"
   "version" "3.5.1"
@@ -4186,7 +4183,6 @@
   dependencies:
     "cssom" "~0.3.6"
 
-<<<<<<< HEAD
 "csvtojson@^2.0.10":
   "integrity" "sha512-lUWFxGKyhraKCW8Qghz6Z0f2l/PqB1W3AO0HKJzGIQ5JRSlR651ekJDiGJbBT4sRNNv5ddnSGVEnsxP9XRCVpQ=="
   "resolved" "https://registry.npmjs.org/csvtojson/-/csvtojson-2.0.10.tgz"
@@ -4196,8 +4192,6 @@
     "lodash" "^4.17.3"
     "strip-bom" "^2.0.0"
 
-=======
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
 "cyclist@^1.0.1":
   "integrity" "sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk="
   "resolved" "https://registry.npmjs.org/cyclist/-/cyclist-1.0.1.tgz"
@@ -6587,14 +6581,11 @@
   "resolved" "https://registry.npmjs.org/is-typedarray/-/is-typedarray-1.0.0.tgz"
   "version" "1.0.0"
 
-<<<<<<< HEAD
 "is-utf8@^0.2.0":
   "integrity" "sha1-Sw2hRCEE0bM2NA6AeX6GXPOffXI="
   "resolved" "https://registry.npmjs.org/is-utf8/-/is-utf8-0.2.1.tgz"
   "version" "0.2.1"
 
-=======
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
 "is-windows@^1.0.2":
   "integrity" "sha512-eXK1UInq2bPmjyX6e3VHIzMLobc4J94i4AWn+Hpq3OU5KkrRC96OAcR3PRJ/pGu6m8TRnBHP9dkXQVsT/COVIA=="
   "resolved" "https://registry.npmjs.org/is-windows/-/is-windows-1.0.2.tgz"
@@ -7535,11 +7526,8 @@
   "resolved" "https://registry.npmjs.org/lodash.uniq/-/lodash.uniq-4.5.0.tgz"
   "version" "4.5.0"
 
-<<<<<<< HEAD
 "lodash@^4.17.11", "lodash@^4.17.14", "lodash@^4.17.15", "lodash@^4.17.19", "lodash@^4.17.20", "lodash@^4.17.21", "lodash@^4.17.3", "lodash@^4.17.5", "lodash@^4.7.0", "lodash@>=3.5 <5":
-=======
 "lodash@^4.17.11", "lodash@^4.17.14", "lodash@^4.17.15", "lodash@^4.17.19", "lodash@^4.17.20", "lodash@^4.17.21", "lodash@^4.17.5", "lodash@^4.7.0", "lodash@>=3.5 <5":
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -11571,7 +11559,6 @@
   dependencies:
     "ansi-regex" "^5.0.0"
 
-<<<<<<< HEAD
 "strip-bom@^2.0.0":
   "integrity" "sha1-YhmoVhZSBJHzV4i9vxRHqZx+aw4="
   "resolved" "https://registry.npmjs.org/strip-bom/-/strip-bom-2.0.0.tgz"
@@ -11579,8 +11566,6 @@
   dependencies:
     "is-utf8" "^0.2.0"
 
-=======
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
 "strip-bom@^3.0.0":
   "integrity" "sha1-IzTBjpx1n3vdVv3vfprj1YjmjtM="
   "resolved" "https://registry.npmjs.org/strip-bom/-/strip-bom-3.0.0.tgz"
@@ -11944,7 +11929,6 @@
   dependencies:
     "punycode" "^2.1.1"
 
-<<<<<<< HEAD
 "truedata-nodejs@^1.0.6":
   "integrity" "sha512-IEPeiHH74611ZX38UC2bWISaCQTKZjmWrrOVgqYVeL/jTLPXhOEuk34V4KVTurP4l8h6qzLgQL0/1eRcUqolDw=="
   "resolved" "https://registry.npmjs.org/truedata-nodejs/-/truedata-nodejs-1.0.6.tgz"
@@ -11954,8 +11938,6 @@
     "csvtojson" "^2.0.10"
     "ws" "^7.4.3"
 
-=======
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
 "tryer@^1.0.1":
   "integrity" "sha512-c3zayb8/kWWpycWYg87P71E1S1ZL6b6IJxfb5fvsUgsf0S2MVGaDhDXXjDMpdCpfWXqptc+4mXwmiy1ypXqRAA=="
   "resolved" "https://registry.npmjs.org/tryer/-/tryer-1.0.1.tgz"
@@ -12811,11 +12793,8 @@
   dependencies:
     "async-limiter" "~1.0.0"
 
-<<<<<<< HEAD
 "ws@^7.4.3", "ws@^7.4.4":
-=======
 "ws@^7.4.4":
->>>>>>> b3640f35f51bdc3945c9dc87dee4b9fcd6ebb852
   "integrity" "sha512-xzyu3hFvomRfXKH8vOFMU3OguG6oOvhXMo3xsGy3xWExqaM2dxBbVxuD99O7m3ZUFMvvscsZDqxfgMaRr/Nr1g=="
   "resolved" "https://registry.npmjs.org/ws/-/ws-7.4.5.tgz"
   "version" "7.4.5"
