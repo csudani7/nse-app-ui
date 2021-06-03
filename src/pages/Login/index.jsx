@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useMutation } from "react-query";
+import { useSetRecoilState } from "recoil";
 import { Form, Input, Button, Typography, Card, Row, Col, Layout } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { useUserLogin } from "../../hooks";
-import { userToken, userProfileData } from "../../recoils/profile";
+
+import { useGetUserProfile } from "../../hooks";
+import { getUserLogin } from "../../services/auth";
+import { userProfileData } from "../../recoils/profile";
 
 import "./style.css";
 
@@ -15,29 +18,35 @@ const validationRules = {
 
 export default function Login() {
   const history = useHistory();
-  const [loginParams, setLoginParams] = React.useState({});
-  const [, setUserToken] = useRecoilState(userToken);
-  const [, setUserProfileData] = useRecoilState(userProfileData);
-
-  const { isLoading, data, mutate, isSuccess } = useUserLogin(loginParams);
-
-  useEffect(() => {
-    if (data && isSuccess) {
-      setUserToken(data?.token);
-      setUserProfileData(data?.user);
-      history.push("/dashboard");
-    }
-    // eslint-disable-next-line
-  }, [isSuccess, data]);
+  const { data, isSuccess: isFetchProfileData } = useGetUserProfile();
+  const {
+    mutate: login,
+    isSuccess,
+    isLoading,
+  } = useMutation((data) => getUserLogin(data));
+  const setProfileData = useSetRecoilState(userProfileData);
 
   const onFinish = async (values) => {
     const query = {
       Email: values.username,
       Password: values.password,
     };
-    setLoginParams(query);
-    mutate(query);
+    login(query);
   };
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      localStorage.setItem("isUserLogged", "true");
+      history.push("/dashboard");
+    }
+  }, [isSuccess, history]);
+
+  React.useEffect(() => {
+    if (data && isFetchProfileData) {
+      setProfileData(data?.user);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess, data]);
 
   return (
     <Layout className="login-layout">

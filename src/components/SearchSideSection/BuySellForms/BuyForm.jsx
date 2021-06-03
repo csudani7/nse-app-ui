@@ -32,7 +32,6 @@ export default function BuyForm(props) {
       disclosedQuantity: 0,
       duration: "Day",
     };
-    console.log(params);
     setBuyOrderParams(params);
   };
 

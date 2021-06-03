@@ -9,7 +9,7 @@ export default function AccountLayout(props) {
   return (
     <>
       <div className="account-layout">
-        <Layout>
+        <Layout style={{ paddingBottom: "6.7rem" }}>
           <Content
             className="site-layout"
             style={{ display: "flex", justifyContent: "space-around" }}

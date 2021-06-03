@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu, Dropdown, Button, InputNumber, Radio } from "antd";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { FiSettings } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
 
@@ -18,17 +18,17 @@ export default function SearchComponent() {
   const [isSymbolListOpen, setIsSymbolListOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState(undefined);
   const [value, setValue] = React.useState(0);
-  const [, setUpdatedProfile] = useRecoilState(userProfileData);
-  const { mutate, data } = useAddFunds(value);
+  const setUpdatedProfile = useSetRecoilState(userProfileData);
+  const { mutate, data, isSuccess } = useAddFunds(value);
 
   const [show, setShow] = React.useState(false);
 
   React.useEffect(() => {
-    if (data) {
-      setUpdatedProfile(data.user);
+    if (isSuccess && data) {
+      setUpdatedProfile(data?.user);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [isSuccess, data]);
 
   const handleAddFunds = async () => {
     if (value > 0 && value !== "") {
@@ -59,14 +59,14 @@ export default function SearchComponent() {
       </Menu.Item>
       <Menu.Item>
         <Radio>
-          <label for="radio-240" className="su-radio-label">
+          <label htmlFor="radio-240" className="su-radio-label">
             Open price
           </label>
         </Radio>
       </Menu.Item>
       <Menu.Item>
         <Radio>
-          <label for="radio-240" className="su-radio-label">
+          <label htmlFor="radio-240" className="su-radio-label">
             Close price
           </label>
         </Radio>
@@ -76,12 +76,12 @@ export default function SearchComponent() {
         <span className="dim">Change Format</span>
       </Menu.Item>
       <Menu.Item>
-        <label for="radio-243" className="su-radio-label">
+        <label htmlFor="radio-243" className="su-radio-label">
           Percentage
         </label>
       </Menu.Item>
       <Menu.Item>
-        <label for="radio-243" className="su-radio-label">
+        <label htmlFor="radio-243" className="su-radio-label">
           absolute
         </label>
       </Menu.Item>

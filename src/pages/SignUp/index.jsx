@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useMutation } from "react-query";
 import { Form, Input, Button, Typography, Card, Row, Layout, Col } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
-import { useUserRegister } from "../../hooks";
+
+import { getUserRegister } from "../../services/auth";
 
 import "./style.css";
 
@@ -40,8 +42,10 @@ const validationRules = {
 };
 
 export default function SignUp() {
-  const [signUpParams, setSignUpParams] = React.useState({});
-  const { mutate } = useUserRegister(signUpParams);
+  const history = useHistory();
+  const { mutate: registration, isSuccess } = useMutation((data) =>
+    getUserRegister(data)
+  );
 
   const onFinish = (values) => {
     const query = {
@@ -50,9 +54,13 @@ export default function SignUp() {
       Password: values.password,
       Role: "user",
     };
-    setSignUpParams(query);
-    mutate(query);
+    registration(query);
   };
+
+  React.useEffect(() => {
+    if (isSuccess) history.push("/account");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
 
   return (
     <Layout className="signUp-layout">

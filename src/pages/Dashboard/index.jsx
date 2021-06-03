@@ -1,21 +1,29 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { PieChartOutlined } from "@ant-design/icons";
 import { BiDroplet } from "react-icons/bi";
 
+import { useGetUserProfile } from "../../hooks";
 import { userProfileData, userAmount } from "../../recoils/profile";
 
 import "./Dashboard.css";
 
 export default function Dashboard() {
-  const profileData = useRecoilValue(userProfileData);
+  const { data, isSuccess } = useGetUserProfile();
+  const [profileData, setProfileData] = useRecoilState(userProfileData);
   const profileAmount = useRecoilValue(userAmount);
+
+  React.useEffect(() => {
+    if (isSuccess) setProfileData(data?.user);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess, data]);
+  
   return (
     <>
       <div className="dashboard-layout" style={{ height: "100%" }}>
         {profileData && (
           <h1 className="username-title">
-            Hi, <span className="nickname">{profileData.full_name}</span>
+            Hi, <span className="nickname">{profileData?.full_name}</span>
           </h1>
         )}
         <div
@@ -39,7 +47,7 @@ export default function Dashboard() {
                       data-balloon={`₹${profileAmount}`}
                       data-balloon-pos="up"
                     >
-                      {profileData.credit}
+                      {profileData && profileData?.credit}
                     </span>
                   </div>
                   <div className="label">Margin available</div>

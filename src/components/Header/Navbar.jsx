@@ -1,43 +1,23 @@
 import React from "react";
+import clsx from "clsx";
 import { withRouter } from "react-router";
 import { useHistory, Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import clsx from "clsx";
-import { isNil } from "lodash";
+import { useRecoilValue } from "recoil";
+
 import { Popover } from "antd";
 import { FiLogOut } from "react-icons/fi";
 
-import { useGetUserProfile } from "../../hooks";
-import { userProfileData, userAmount } from "../../recoils/profile";
+import { userProfileData, userInitial } from "../../recoils/profile";
 
 import "./index.css";
 
 function NavBar(props) {
   const history = useHistory();
-  const { data } = useGetUserProfile();
-  const [profileData, setUserProfileData] = useRecoilState(userProfileData);
-  const [, setProfileAmount] = useRecoilState(userAmount);
-
-  React.useEffect(() => {
-    if (!isNil(data)) {
-      const { user } = data;
-      setUserProfileData(user);
-      setProfileAmount(user.credit);
-    }
-    // eslint-disable-next-line
-  }, [data]);
-
-  const userInitial = React.useMemo(() => {
-    if (data !== undefined && data.success) {
-      const {
-        user: { full_name },
-      } = data;
-      const fullName = full_name?.split(" ");
-      return fullName.shift().charAt(0) + fullName.pop().charAt(0);
-    }
-  }, [data]);
+  const profileData = useRecoilValue(userProfileData);
+  const userInitialName = useRecoilValue(userInitial);
 
   const handleLogout = () => {
+    localStorage.removeItem("isUserLogged");
     localStorage.removeItem("nseAuthToken");
     history.push("/account/login");
   };
@@ -182,8 +162,11 @@ function NavBar(props) {
             </Link>
           </div>
           <div className="right-nav">
-            <div className="user-nav perspective">
-              <a href="/" className="dropdown-label">
+            <div
+              className="user-nav perspective"
+              style={{ alignItems: "center", cursor: "pointer" }}
+            >
+              <div className="dropdown-label">
                 <div id="avatar-43">
                   <div
                     className="avatar"
@@ -201,12 +184,12 @@ function NavBar(props) {
                   >
                     <Popover content={popoverContent}>
                       <span style={{ color: "rgb(156, 39, 176)" }}>
-                        {userInitial}
+                        {userInitialName}
                       </span>
                     </Popover>
                   </div>
                 </div>
-              </a>
+              </div>
             </div>
           </div>
         </div>

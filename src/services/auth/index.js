@@ -15,7 +15,6 @@ export const getUserLogin = async (params) => {
     if (status === 200 && data?.token) {
       localStorage.setItem("nseAuthToken", data?.token);
       message.success(data?.message);
-      console.log(data);
       return data;
     }
   } catch (error) {

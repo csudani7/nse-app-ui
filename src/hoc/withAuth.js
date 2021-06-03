@@ -1,24 +1,22 @@
-import React, { useEffect, useCallback } from "react";
-import { useRecoilValue } from "recoil";
+import React from "react";
 import { useHistory } from "react-router-dom";
-import { userProfileData } from "../recoils/profile";
 
 export default function withAuth(WrapperComponent) {
   function Authenticate(props) {
     const history = useHistory();
-    const profileData = useRecoilValue(userProfileData);
+    const isAuthenticated = localStorage.getItem("isUserLogged");
 
-    const handleRedirect = useCallback(() => {
-      if (!profileData && !localStorage.getItem("nseAuthToken")) {
+    const handleRedirect = React.useCallback(() => {
+      if (isAuthenticated && !localStorage.getItem("nseAuthToken")) {
         history.push("/account");
       }
-    }, [history, profileData]);
+    }, [history, isAuthenticated]);
 
-    useEffect(() => {
+    React.useEffect(() => {
       handleRedirect();
     }, [handleRedirect]);
 
-    return profileData ? <WrapperComponent {...props} /> : "";
+    return isAuthenticated === "true" ? <WrapperComponent {...props} /> : "";
   }
 
   return Authenticate;

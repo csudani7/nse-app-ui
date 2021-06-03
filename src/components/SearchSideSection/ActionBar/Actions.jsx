@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { message, Modal } from "antd";
 import Draggable from "react-draggable";
 import { FaTrash } from "react-icons/fa";
@@ -11,19 +11,22 @@ import { useAddSymbolMutation, useDeleteSymbol } from "../../../hooks";
 export default function Actions(props) {
   const { currentSymbol, isUserAddedSymbolList, isUserSymbolList } = props;
   const draggleRef = React.createRef();
-  const [buyVisible, setBuyVisible] = useState(false);
-  const [buyDisabled, setBuyDisabled] = useState(true);
-  const [sellVisible, setSellVisible] = useState(false);
-  const [sellDisabled, setSellDisabled] = useState(true);
+  const [buyVisible, setBuyVisible] = React.useState(false);
+  const [buyDisabled, setBuyDisabled] = React.useState(true);
+  const [sellVisible, setSellVisible] = React.useState(false);
+  const [sellDisabled, setSellDisabled] = React.useState(true);
+  const [symbolDeleteId, setSymbolDeleteId] = React.seState(null);
 
-  const [addSymbol, setAddSymbol] = useState({});
-  const { mutate, data, isSuccess, isError } = useAddSymbolMutation(addSymbol);
-
-  const [symbolDeleteId, setSymbolDeleteId] = useState(null);
-  const { deleteSymbolData, isSuccessDeleteSymbol } =
+  const { data: deleteSymbolData, isSuccess: isSuccessDeleteSymbol } =
     useDeleteSymbol(symbolDeleteId);
+  const {
+    mutate: addSymbol,
+    data,
+    isSuccess,
+    isError,
+  } = useAddSymbolMutation();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isError) {
       message.error("Symbol already added");
     }
@@ -43,15 +46,14 @@ export default function Actions(props) {
     }
   }, [deleteSymbolData, isSuccessDeleteSymbol]);
 
-  const [bounds, setBounds] = useState({
+  const [bounds, setBounds] = React.useState({
     left: 0,
     top: 0,
     bottom: 0,
     right: 0,
   });
 
-  const handleAddSymbolToList = async (e) => {
-    console.log(currentSymbol);
+  const handleAddSymbolToList = (e) => {
     let request = {
       exchangeSegment: currentSymbol.ExchangeSegment,
       exchangeInstrumentID: currentSymbol.ExchangeInstrumentID,
@@ -59,8 +61,7 @@ export default function Actions(props) {
       symbolName: currentSymbol.Name,
       seriesName: currentSymbol.Series,
     };
-    await setAddSymbol(request);
-    await mutate(request);
+    addSymbol(request);
   };
 
   const handleOk = (_e) => {
