@@ -1,6 +1,6 @@
 import React from "react";
 
-function NotFoundPage(props) {
+export default function NotFoundPage(props) {
   const { history } = props;
   return (
     <>
@@ -8,5 +8,3 @@ function NotFoundPage(props) {
     </>
   );
 }
-
-export default NotFoundPage;

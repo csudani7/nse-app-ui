@@ -19,8 +19,7 @@ export default function Login() {
   const [, setUserToken] = useRecoilState(userToken);
   const [, setUserProfileData] = useRecoilState(userProfileData);
 
-  const { isLoading, isError, data, mutate, isSuccess } =
-    useUserLogin(loginParams);
+  const { isLoading, data, mutate, isSuccess } = useUserLogin(loginParams);
 
   useEffect(() => {
     if (data && isSuccess) {

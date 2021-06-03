@@ -1,12 +1,12 @@
 import React from "react";
 import { withRouter } from "react-router";
 import { useHistory, Link } from "react-router-dom";
-
 import { useRecoilState } from "recoil";
 import clsx from "clsx";
 import { isNil } from "lodash";
 import { Popover } from "antd";
 import { FiLogOut } from "react-icons/fi";
+
 import { useGetUserProfile } from "../../hooks";
 import { userProfileData, userAmount } from "../../recoils/profile";
 
@@ -16,7 +16,7 @@ function NavBar(props) {
   const history = useHistory();
   const { data } = useGetUserProfile();
   const [profileData, setUserProfileData] = useRecoilState(userProfileData);
-  const [profileAmount, setProfileAmount] = useRecoilState(userAmount);
+  const [, setProfileAmount] = useRecoilState(userAmount);
 
   React.useEffect(() => {
     if (!isNil(data)) {

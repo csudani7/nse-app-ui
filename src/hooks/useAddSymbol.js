@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import { addSymbolToList } from "../services/symbols";
 
 export default function useAddSymbolMutation(params) {
@@ -7,11 +7,3 @@ export default function useAddSymbolMutation(params) {
     return await addSymbolToList(params, token);
   });
 }
-
-// export default function useAddSymbol(params) {
-//   const token = localStorage.getItem("nseAuthToken");
-//   return useQuery(["addSymbol", params], async () => {
-//     const { data } = await addSymbolToList(params, token);
-//     return data;
-//   });
-// }

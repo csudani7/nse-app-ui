@@ -1,8 +1,10 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { userProfileData, userAmount } from "../../recoils/profile";
 import { PieChartOutlined } from "@ant-design/icons";
 import { BiDroplet } from "react-icons/bi";
+
+import { userProfileData, userAmount } from "../../recoils/profile";
+
 import "./Dashboard.css";
 
 export default function Dashboard() {

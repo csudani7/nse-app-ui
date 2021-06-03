@@ -8,7 +8,7 @@ export default function Funds() {
         backgroundColor: "#fff",
         fontSize: "24px",
         paddingTop: "30px",
-        height: "100%"
+        height: "100%",
       }}
     >
       Funds Page

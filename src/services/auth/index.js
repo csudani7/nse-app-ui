@@ -1,21 +1,11 @@
 import Axios from "axios";
 import { message } from "antd";
+import { initialParams } from "../../utils";
 
-const init = {
-  cache: "no-cache",
-  credentials: "same-origin",
-  headers: {
-    "content-type": "application/json",
-  },
-  mode: "cors",
-  redirect: "follow",
-  referrer: "no-referrer",
-  withCredentials: true,
-};
 const baseAPIUrl = process.env.REACT_APP_API_SERVER;
 const axios = Axios.create({
   baseURL: `${baseAPIUrl}/auth`,
-  init,
+  initialParams,
 });
 
 export const getUserLogin = async (params) => {
@@ -28,14 +18,13 @@ export const getUserLogin = async (params) => {
       console.log(data);
       return data;
     }
-   
   } catch (error) {
-    if(error && error.response ){
-    message.error(error.response.data.message);
-  }else{
-    message.error("Error connecting to our server, pls try again ")
+    if (error && error.response) {
+      message.error(error.response.data.message);
+    } else {
+      message.error("Error connecting to our server, pls try again ");
+    }
   }
-}
 };
 
 export const getUserRegister = async (params) => {

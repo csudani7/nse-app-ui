@@ -4,7 +4,7 @@ import { Layout } from "antd";
 
 const { Content } = Layout;
 
-function AccountLayout(props) {
+export default function AccountLayout(props) {
   const { route } = props;
   return (
     <>
@@ -23,5 +23,3 @@ function AccountLayout(props) {
     </>
   );
 }
-
-export default AccountLayout;

@@ -1,22 +1,11 @@
 import Axios from "axios";
 import { message } from "antd";
-
-const init = {
-  cache: "no-cache",
-  credentials: "same-origin",
-  headers: {
-    "content-type": "application/json",
-  },
-  mode: "cors",
-  redirect: "follow",
-  referrer: "no-referrer",
-  withCredentials: true,
-};
+import { initialParams } from "../../utils";
 
 const baseAPIUrl = process.env.REACT_APP_API_SERVER;
 const axios = Axios.create({
   baseURL: baseAPIUrl,
-  init,
+  initialParams,
 });
 
 export const addFundToWallet = async (params, token) => {

@@ -6,13 +6,14 @@ import {
   useGetExecutedOrders,
   useGetAllCompletedTradesData,
 } from "../../hooks";
+
 import "./index.css";
 
 export default function Positions() {
   const { data: allOpenOrders } = useGetAllOpenOrders();
   const { data: allExecutedOrders } = useGetExecutedOrders();
   const { data: allCompletedTrades } = useGetAllCompletedTradesData();
-  
+
   return (
     <div style={{ height: "100%" }} className="backgrnd">
       <PositionTable

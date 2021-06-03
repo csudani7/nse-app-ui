@@ -7,7 +7,7 @@ import "./index.css";
 
 const { Content } = Layout;
 
-function MainLayout(props) {
+export default function MainLayout(props) {
   const { route } = props;
   return (
     <>
@@ -25,5 +25,3 @@ function MainLayout(props) {
     </>
   );
 }
-
-export default MainLayout;

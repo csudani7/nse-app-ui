@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "NSE",
+  "name": "NSE WebApp",
   "icons": [
     {
       "src": "favicon.ico",

@@ -45,48 +45,48 @@ const routes = [
   },
   {
     path: "/",
-    component: MainLayout,
+    component: withAuth(MainLayout),
     routes: [
       {
         path: "/",
         exact: true,
-        component: withAuth(Dashboard),
+        component: Dashboard,
         key: "dashboard",
       },
       {
         path: "/dashboard",
         exact: true,
-        component: withAuth(Dashboard),
+        component: Dashboard,
         key: "dashboard",
       },
       {
         path: "/orders",
         exact: true,
-        component: withAuth(Orders),
+        component: Orders,
         key: "Orders",
       },
       {
         path: "/holdings",
         exact: true,
-        component: withAuth(Holdings),
+        component: Holdings,
         key: "holdings",
       },
       {
         path: "/positions",
         exact: true,
-        component: withAuth(Positions),
+        component: Positions,
         key: "positions",
       },
       {
         path: "/funds",
         exact: true,
-        component: withAuth(Funds),
+        component: Funds,
         key: "funds",
       },
       {
         path: "/apps",
         exact: true,
-        component: withAuth(Apps),
+        component: Apps,
         key: "apps",
       },
       {

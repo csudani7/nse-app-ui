@@ -1,6 +1,6 @@
 import React from "react";
 
-function OrderNavBar() {
+export default function OrderNavBar() {
   return (
     <div className="page-nav">
       <a
@@ -22,5 +22,3 @@ function OrderNavBar() {
     </div>
   );
 }
-
-export default OrderNavBar;

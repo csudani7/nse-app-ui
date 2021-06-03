@@ -17,21 +17,20 @@ export default function Actions(props) {
   const [sellDisabled, setSellDisabled] = useState(true);
 
   const [addSymbol, setAddSymbol] = useState({});
-  const { mutate, data, isSuccess, error, isError } =
-    useAddSymbolMutation(addSymbol);
+  const { mutate, data, isSuccess, isError } = useAddSymbolMutation(addSymbol);
 
   const [symbolDeleteId, setSymbolDeleteId] = useState(null);
   const { deleteSymbolData, isSuccessDeleteSymbol } =
     useDeleteSymbol(symbolDeleteId);
 
   useEffect(() => {
-    if (error) {
+    if (isError) {
       message.error("Symbol already added");
     }
     if (isSuccess && data) {
       message.success("User Symbol created successfully");
     }
-  }, [data, error]);
+  }, [data, isSuccess, isError]);
 
   React.useEffect(() => {
     if (isSuccessDeleteSymbol && deleteSymbolData.status_code === 201) {

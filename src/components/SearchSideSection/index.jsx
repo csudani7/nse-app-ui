@@ -3,22 +3,23 @@ import { Menu, Dropdown, Button, InputNumber, Radio } from "antd";
 import { useRecoilState } from "recoil";
 import { FiSettings } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
-import AddedSymbolList from "./SymbolList/AddedSymbolList";
+
+import { useGetAllSymbols, useGetAllUserAddedSymbols } from "../../hooks";
 import { useAddFunds } from "../../hooks";
 import { userProfileData } from "../../recoils/profile";
-import { useGetAllSymbols, useGetAllUserAddedSymbols } from "../../hooks";
+import AddedSymbolList from "./SymbolList/AddedSymbolList";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
-function SearchComponent() {
+export default function SearchComponent() {
   const { data: getAllSymbols } = useGetAllSymbols();
   const { data: getAllUserAddedSymbols } = useGetAllUserAddedSymbols();
   const [isSymbolListOpen, setIsSymbolListOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState(undefined);
   const [value, setValue] = React.useState(0);
-  const [updatedProfile, setUpdatedProfile] = useRecoilState(userProfileData);
-  const { mutate, data, isLoading } = useAddFunds(value);
+  const [, setUpdatedProfile] = useRecoilState(userProfileData);
+  const { mutate, data } = useAddFunds(value);
 
   const [show, setShow] = React.useState(false);
 
@@ -26,6 +27,7 @@ function SearchComponent() {
     if (data) {
       setUpdatedProfile(data.user);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const handleAddFunds = async () => {
@@ -175,5 +177,3 @@ function SearchComponent() {
     </div>
   );
 }
-
-export default SearchComponent;
