@@ -59,8 +59,7 @@ export default function SignUp() {
 
   React.useEffect(() => {
     if (isSuccess) history.push("/account");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess]);
+  }, [isSuccess, history]);
 
   return (
     <Layout className="signUp-layout">

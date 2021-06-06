@@ -42,11 +42,10 @@ export default function Login() {
   }, [isSuccess, history]);
 
   React.useEffect(() => {
-    if (data && isFetchProfileData) {
+    if (isFetchProfileData && data) {
       setProfileData(data?.user);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess, data]);
+  }, [isFetchProfileData, data, setProfileData]);
 
   return (
     <Layout className="login-layout">

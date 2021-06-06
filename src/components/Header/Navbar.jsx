@@ -1,10 +1,9 @@
 import React from "react";
 import clsx from "clsx";
+import { Popover } from "antd";
 import { withRouter } from "react-router";
 import { useHistory, Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-
-import { Popover } from "antd";
 import { FiLogOut } from "react-icons/fi";
 
 import { userProfileData, userInitial } from "../../recoils/profile";
@@ -16,11 +15,10 @@ function NavBar(props) {
   const profileData = useRecoilValue(userProfileData);
   const userInitialName = useRecoilValue(userInitial);
 
-  const handleLogout = () => {
-    localStorage.removeItem("isUserLogged");
-    localStorage.removeItem("nseAuthToken");
+  function handleLogout() {
+    localStorage.clear();
     history.push("/account/login");
-  };
+  }
 
   const popoverContent = (
     <>

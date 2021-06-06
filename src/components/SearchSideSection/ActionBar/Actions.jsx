@@ -1,12 +1,17 @@
 import React from "react";
 import { message, Modal } from "antd";
 import Draggable from "react-draggable";
+import { useMutation } from "react-query";
 import { FaTrash } from "react-icons/fa";
 import { FiAlignCenter } from "react-icons/fi";
 import { GrLineChart } from "react-icons/gr";
 import { IoIosAdd } from "react-icons/io";
+
+import {
+  deleteSymbolFromList,
+  addSymbolToList,
+} from "../../../services/symbols";
 import { BuyForm, SellForm } from "../BuySellForms";
-import { useAddSymbolMutation, useDeleteSymbol } from "../../../hooks";
 
 export default function Actions(props) {
   const { currentSymbol, isUserAddedSymbolList, isUserSymbolList } = props;
@@ -15,72 +20,58 @@ export default function Actions(props) {
   const [buyDisabled, setBuyDisabled] = React.useState(true);
   const [sellVisible, setSellVisible] = React.useState(false);
   const [sellDisabled, setSellDisabled] = React.useState(true);
-  const [symbolDeleteId, setSymbolDeleteId] = React.seState(null);
-
-  const { data: deleteSymbolData, isSuccess: isSuccessDeleteSymbol } =
-    useDeleteSymbol(symbolDeleteId);
-  const {
-    mutate: addSymbol,
-    data,
-    isSuccess,
-    isError,
-  } = useAddSymbolMutation();
-
-  React.useEffect(() => {
-    if (isError) {
-      message.error("Symbol already added");
-    }
-    if (isSuccess && data) {
-      message.success("User Symbol created successfully");
-    }
-  }, [data, isSuccess, isError]);
-
-  React.useEffect(() => {
-    if (isSuccessDeleteSymbol && deleteSymbolData.status_code === 201) {
-      message.success(deleteSymbolData.message);
-    } else if (
-      isSuccessDeleteSymbol === false &&
-      deleteSymbolData?.status_code === 500
-    ) {
-      message.error(deleteSymbolData.message);
-    }
-  }, [deleteSymbolData, isSuccessDeleteSymbol]);
-
   const [bounds, setBounds] = React.useState({
     left: 0,
     top: 0,
     bottom: 0,
     right: 0,
   });
+  const token = localStorage.getItem("nseAuthToken");
+  const {
+    mutate: deleteSymbol,
+    data: deleteSymbolData,
+    isSuccess: sucessfullyDeletedSymbol,
+  } = useMutation((data) => deleteSymbolFromList(data));
+  const {
+    mutate: addSymbol,
+    data: addedSymbolData,
+    isSuccess: sucessfullyAddedSymbol,
+    isError: facingErrorToAddSymbol,
+  } = useMutation((data) => addSymbolToList(data, token));
 
-  const handleAddSymbolToList = (e) => {
-    let request = {
+  function handleAddSymbolToList() {
+    const query = {
       exchangeSegment: currentSymbol.ExchangeSegment,
       exchangeInstrumentID: currentSymbol.ExchangeInstrumentID,
       description: currentSymbol.Description,
       symbolName: currentSymbol.Name,
       seriesName: currentSymbol.Series,
     };
-    addSymbol(request);
-  };
+    addSymbol(query);
+  }
 
-  const handleOk = (_e) => {
+  function handleOk() {
     setBuyVisible(false);
     setSellVisible(false);
-  };
+  }
 
-  const handleCancel = (_e) => {
+  function handleCancel() {
     setBuyVisible(false);
     setSellVisible(false);
-  };
+  }
 
-  const showBuyModal = () => {
+  function showBuyModal() {
     setBuyVisible(true);
-  };
+  }
 
-  const showSellModal = () => {
+  function showSellModal() {
     setSellVisible(true);
-  };
+  }
+
+  function handleDeleteSymbolFromList() {
+    const _id = currentSymbol._id;
+    deleteSymbol({ symbolId: _id, token: token });
+  }
 
   const onStart = (_event, uiData) => {
     const { clientWidth, clientHeight } = window?.document?.documentElement;
@@ -93,10 +84,26 @@ export default function Actions(props) {
     });
   };
 
-  const handleDeleteSymbolFromList = (e) => {
-    const _ID = currentSymbol._id;
-    setSymbolDeleteId(_ID);
-  };
+  React.useEffect(() => {
+    if (facingErrorToAddSymbol) {
+      message.error("Symbol already added");
+    }
+    if (sucessfullyAddedSymbol && addedSymbolData) {
+      message.success("User Symbol created successfully");
+    }
+  }, [addedSymbolData, sucessfullyAddedSymbol, facingErrorToAddSymbol]);
+
+  React.useEffect(() => {
+    if (sucessfullyDeletedSymbol && deleteSymbolData.status_code === 201) {
+      message.success(deleteSymbolData.message);
+    } else if (
+      sucessfullyDeletedSymbol === false &&
+      deleteSymbolData?.status_code === 500
+    ) {
+      message.error(deleteSymbolData.message);
+    }
+  }, [deleteSymbolData, sucessfullyDeletedSymbol]);
+
   return (
     <>
       <span className="actions " id="hovar1">
@@ -263,7 +270,7 @@ export default function Actions(props) {
             <button
               type="button"
               className="button-outline"
-              onClick={(e) => handleDeleteSymbolFromList(e)}
+              onClick={handleDeleteSymbolFromList}
             >
               <span className="icon icon-trash">
                 <FaTrash />
@@ -276,7 +283,7 @@ export default function Actions(props) {
             <button
               type="button"
               className="button-outline"
-              onClick={(e) => handleAddSymbolToList(e)}
+              onClick={handleAddSymbolToList}
             >
               <span className="icon icon-add">
                 <IoIosAdd />

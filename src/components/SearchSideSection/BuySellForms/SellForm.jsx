@@ -1,20 +1,20 @@
 import React from "react";
 import clsx from "clsx";
 import { message, Radio } from "antd";
-import { usePlaceOrder } from "../../../hooks";
+import { useMutation } from "react-query";
+
+import { placeTradeOrder } from "../../../services/orders";
 
 export default function SellForm(props) {
   const { typeVal, handleCancel } = props;
+  const token = localStorage.getItem("nseAuthToken");
   const [quantityValue, setQuantityValue] = React.useState(0);
   const [orderType, setOrderType] = React.useState("MARKET");
-  const [sellOrderParams, setSellOrderParams] = React.useState({});
-  const { data, isSuccess } = usePlaceOrder(sellOrderParams);
-
-  React.useEffect(() => {
-    if (isSuccess && data.status_code === 201) {
-      message.success(data.message);
-    }
-  }, [data, isSuccess]);
+  const {
+    mutate: placeOrderMutation,
+    data: placeOrderData,
+    isSuccess: sucessfullyPlacedOrder,
+  } = useMutation((data) => placeTradeOrder(data, token));
 
   const handleSubmitSellForm = (event) => {
     event.preventDefault();
@@ -31,7 +31,7 @@ export default function SellForm(props) {
       disclosedQuantity: 0,
       duration: "Day",
     };
-    setSellOrderParams(params);
+    placeOrderMutation(params);
   };
 
   const handleQuantityChange = (event) => {
@@ -41,6 +41,12 @@ export default function SellForm(props) {
   const onOrderTypeChange = (event) => {
     setOrderType(event.target.value);
   };
+
+  React.useEffect(() => {
+    if (sucessfullyPlacedOrder) {
+      message.success(placeOrderData.message);
+    }
+  }, [placeOrderData, sucessfullyPlacedOrder]);
 
   return (
     <>

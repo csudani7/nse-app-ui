@@ -1,6 +1,6 @@
 {
-  "short_name": "NSE",
   "name": "NSE WebApp",
+  "short_name": "NSE",
   "icons": [
     {
       "src": "favicon.ico",

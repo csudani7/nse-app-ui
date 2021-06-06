@@ -6,20 +6,13 @@ import TradesOrdersTable from "./TradesOrdersTable";
 
 export default function OrdersWrapper(props) {
   const { allOpenOrders, allExecutedOrders, allCompletedTrades } = props;
-  const [allOpen, setAllOpen] = React.useState([]);
-
-  React.useEffect(() => {
-    if (allOpenOrders) {
-      setAllOpen(allOpenOrders);
-    }
-  }, [allOpenOrders]);
 
   return (
     <div className="backgrnd" style={{ height: "100%" }}>
       <OrderNavBar />
       <div className="page-content">
         <div className="orderbook">
-          <OpenOrdersTable allOpenOrders={allOpen} />
+          <OpenOrdersTable allOpenOrders={allOpenOrders} />
           {allExecutedOrders && allExecutedOrders.length > 0 && (
             <ExecutedOrdersTable allExecutedOrders={allExecutedOrders} />
           )}

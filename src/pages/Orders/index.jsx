@@ -12,13 +12,12 @@ export default function Orders() {
   const { data: allOpenOrders } = useGetAllOpenOrders();
   const { data: allExecutedOrders } = useGetExecutedOrders();
   const { data: allCompletedTrades } = useGetAllCompletedTradesData();
+
   return (
-    <>
-      <OrdersTable
-        allOpenOrders={allOpenOrders}
-        allExecutedOrders={allExecutedOrders}
-        allCompletedTrades={allCompletedTrades}
-      />
-    </>
+    <OrdersTable
+      allOpenOrders={allOpenOrders}
+      allExecutedOrders={allExecutedOrders}
+      allCompletedTrades={allCompletedTrades}
+    />
   );
 }

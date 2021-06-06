@@ -26,7 +26,7 @@ export const addSymbolToList = async (params, token) => {
   return res.data;
 };
 
-export const deleteSymbolFromList = (symbolId, token) =>
+export const deleteSymbolFromList = ({ symbolId, token }) =>
   axios.delete(`/deleteSymbol/${symbolId}`, {
     headers: { Authorization: token },
   });

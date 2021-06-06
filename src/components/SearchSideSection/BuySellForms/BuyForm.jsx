@@ -1,25 +1,26 @@
 import React from "react";
 import clsx from "clsx";
 import { message, Radio } from "antd";
-import { usePlaceOrder } from "../../../hooks";
+import { useMutation } from "react-query";
+
+import { placeTradeOrder } from "../../../services/orders";
 
 export default function BuyForm(props) {
   const { typeVal, handleCancel } = props;
+  const token = localStorage.getItem("nseAuthToken");
   const [quantityValue, setQuantityValue] = React.useState(0);
   const [orderType, setOrderType] = React.useState("MARKET");
-  const [buyOrderParams, setBuyOrderParams] = React.useState({});
-  const { data, isSuccess } = usePlaceOrder(buyOrderParams);
-  const [TriggerType, setTriggerType] = React.useState("SL");
-  const [PositionType, setPositionType] = React.useState("Intraday");
-  React.useEffect(() => {
-    if (isSuccess && data.status_code === 201) {
-      message.success(data.message);
-    }
-  }, [data, isSuccess]);
+  const [triggerType, setTriggerType] = React.useState("SL");
+  const [positionType, setPositionType] = React.useState("Intraday");
+  const {
+    mutate: placeOrderMutation,
+    data: placeOrderData,
+    isSuccess: sucessfullyPlacedOrder,
+  } = useMutation((data) => placeTradeOrder(data, token));
 
   const handleSubmitBuyForm = (event) => {
     event.preventDefault();
-    const params = {
+    const query = {
       transactionType: typeVal,
       exchangeSegment: "NSECM",
       exchangeInstrumentId: 22,
@@ -32,7 +33,7 @@ export default function BuyForm(props) {
       disclosedQuantity: 0,
       duration: "Day",
     };
-    setBuyOrderParams(params);
+    placeOrderMutation(query);
   };
 
   const handleQuantityChange = (event) => {
@@ -42,12 +43,20 @@ export default function BuyForm(props) {
   const onOrderTypeChange = (event) => {
     setOrderType(event.target.value);
   };
-  const onBuyTypeChange = (e) => {
-    setTriggerType(e.target.value);
+
+  const onBuyTypeChange = (event) => {
+    setTriggerType(event.target.value);
   };
-  const onPositionTypeChange = (e) => {
-    setPositionType(e.target.value);
+
+  const onPositionTypeChange = (event) => {
+    setPositionType(event.target.value);
   };
+
+  React.useEffect(() => {
+    if (sucessfullyPlacedOrder) {
+      message.success(placeOrderData.message);
+    }
+  }, [placeOrderData, sucessfullyPlacedOrder]);
 
   return (
     <>
@@ -110,7 +119,7 @@ export default function BuyForm(props) {
           </div>
           <div className="body">
             <div className="product row">
-              <Radio.Group onChange={onPositionTypeChange} value={PositionType}>
+              <Radio.Group onChange={onPositionTypeChange} value={positionType}>
                 <div className="su-radio-group">
                   <div
                     className="type four columns su-radio-wrap"
@@ -197,7 +206,7 @@ export default function BuyForm(props) {
                       autoCorrect="off"
                       min="0"
                       step="0.05"
-                      disabled={TriggerType === "SL"}
+                      disabled={triggerType === "SL"}
                       nativeerror="true"
                       staticlabel="true"
                       animate="true"
@@ -243,7 +252,7 @@ export default function BuyForm(props) {
 
                 <div className="four columns trigger">
                   <div className="su-radio-group text-right order-type">
-                    <Radio.Group onChange={onBuyTypeChange} value={TriggerType}>
+                    <Radio.Group onChange={onBuyTypeChange} value={triggerType}>
                       {/* <div
                         className="su-radio-wrap"
                         tooltip-pos="down"

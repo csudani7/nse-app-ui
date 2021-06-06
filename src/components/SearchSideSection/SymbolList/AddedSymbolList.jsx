@@ -65,10 +65,10 @@ export default function AddedSymbolList(props) {
           <div
             key={index}
             className="vddl-draggable instrument down"
-            onMouseEnter={(e) => {
+            onMouseEnter={() => {
               customRef.current.className = "";
             }}
-            onMouseLeave={(e) => {
+            onMouseLeave={() => {
               customRef.current.className = "hide";
             }}
           >

@@ -1,8 +1,10 @@
 import React from "react";
 import { renderRoutes } from "react-router-config";
 import { Layout } from "antd";
+
 import Navigation from "../../components/Header/Navbar";
 import SearchSideSection from "../../components/SearchSideSection";
+
 import "./index.css";
 
 const { Content } = Layout;

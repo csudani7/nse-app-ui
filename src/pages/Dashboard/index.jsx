@@ -15,9 +15,8 @@ export default function Dashboard() {
 
   React.useEffect(() => {
     if (isSuccess) setProfileData(data?.user);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess, data]);
-  
+  }, [isSuccess, data, setProfileData]);
+
   return (
     <>
       <div className="dashboard-layout" style={{ height: "100%" }}>
