@@ -15,6 +15,7 @@ import { BuyForm, SellForm } from "../BuySellForms";
 
 export default function Actions(props) {
   const { currentSymbol, isUserAddedSymbolList, isUserSymbolList } = props;
+  const token = localStorage.getItem("nseAuthToken");
   const draggleRef = React.createRef();
   const [buyVisible, setBuyVisible] = React.useState(false);
   const [buyDisabled, setBuyDisabled] = React.useState(true);
@@ -26,7 +27,6 @@ export default function Actions(props) {
     bottom: 0,
     right: 0,
   });
-  const token = localStorage.getItem("nseAuthToken");
   const {
     mutate: deleteSymbol,
     data: deleteSymbolData,
@@ -194,14 +194,8 @@ export default function Actions(props) {
                   width: "100%",
                   cursor: "move",
                 }}
-                onMouseOver={() => {
-                  if (sellDisabled) {
-                    setSellDisabled(false);
-                  }
-                }}
-                onMouseOut={() => {
-                  setSellDisabled(true);
-                }}
+                onMouseOver={() => sellDisabled && setSellDisabled(false)}
+                onMouseOut={() => setSellDisabled(true)}
               >
                 <header>
                   <div className="row">

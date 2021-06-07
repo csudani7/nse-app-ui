@@ -8,10 +8,9 @@ const axios = Axios.create({
   axiosInitialParams,
 });
 
-export const getUserLogin = async (params) => {
+export const requestUserLogin = async (params) => {
   try {
     const { data, status } = await axios.post("/login", params);
-
     if (status === 200 && data?.token) {
       localStorage.setItem("nseAuthToken", data?.token);
       message.success(data?.message);
@@ -26,7 +25,7 @@ export const getUserLogin = async (params) => {
   }
 };
 
-export const getUserRegister = async (params) => {
+export const requestUserRegister = async (params) => {
   try {
     const { data, status } = await axios
       .post("/register", params)

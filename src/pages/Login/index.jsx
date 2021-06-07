@@ -6,7 +6,7 @@ import { Form, Input, Button, Typography, Card, Row, Col, Layout } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 import { useGetUserProfile } from "../../hooks";
-import { getUserLogin } from "../../services/auth";
+import { requestUserLogin } from "../../services/auth";
 import { userProfileData } from "../../recoils/profile";
 
 import "./style.css";
@@ -18,15 +18,16 @@ const validationRules = {
 
 export default function Login() {
   const history = useHistory();
-  const { data, isSuccess: isFetchProfileData } = useGetUserProfile();
+  const { data: profileData, isSuccess: isFetchProfileData } =
+    useGetUserProfile();
   const {
     mutate: login,
-    isSuccess,
-    isLoading,
-  } = useMutation((data) => getUserLogin(data));
+    isSuccess: sucessfullyLoggedIn,
+    isLoading: isLogging,
+  } = useMutation((data) => requestUserLogin(data));
   const setProfileData = useSetRecoilState(userProfileData);
 
-  const onFinish = async (values) => {
+  const onFinish = (values) => {
     const query = {
       Email: values.username,
       Password: values.password,
@@ -35,17 +36,17 @@ export default function Login() {
   };
 
   React.useEffect(() => {
-    if (isSuccess) {
+    if (sucessfullyLoggedIn) {
       localStorage.setItem("isUserLogged", "true");
       history.push("/dashboard");
     }
-  }, [isSuccess, history]);
+  }, [sucessfullyLoggedIn, history]);
 
   React.useEffect(() => {
-    if (isFetchProfileData && data) {
-      setProfileData(data?.user);
+    if (isFetchProfileData && profileData) {
+      setProfileData(profileData?.user);
     }
-  }, [isFetchProfileData, data, setProfileData]);
+  }, [isFetchProfileData, profileData, setProfileData]);
 
   return (
     <Layout className="login-layout">
@@ -72,9 +73,6 @@ export default function Login() {
             <Form
               name="normal_login"
               className="login-form"
-              // initialValues={{
-              //   remember: true,
-              // }}
               onFinish={onFinish}
             >
               <Form.Item name="username" rules={validationRules.username}>
@@ -89,7 +87,7 @@ export default function Login() {
               </Form.Item>
               <Form.Item>
                 <Button htmlType="submit" className="login-form-button">
-                  {isLoading ? "Please wait" : "Login"}
+                  {isLogging ? "Please wait..." : "Login"}
                 </Button>
                 <div className="login-bottom-section">
                   Don't have an account?{" "}

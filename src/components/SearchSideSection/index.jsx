@@ -1,14 +1,12 @@
 import React from "react";
 import { Menu, Dropdown, Button, InputNumber, Radio } from "antd";
 import { useSetRecoilState } from "recoil";
+import { useMutation } from "react-query";
 import { FiSettings } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
 
-import {
-  useGetAllSymbols,
-  useGetAllUserAddedSymbols,
-  useAddFunds,
-} from "../../hooks";
+import { useGetAllSymbols, useGetAllUserAddedSymbols } from "../../hooks";
+import { addFundToWallet } from "../../services/funds";
 import { userProfileData } from "../../recoils/profile";
 import AddedSymbolList from "./SymbolList/AddedSymbolList";
 
@@ -16,33 +14,40 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
 export default function SearchComponent() {
+  const token = localStorage.getItem("nseAuthToken");
   const [searchQuery, setSearchQuery] = React.useState(undefined);
   const [isSymbolListOpen, setIsSymbolListOpen] = React.useState(false);
-  const [show, setShow] = React.useState(false);
-  const [value, setValue] = React.useState(0);
+  const [isDropdownVisible, setDropdownVisible] = React.useState(false);
+  const [fundValue, setFundValue] = React.useState(0);
   const setUpdatedProfile = useSetRecoilState(userProfileData);
   const { data: getAllSymbols } = useGetAllSymbols();
   const { data: getAllUserAddedSymbols } = useGetAllUserAddedSymbols();
-  const { mutate: addFundsMutation, data, isSuccess } = useAddFunds(value);
+  const {
+    mutate: addFundsMutation,
+    data: fundData,
+    isSuccess: fundAddedSucessfully,
+  } = useMutation((data) => addFundToWallet(data));
 
   React.useEffect(() => {
-    if (isSuccess && data) {
-      setUpdatedProfile(data?.user);
+    if (fundAddedSucessfully && fundData) {
+      setUpdatedProfile(fundData?.user);
     }
-  }, [isSuccess, data, setUpdatedProfile]);
+  }, [fundAddedSucessfully, fundData, setUpdatedProfile]);
 
   function handleAddFunds() {
-    if (value > 0 && value !== "") {
-      addFundsMutation(value);
-    } else {
-      return;
+    if (fundValue > 0 && fundValue !== "") {
+      const query = {
+        params: { Credit: fundValue },
+        token: token,
+      };
+      addFundsMutation(query);
     }
-    setShow(false);
-    setValue(0);
+    setDropdownVisible(false);
+    setFundValue(0);
   }
 
-  const handleVisibility = (show) => {
-    setShow(show);
+  const handleDropdownVisibility = (show) => {
+    setDropdownVisible(show);
   };
 
   const menuItems = (
@@ -89,12 +94,12 @@ export default function SearchComponent() {
       <Menu.Item>
         <InputNumber
           min={1}
-          defaultValue={value}
-          onChange={(value) => setValue(value)}
+          value={fundValue}
+          onChange={(enteredValue) => setFundValue(enteredValue)}
         />
       </Menu.Item>
       <Menu.Item>
-        <Button type="primary" size={"default"} onClick={handleAddFunds}>
+        <Button type="primary" size="default" onClick={handleAddFunds}>
           Add Funds
         </Button>
       </Menu.Item>
@@ -170,8 +175,8 @@ export default function SearchComponent() {
             overlay={menuItems}
             trigger={["click"]}
             placement="topCenter"
-            onVisibleChange={handleVisibility}
-            visible={show}
+            onVisibleChange={handleDropdownVisibility}
+            visible={isDropdownVisible}
           >
             <FiSettings color="grey" />
           </Dropdown>

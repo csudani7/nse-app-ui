@@ -5,8 +5,8 @@ export const userProfileData = atom({
   default: undefined,
 });
 
-export const userAmount = selector({
-  key: "userAmount",
+export const userWalletCredit = selector({
+  key: "userWalletCredit",
   get: ({ get }) => {
     const profileData = get(userProfileData);
     if (profileData) {
@@ -16,8 +16,8 @@ export const userAmount = selector({
   },
 });
 
-export const userInitial = selector({
-  key: "userInitial",
+export const initialNameOfUser = selector({
+  key: "initialNameOfUser",
   get: ({ get }) => {
     const profileData = get(userProfileData);
     if (profileData) {

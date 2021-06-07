@@ -6,14 +6,14 @@ import { FiDownloadCloud } from "react-icons/fi";
 import { BiDoughnutChart } from "react-icons/bi";
 
 export default function ExecutedOrdersTable(props) {
-  const { allExecutedOrders } = props;
+  const { executedOrdersList } = props;
   return (
     <div>
       <section className="completed-orders-wrap table-wrapper">
         <header className="row data-table-header">
           <h3 className="page-title small">
             Executed orders
-            <span>({allExecutedOrders?.numofdata})</span>
+            <span>({executedOrdersList?.numofdata})</span>
           </h3>
         </header>
 
@@ -95,8 +95,8 @@ export default function ExecutedOrdersTable(props) {
                 </tr>
               </thead>
               <tbody>
-                {allExecutedOrders &&
-                  allExecutedOrders?.data?.map((orders, index) => {
+                {executedOrdersList &&
+                  executedOrdersList?.data?.map((orders, index) => {
                     return (
                       <tr key={index} data-uid={index}>
                         <td className="order-timestamp">

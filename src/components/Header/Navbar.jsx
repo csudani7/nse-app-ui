@@ -6,21 +6,21 @@ import { useHistory, Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { FiLogOut } from "react-icons/fi";
 
-import { userProfileData, userInitial } from "../../recoils/profile";
+import { userProfileData, initialNameOfUser } from "../../recoils/profile";
 
 import "./index.css";
 
 function NavBar(props) {
   const history = useHistory();
   const profileData = useRecoilValue(userProfileData);
-  const userInitialName = useRecoilValue(userInitial);
+  const userInitialName = useRecoilValue(initialNameOfUser);
 
   function handleLogout() {
     localStorage.clear();
     history.push("/account/login");
   }
 
-  const popoverContent = (
+  const popoverDropdownContent = (
     <>
       <span
         style={{
@@ -180,7 +180,7 @@ function NavBar(props) {
                       lineHeight: "26px",
                     }}
                   >
-                    <Popover content={popoverContent}>
+                    <Popover content={popoverDropdownContent}>
                       <span style={{ color: "rgb(156, 39, 176)" }}>
                         {userInitialName}
                       </span>

@@ -8,16 +8,12 @@ const axios = Axios.create({
   axiosInitialParams,
 });
 
-export const addFundToWallet = async (params, token) => {
+export const addFundToWallet = async ({ params, token }) => {
   try {
-    const { data } = await axios.put(
-      "/updateFund",
-      { Credit: params },
-      {
-        headers: { Authorization: token },
-      }
-    );
-    if (data.status_code === 201) {
+    const { data, status } = await axios.put("/updateFund", params, {
+      headers: { Authorization: token },
+    });
+    if (status === 200 || data.status_code === 201) {
       message.success("Funds Added");
     }
     return data;

@@ -9,15 +9,15 @@ import {
 import "./index.css";
 
 export default function Orders() {
-  const { data: allOpenOrders } = useGetAllOpenOrders();
-  const { data: allExecutedOrders } = useGetExecutedOrders();
-  const { data: allCompletedTrades } = useGetAllCompletedTradesData();
+  const { data: openOrdersList } = useGetAllOpenOrders();
+  const { data: executedOrdersList } = useGetExecutedOrders();
+  const { data: completedTradesList } = useGetAllCompletedTradesData();
 
   return (
     <OrdersTable
-      allOpenOrders={allOpenOrders}
-      allExecutedOrders={allExecutedOrders}
-      allCompletedTrades={allCompletedTrades}
+      openOrdersList={openOrdersList}
+      executedOrdersList={executedOrdersList}
+      completedTradesList={completedTradesList}
     />
   );
 }

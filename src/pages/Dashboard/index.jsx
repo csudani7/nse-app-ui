@@ -4,18 +4,22 @@ import { PieChartOutlined } from "@ant-design/icons";
 import { BiDroplet } from "react-icons/bi";
 
 import { useGetUserProfile } from "../../hooks";
-import { userProfileData, userAmount } from "../../recoils/profile";
+import { userProfileData, userWalletCredit } from "../../recoils/profile";
 
 import "./Dashboard.css";
 
 export default function Dashboard() {
-  const { data, isSuccess } = useGetUserProfile();
+  const {
+    data: fetchedUserProfileData,
+    isSuccess: sucessfullyFetchedProfileData,
+  } = useGetUserProfile();
   const [profileData, setProfileData] = useRecoilState(userProfileData);
-  const profileAmount = useRecoilValue(userAmount);
+  const userTotalWalletCredit = useRecoilValue(userWalletCredit);
 
   React.useEffect(() => {
-    if (isSuccess) setProfileData(data?.user);
-  }, [isSuccess, data, setProfileData]);
+    if (sucessfullyFetchedProfileData)
+      setProfileData(fetchedUserProfileData?.user);
+  }, [sucessfullyFetchedProfileData, fetchedUserProfileData, setProfileData]);
 
   return (
     <>
@@ -43,7 +47,7 @@ export default function Dashboard() {
                 <div className="primary-stats five columns m5">
                   <div className="value">
                     <span
-                      data-balloon={`₹${profileAmount}`}
+                      data-balloon={`₹${userTotalWalletCredit}`}
                       data-balloon-pos="up"
                     >
                       {profileData && profileData?.credit}

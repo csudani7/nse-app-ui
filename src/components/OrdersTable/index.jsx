@@ -6,19 +6,19 @@ import ExecutedOrdersTable from "./ExecutedOrdersTable";
 import TradesOrdersTable from "./TradesOrdersTable";
 
 export default function OrdersWrapper(props) {
-  const { allOpenOrders, allExecutedOrders, allCompletedTrades } = props;
+  const { openOrdersList, executedOrdersList, completedTradesList } = props;
 
   return (
     <div className="backgrnd" style={{ height: "100%" }}>
       <OrderNavBar />
       <div className="page-content">
         <div className="orderbook">
-          <OpenOrdersTable allOpenOrders={allOpenOrders} />
-          {allExecutedOrders && allExecutedOrders.length > 0 && (
-            <ExecutedOrdersTable allExecutedOrders={allExecutedOrders} />
+          <OpenOrdersTable openOrdersList={openOrdersList} />
+          {executedOrdersList && executedOrdersList.length > 0 && (
+            <ExecutedOrdersTable executedOrdersList={executedOrdersList} />
           )}
-          {allCompletedTrades && allCompletedTrades.length > 0 && (
-            <TradesOrdersTable allCompletedTrades={allCompletedTrades} />
+          {completedTradesList && completedTradesList.length > 0 && (
+            <TradesOrdersTable completedTradesList={completedTradesList} />
           )}
         </div>
       </div>

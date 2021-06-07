@@ -249,16 +249,9 @@ export default function BuyForm(props) {
                     </div>
                   </div>
                 </div>
-
                 <div className="four columns trigger">
                   <div className="su-radio-group text-right order-type">
                     <Radio.Group onChange={onBuyTypeChange} value={triggerType}>
-                      {/* <div
-                        className="su-radio-wrap"
-                        tooltip-pos="down"
-                        data-balloon="Buy at a preferred price with a stoploss"
-                        data-balloon-pos="down"
-                      > */}
                       <Radio value="SL">
                         <label
                           className="su-radio-label"
@@ -267,13 +260,6 @@ export default function BuyForm(props) {
                           SL
                         </label>
                       </Radio>
-                      {/* </div> */}
-                      {/* <div
-                        className="su-radio-wrap"
-                        tooltip-pos="down"
-                        data-balloon="Buy at market price with stoploss"
-                        data-balloon-pos="down"
-                      > */}
                       <Radio value="SL-M">
                         <label
                           className="su-radio-label"
@@ -282,14 +268,12 @@ export default function BuyForm(props) {
                           SL-M
                         </label>
                       </Radio>
-                      {/* </div> */}
                     </Radio.Group>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
           <footer className="footer">
             <div className="row">
               <div className="six columns">

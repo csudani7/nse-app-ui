@@ -4,7 +4,7 @@ import { useMutation } from "react-query";
 import { Form, Input, Button, Typography, Card, Row, Layout, Col } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 
-import { getUserRegister } from "../../services/auth";
+import { requestUserRegister } from "../../services/auth";
 
 import "./style.css";
 
@@ -43,9 +43,8 @@ const validationRules = {
 
 export default function SignUp() {
   const history = useHistory();
-  const { mutate: registration, isSuccess } = useMutation((data) =>
-    getUserRegister(data)
-  );
+  const { mutate: registration, isSuccess: successfullyRegistered } =
+    useMutation((data) => requestUserRegister(data));
 
   const onFinish = (values) => {
     const query = {
@@ -58,8 +57,8 @@ export default function SignUp() {
   };
 
   React.useEffect(() => {
-    if (isSuccess) history.push("/account");
-  }, [isSuccess, history]);
+    if (successfullyRegistered) history.push("/account");
+  }, [successfullyRegistered, history]);
 
   return (
     <Layout className="signUp-layout">
@@ -75,7 +74,6 @@ export default function SignUp() {
               </Link>
             </Col>
           </Row>
-
           <Typography.Title
             level={3}
             align="center"
@@ -83,7 +81,6 @@ export default function SignUp() {
           >
             Register to NSE
           </Typography.Title>
-
           <Row justify="center">
             <Form
               name="normal_login"
@@ -97,18 +94,15 @@ export default function SignUp() {
               <Form.Item name="fullName" rules={validationRules.fullName}>
                 <Input prefix={<UserOutlined />} placeholder="Full Name" />
               </Form.Item>
-
               <Form.Item name="email" rules={validationRules.email}>
                 <Input prefix={<MailOutlined />} placeholder="Email" />
               </Form.Item>
-
               <Form.Item name="password" rules={validationRules.password}>
                 <Input.Password
                   prefix={<LockOutlined />}
                   placeholder="Password"
                 />
               </Form.Item>
-
               <Form.Item
                 name="confirm"
                 dependencies={["password"]}
@@ -120,7 +114,6 @@ export default function SignUp() {
                   placeholder="re-enter"
                 />
               </Form.Item>
-
               <Form.Item>
                 <Button htmlType="submit" className="login-form-button">
                   Sign up

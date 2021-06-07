@@ -5,7 +5,34 @@ import { FiDownloadCloud } from "react-icons/fi";
 import { BiDoughnutChart } from "react-icons/bi";
 
 export default function OpenOrdersTable(props) {
-  const { allOpenOrders } = props;
+  const { openOrdersList } = props;
+
+  const getQuantityOfOrder = React.useCallback((orderDetails) => {
+    if (orderDetails.TransactionType === "Buy") {
+      if (orderDetails.LastTradedPrice >= orderDetails.OrderPrice) {
+        const totalQuantity = orderDetails.TotalBuyQuantity;
+        const totalTradedQuantity = orderDetails.TotalTradedQuantity;
+        return {
+          totalQuantity: totalQuantity,
+          totalTradedQuantity: totalTradedQuantity,
+        };
+      }
+    } else {
+      if (orderDetails.LastTradedPrice <= orderDetails.OrderPrice) {
+        const totalQuantity = orderDetails.TotalSellQuantity;
+        const totalTradedQuantity = orderDetails.TotalTradedQuantity;
+        return {
+          totalQuantity: totalQuantity,
+          totalTradedQuantity: totalTradedQuantity,
+        };
+      }
+    }
+  }, []);
+
+  React.useEffect(() => {
+    getQuantityOfOrder();
+  }, [getQuantityOfOrder]);
+
   return (
     <div>
       <section className="trades-wrap table-wrapper">
@@ -15,7 +42,7 @@ export default function OpenOrdersTable(props) {
               <span>Open Orders</span>{" "}
               <span className="icon icon-chevron-up"></span>
             </span>{" "}
-            <span>({allOpenOrders?.numofdata})</span>
+            <span>({openOrdersList?.numofdata})</span>
           </h3>
         </header>
         <div className="trades">
@@ -98,13 +125,13 @@ export default function OpenOrdersTable(props) {
                 </tr>
               </thead>
               <tbody>
-                {allOpenOrders &&
-                  allOpenOrders?.data?.map((orders, index) => {
+                {openOrdersList &&
+                  openOrdersList?.data?.map((orderDetails, index) => {
                     return (
                       <tr key={index} data-uid={index}>
                         <td className="fill-timestamp">
                           {moment
-                            .utc(orders.createdAt)
+                            .utc(orderDetails.createdAt)
                             .local()
                             .format("HH:mm:ss")}
                         </td>
@@ -112,54 +139,33 @@ export default function OpenOrdersTable(props) {
                           <span
                             className={clsx(
                               "text-label small",
-                              orders.TransactionType === "Buy" ? "blue" : "red"
+                              orderDetails.TransactionType === "Buy"
+                                ? "blue"
+                                : "red"
                             )}
                           >
-                            {orders.TransactionType}
+                            {orderDetails.TransactionType}
                           </span>
                         </td>
                         <td className="instrument">
                           <span className="tradingsymbol">
-                            <span>{orders.SymbolName}</span>
+                            <span>{orderDetails.SymbolName}</span>
                           </span>{" "}
                           <span className="exchange text-xxsmall dim">
-                            {orders.ExchangeSegment}
+                            {orderDetails.ExchangeSegment}
                           </span>
                         </td>
-                        <td className="product">{orders.ProductType}</td>
+                        <td className="product">{orderDetails.ProductType}</td>
                         <td className="quantity right">
-                          {() => {
-                            if (orders.TransactionType === "Buy") {
-                              if (orders.LastTradedPrice >= orders.OrderPrice) {
-                                return (
-                                  <>
-                                    {orders.TotalBuyQuantity} /{" "}
-                                    {orders.TotalTradedQuantity}
-                                  </>
-                                );
-                              }
-                            } else if (orders.TransactionType === "Sell") {
-                              if (orders.LastTradedPrice <= orders.OrderPrice) {
-                                return (
-                                  <>
-                                    {orders.TotalSellQuantity} /{" "}
-                                    {orders.TotalTradedQuantity}
-                                  </>
-                                );
-                              }
-                            } else {
-                              return <>0</>;
-                            }
-                          }}
+                          {getQuantityOfOrder(orderDetails)}
                         </td>
-
-                        <td className="quantity right">{orders.LTP} </td>
+                        <td className="quantity right">{orderDetails.LTP} </td>
                         <td className="average-price right">
-                          {orders.OrderPrice}
+                          {orderDetails.OrderPrice}
                         </td>
                         <td className="transaction-type">
                           <span className="text-label small uppercase">
-                            {orders.Status}
+                            {orderDetails.Status}
                           </span>
                         </td>
                       </tr>

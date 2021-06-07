@@ -4,7 +4,7 @@ import { FiDownloadCloud } from "react-icons/fi";
 import { BiDoughnutChart } from "react-icons/bi";
 
 export default function TradesOrdersTable(props) {
-  const { allCompletedTrades } = props;
+  const { completedTradesList } = props;
   return (
     <div>
       <section className="trades-wrap table-wrapper">
@@ -13,7 +13,7 @@ export default function TradesOrdersTable(props) {
             <span className="title">
               <span>Trades</span> <span className="icon icon-chevron-up"></span>
             </span>{" "}
-            <span>({allCompletedTrades?.numofdata})</span>
+            <span>({completedTradesList?.numofdata})</span>
           </h3>
         </header>
         <div className="trades">
@@ -93,8 +93,8 @@ export default function TradesOrdersTable(props) {
                 </tr>
               </thead>
               <tbody>
-                {allCompletedTrades &&
-                  allCompletedTrades?.data?.map((orders, index) => {
+                {completedTradesList &&
+                  completedTradesList?.data?.map((orders, index) => {
                     return (
                       <tr key={index} data-uid={index}>
                         <td className="trade-id">{orders.OrderId}</td>

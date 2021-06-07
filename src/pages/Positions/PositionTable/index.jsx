@@ -4,7 +4,7 @@ import { FiDownloadCloud } from "react-icons/fi";
 import { BiDoughnutChart } from "react-icons/bi";
 
 export default function PositionTable(props) {
-  const { allCompletedTrades } = props;
+  const { completedTradesList } = props;
   return (
     <div className="backgrnd">
       <div className="page-content">
@@ -16,7 +16,7 @@ export default function PositionTable(props) {
                   <span>Positions</span>{" "}
                   <span className="icon icon-chevron-up"></span>
                 </span>{" "}
-                <span>({allCompletedTrades?.numofdata})</span>
+                <span>({completedTradesList?.numofdata})</span>
               </h3>
             </header>
             <div className="trades">
@@ -98,14 +98,10 @@ export default function PositionTable(props) {
                     </tr>
                   </thead>
                   <tbody>
-                    {allCompletedTrades &&
-                      allCompletedTrades?.data?.map((orders, index) => {
+                    {completedTradesList &&
+                      completedTradesList?.data?.map((orders, index) => {
                         return (
-                          <tr
-                            key={index}
-                            data-uid={index}
-                            // style={orders.OrderQuantity == 0 ? "color" : "grey"}
-                          >
+                          <tr key={index} data-uid={index}>
                             <td className="product">{orders.ProductType}</td>
                             <td className="transaction-type">
                               <span
@@ -131,7 +127,6 @@ export default function PositionTable(props) {
                                 {orders.ExchangeSegment}
                               </span>
                             </td>
-
                             <td className="quantity right">
                               {orders.OrderQuantity}
                             </td>
