@@ -34,7 +34,6 @@ export default function Actions(props) {
   } = useMutation((data) => deleteSymbolFromList(data));
   const {
     mutate: addSymbol,
-    data: addedSymbolData,
     isSuccess: sucessfullyAddedSymbol,
     isError: facingErrorToAddSymbol,
   } = useMutation((data) => addSymbolToList(data, token));
@@ -69,8 +68,8 @@ export default function Actions(props) {
   }
 
   function handleDeleteSymbolFromList() {
-    const _id = currentSymbol._id;
-    deleteSymbol({ symbolId: _id, token: token });
+    const symbolId = currentSymbol._id;
+    deleteSymbol({ symbolId: symbolId, token: token });
   }
 
   const onStart = (_event, uiData) => {
@@ -88,16 +87,16 @@ export default function Actions(props) {
     if (facingErrorToAddSymbol) {
       message.error("Symbol already added");
     }
-    if (sucessfullyAddedSymbol && addedSymbolData) {
-      message.success("User Symbol created successfully");
+    if (sucessfullyAddedSymbol) {
+      message.success("Added Symbol successfully");
     }
-  }, [addedSymbolData, sucessfullyAddedSymbol, facingErrorToAddSymbol]);
+  }, [facingErrorToAddSymbol, sucessfullyAddedSymbol]);
 
   React.useEffect(() => {
     if (sucessfullyDeletedSymbol && deleteSymbolData.status_code === 201) {
       message.success(deleteSymbolData.message);
     } else if (
-      sucessfullyDeletedSymbol === false &&
+      !sucessfullyDeletedSymbol &&
       deleteSymbolData?.status_code === 500
     ) {
       message.error(deleteSymbolData.message);

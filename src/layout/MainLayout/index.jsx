@@ -12,18 +12,16 @@ const { Content } = Layout;
 export default function MainLayout(props) {
   const { route } = props;
   return (
-    <>
-      <div className="main-layout">
-        <Layout className="layout">
-          <Navigation />
-          <Content className="site-layout">
-            <SearchSideSection />
-            <div className="site-layout-background">
-              {renderRoutes(route.routes)}
-            </div>
-          </Content>
-        </Layout>
-      </div>
-    </>
+    <div className="main-layout">
+      <Layout className="layout">
+        <Navigation />
+        <Content className="site-layout">
+          <SearchSideSection />
+          <div className="site-layout-background">
+            {renderRoutes(route.routes)}
+          </div>
+        </Content>
+      </Layout>
+    </div>
   );
 }

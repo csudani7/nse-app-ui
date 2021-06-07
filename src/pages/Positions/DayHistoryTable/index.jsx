@@ -5,7 +5,7 @@ import { FiDownloadCloud } from "react-icons/fi";
 import { BiDoughnutChart } from "react-icons/bi";
 
 export default function DayHistoryTable() {
-  const allOpenOrders = [];
+  const dayHistoryTableData = [];
   return (
     <div className="backgrnd">
       <div className="page-content">
@@ -17,7 +17,7 @@ export default function DayHistoryTable() {
                   <span>Day's History</span>{" "}
                   <span className="icon icon-chevron-up"></span>
                 </span>{" "}
-                <span>({allOpenOrders?.numofdata})</span>
+                <span>({dayHistoryTableData?.numofdata})</span>
               </h3>
             </header>
             <div className="trades">
@@ -100,8 +100,8 @@ export default function DayHistoryTable() {
                     </tr>
                   </thead>
                   <tbody>
-                    {allOpenOrders &&
-                      allOpenOrders?.data?.map((orders, index) => {
+                    {dayHistoryTableData &&
+                      dayHistoryTableData?.data?.map((orders, index) => {
                         return (
                           <tr key={index} data-uid={index}>
                             <td className="fill-timestamp">

@@ -3,14 +3,14 @@ import AccountLayout from "./layout/AccountLayout";
 
 import { withAuth } from "./hoc";
 
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import Orders from "./pages/Orders";
 import Positions from "./pages/Positions";
 import Holdings from "./pages/Holdings";
 import Funds from "./pages/Funds";
 import Apps from "./pages/Apps";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
 import NotFoundPage from "./pages/NotFoundPage";
 
 const routes = [
@@ -22,13 +22,13 @@ const routes = [
         path: "/account",
         exact: true,
         component: Login,
-        key: "account",
+        key: "login-page-initial",
       },
       {
         path: "/account/login",
         exact: true,
         component: Login,
-        key: "login",
+        key: "login-page",
       },
       {
         path: "/account/sign-up",
@@ -39,7 +39,7 @@ const routes = [
       {
         path: "*",
         component: NotFoundPage,
-        key: "not-found",
+        key: "account-not-found",
       },
     ],
   },
@@ -51,48 +51,48 @@ const routes = [
         path: "/",
         exact: true,
         component: Dashboard,
-        key: "dashboard",
+        key: "dashboard-initial",
       },
       {
         path: "/dashboard",
         exact: true,
         component: Dashboard,
-        key: "dashboard",
+        key: "dashboard-page",
       },
       {
         path: "/orders",
         exact: true,
         component: Orders,
-        key: "Orders",
+        key: "Orders=page",
       },
       {
         path: "/holdings",
         exact: true,
         component: Holdings,
-        key: "holdings",
+        key: "holdings-page",
       },
       {
         path: "/positions",
         exact: true,
         component: Positions,
-        key: "positions",
+        key: "positions-page",
       },
       {
         path: "/funds",
         exact: true,
         component: Funds,
-        key: "funds",
+        key: "funds-page",
       },
       {
         path: "/apps",
         exact: true,
         component: Apps,
-        key: "apps",
+        key: "apps=page",
       },
       {
         path: "*",
         component: NotFoundPage,
-        key: "not-found",
+        key: "main-layout-not-found",
       },
     ],
   },

@@ -1,4 +1,4 @@
-export const initialParams = {
+export const axiosInitialParams = {
   cache: "no-cache",
   credentials: "same-origin",
   headers: {

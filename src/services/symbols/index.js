@@ -1,10 +1,10 @@
 import Axios from "axios";
-import { initialParams } from "../../utils";
+import { axiosInitialParams } from "../../utils";
 
 const baseAPIUrl = process.env.REACT_APP_API_SERVER;
 const axios = Axios.create({
   baseURL: baseAPIUrl,
-  initialParams,
+  axiosInitialParams,
 });
 
 export const getAllSymbols = (params) =>
@@ -20,10 +20,10 @@ export const getAllUserAddedSymbols = (params) =>
   axios.get("/getSymbol", { headers: { Authorization: params } });
 
 export const addSymbolToList = async (params, token) => {
-  const res = await axios.post("/addSymbol", params, {
+  const { data } = await axios.post("/addSymbol", params, {
     headers: { Authorization: token },
   });
-  return res.data;
+  return data;
 };
 
 export const deleteSymbolFromList = ({ symbolId, token }) =>

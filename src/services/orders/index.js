@@ -1,10 +1,10 @@
 import Axios from "axios";
-import { initialParams } from "../../utils";
+import { axiosInitialParams } from "../../utils";
 
 const baseAPIUrl = process.env.REACT_APP_API_SERVER;
 const axios = Axios.create({
   baseURL: baseAPIUrl,
-  initialParams,
+  axiosInitialParams,
 });
 
 export const getAllMasterData = (params) =>

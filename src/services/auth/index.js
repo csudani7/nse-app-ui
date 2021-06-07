@@ -1,11 +1,11 @@
 import Axios from "axios";
 import { message } from "antd";
-import { initialParams } from "../../utils";
+import { axiosInitialParams } from "../../utils";
 
 const baseAPIUrl = process.env.REACT_APP_API_SERVER;
 const axios = Axios.create({
   baseURL: `${baseAPIUrl}/auth`,
-  initialParams,
+  axiosInitialParams,
 });
 
 export const getUserLogin = async (params) => {

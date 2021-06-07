@@ -1,4 +1,5 @@
 import { XtsMarketDataAPI } from "xts-marketdata-api";
+
 const secretKey = process.env.REACT_APP_XTSSecretKey;
 const appKey = process.env.REACT_APP_XTSAppKey;
 const url = process.env.REACT_APP_XTSUrl;
@@ -11,8 +12,7 @@ const loginRequest = {
 };
 
 export const getXTSAPIToken = async () => {
-  const logIn = await xtsMarketDataAPI.logIn(loginRequest);
-  return logIn;
+  return await xtsMarketDataAPI.logIn(loginRequest);
 };
 
 export const callMasterAPI = async (settingLiveData) => {
@@ -24,6 +24,7 @@ export const callMasterAPI = async (settingLiveData) => {
     console.error(logIn);
   }
 };
+
 async function fetch_live_data_based_on_token(settingLiveData) {
   // 1501: Touchline
   // 1502: Market Data
@@ -69,7 +70,7 @@ async function fetch_live_data_based_on_token(settingLiveData) {
   }
 }
 
-var getQuotes = async function (getQuotesRequest) {
+const getQuotes = async function (getQuotesRequest) {
   let response = await xtsMarketDataAPI.getQuotes(getQuotesRequest);
   let finalResponse = null;
   if (response && response.result && response.result.listQuotes) {

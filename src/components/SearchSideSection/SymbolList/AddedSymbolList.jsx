@@ -1,18 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
+import clsx from "clsx";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+
 import Actions from "../ActionBar/Actions";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { callMasterAPI } from "../../../services/xts-connection";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function AddedSymbolList(props) {
   const { getAllUserAddedSymbols, isUserAddedSymbolList, isUserSymbolList } =
     props;
 
-  // eslint-disable-next-line no-unused-vars
-  let newData = [];
-
-  const getContinueDataBySymbol = React.useCallback(() => {
+  const getContinueDataBySymbol = React.useCallback(async () => {
     return getAllUserAddedSymbols?.map(async (symbolUpdate) => {
       try {
         let masterRes = await callMasterAPI([symbolUpdate]);
@@ -38,12 +37,6 @@ export default function AddedSymbolList(props) {
     });
   }, [getAllUserAddedSymbols]);
 
-  React.useEffect(async () => {
-    if (isUserAddedSymbolList) {
-      newData = await getContinueDataBySymbol();
-    }
-  }, [getContinueDataBySymbol, isUserAddedSymbolList]);
-
   const getFilteredCalculatedNumber = (symbol) => {
     if (symbol.OpenChangeInPriceInPer) return symbol.OpenChangeInPriceInPer;
     else if (symbol.OpenChangeInPriceInAbs)
@@ -54,6 +47,15 @@ export default function AddedSymbolList(props) {
       return symbol.CloseChangeInPriceInAbs;
     return symbol.OpenChangeInPriceInPer;
   };
+
+  React.useEffect(() => {
+    async function fetchData() {
+      if (isUserAddedSymbolList) {
+        return await getContinueDataBySymbol();
+      }
+    }
+    fetchData();
+  }, [isUserAddedSymbolList, getContinueDataBySymbol]);
 
   return (
     <>
@@ -72,7 +74,7 @@ export default function AddedSymbolList(props) {
               customRef.current.className = "hide";
             }}
           >
-            <div className={"info " + returnRedGreenClass}>
+            <div className={clsx("info ", returnRedGreenClass)}>
               <span className="symbol">
                 <span className="nice-name">{symbols.Description} </span>
               </span>{" "}
@@ -82,14 +84,14 @@ export default function AddedSymbolList(props) {
                   <span className="text-xxsmall">%</span>
                 </span>
                 <span
-                  className={
-                    "change-indicator icon icon-chevron-down " +
+                  className={clsx(
+                    "change-indicator icon icon-chevron-down ",
                     returnRedGreenClass
-                  }
+                  )}
                 >
                   {PER > 0 ? <FaAngleUp /> : <FaAngleDown />}
                 </span>
-                <span className={"last-price " + returnRedGreenClass}>
+                <span className={clsx("last-price ", returnRedGreenClass)}>
                   {symbols.LTP}
                 </span>
               </span>
