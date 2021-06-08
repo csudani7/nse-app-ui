@@ -8,19 +8,19 @@ export default function OpenOrdersTable(props) {
   const { openOrdersList } = props;
 
   const getQuantityOfOrder = React.useCallback((orderDetails) => {
-    if (orderDetails.TransactionType === "Buy") {
-      if (orderDetails.LastTradedPrice >= orderDetails.OrderPrice) {
-        const totalQuantity = orderDetails.TotalBuyQuantity;
-        const totalTradedQuantity = orderDetails.TotalTradedQuantity;
+    if (orderDetails?.TransactionType === "Buy") {
+      if (orderDetails?.LastTradedPrice >= orderDetails?.OrderPrice) {
+        const totalQuantity = orderDetails?.TotalBuyQuantity;
+        const totalTradedQuantity = orderDetails?.TotalTradedQuantity;
         return {
           totalQuantity: totalQuantity,
           totalTradedQuantity: totalTradedQuantity,
         };
       }
     } else {
-      if (orderDetails.LastTradedPrice <= orderDetails.OrderPrice) {
-        const totalQuantity = orderDetails.TotalSellQuantity;
-        const totalTradedQuantity = orderDetails.TotalTradedQuantity;
+      if (orderDetails?.LastTradedPrice <= orderDetails?.OrderPrice) {
+        const totalQuantity = orderDetails?.TotalSellQuantity;
+        const totalTradedQuantity = orderDetails?.TotalTradedQuantity;
         return {
           totalQuantity: totalQuantity,
           totalTradedQuantity: totalTradedQuantity,
