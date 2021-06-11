@@ -11,10 +11,15 @@ const axios = Axios.create({
 export const requestUserLogin = async (params) => {
   try {
     const { data, status } = await axios.post("/login", params);
-    if (status === 200 && data?.token) {
+    if (data && data?.status_code === 403) {
+      message.error(data?.message);
+      return data;
+    } else if (status === 200 && data?.token) {
       localStorage.setItem("nseAuthToken", data?.token);
       message.success(data?.message);
       return data;
+    } else {
+      return undefined;
     }
   } catch (error) {
     if (error && error.response) {

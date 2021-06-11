@@ -22,6 +22,7 @@ export default function Login() {
     useGetUserProfile();
   const {
     mutate: login,
+    data: loginData,
     isSuccess: sucessfullyLoggedIn,
     isLoading: isLogging,
   } = useMutation((data) => requestUserLogin(data));
@@ -36,11 +37,15 @@ export default function Login() {
   };
 
   React.useEffect(() => {
-    if (sucessfullyLoggedIn) {
+    if (sucessfullyLoggedIn && loginData?.status_code === 403) {
+      history.push("/account");
+    } else if (sucessfullyLoggedIn && loginData?.status_code === 201) {
       localStorage.setItem("isUserLogged", "true");
       history.push("/dashboard");
+    } else {
+      history.push("/account");
     }
-  }, [sucessfullyLoggedIn, history]);
+  }, [sucessfullyLoggedIn, loginData, history]);
 
   React.useEffect(() => {
     if (isFetchProfileData && profileData) {

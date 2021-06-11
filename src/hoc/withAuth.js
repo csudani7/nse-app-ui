@@ -7,7 +7,7 @@ export default function withAuth(WrapperComponent) {
     const isAuthenticated = localStorage.getItem("isUserLogged");
 
     const handleRedirect = React.useCallback(() => {
-      if (!isAuthenticated && !localStorage.getItem("nseAuthToken")) {
+      if (isAuthenticated !== "true" && !localStorage.getItem("nseAuthToken")) {
         history.push("/account");
       }
     }, [history, isAuthenticated]);
