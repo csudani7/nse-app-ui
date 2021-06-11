@@ -1,9 +1,9 @@
-var XtsMarketDataAPI = require("xts-marketdata-api").xtsMarketDataAPI;
+var XtsMarketDataAPI = require("xts-marketdata-api").XtsMarketDataAPI;
 var XtsMarketDataWS = require("xts-marketdata-api").WS;
 
-let secretKey = process.env.XTSSecretKey;
-let appKey = process.env.XTSAppKey;
-let url = process.env.XTSUrl;
+let secretKey = process.env.REACT_APP_XTSSecretKey;
+let appKey = process.env.REACT_APP_XTSAppKey;
+let url = process.env.REACT_APP_XTSUrl;
 let isTradeSymbol = false;
 var xtsMarketDataAPI = null;
 var xtsMarketDataWS = null;
