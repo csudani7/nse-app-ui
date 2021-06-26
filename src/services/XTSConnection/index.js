@@ -5,7 +5,6 @@ let xtsUrl = process.env.REACT_APP_XTS_URL;
 let xtsSecretKey = process.env.REACT_APP_XTS_SECRETKEY;
 let xtsAppKey = process.env.REACT_APP_XTS_APPKEY;
 let xtsWebSource = process.env.REACT_APP_XTS_SOURCE;
-let isTradeSymbol = false;
 var xtsMarketDataAPI = null;
 var xtsMarketDataWS = null;
 
@@ -62,14 +61,13 @@ async function fetch_live_data_based_on_token(settingLiveData, eventCode) {
 
   let subscriptionRequest = {
     instruments: instrumentsData,
-    xtsMessageCode: eventCode, //1502
+    xtsMessageCode: 1502, //1502: Market Data
   };
   await subscription(subscriptionRequest);
 
   let getQuotesRequest = {
-    isTradeSymbol: isTradeSymbol,
     instruments: instrumentsData,
-    xtsMessageCode: eventCode,
+    xtsMessageCode: 1502, //1502: Market Data
     publishFormat: "JSON",
   };
   await getQuotes(getQuotesRequest);
