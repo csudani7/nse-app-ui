@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { callMasterAPI } from "../services/xts-connection";
+import { callMasterAPI } from "../services/XTSConnection";
 
 export default function useGetSymbolFromXTS(symbols = null) {
   return useQuery("getSymbolFromXTS", async () => {

@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { RecoilRoot } from "recoil";
 import isNull from "lodash";
 
-import { callMasterAPI } from "./services/xts-connection";
+import { callMasterAPI } from "./services/XTSConnection";
 import App from "./pages/App";
 
 import "antd/dist/antd.css";

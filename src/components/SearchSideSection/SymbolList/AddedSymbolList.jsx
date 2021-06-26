@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
 import Actions from "../ActionBar/Actions";
-import { callMasterAPI } from "../../../services/xts-connection";
+import { callMasterAPI } from "../../../services/XTSConnection";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
