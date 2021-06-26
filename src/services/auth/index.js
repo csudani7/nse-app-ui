@@ -44,3 +44,6 @@ export const requestUserRegister = async (params) => {
     message.error(error);
   }
 };
+
+export const getUserProfileData = ({ token }) =>
+  axios.get("/profile", { headers: { Authorization: token } });

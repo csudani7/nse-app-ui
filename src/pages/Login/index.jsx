@@ -1,13 +1,10 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useMutation } from "react-query";
-import { useSetRecoilState } from "recoil";
 import { Form, Input, Button, Typography, Card, Row, Col, Layout } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
-import { useGetUserProfile } from "../../hooks";
 import { requestUserLogin } from "../../services/auth";
-import { userProfileData } from "../../recoils/profile";
 
 import "./style.css";
 
@@ -18,15 +15,12 @@ const validationRules = {
 
 export default function Login() {
   const history = useHistory();
-  const { data: profileData, isSuccess: isFetchProfileData } =
-    useGetUserProfile();
   const {
     mutate: login,
     data: loginData,
     isSuccess: sucessfullyLoggedIn,
     isLoading: isLogging,
   } = useMutation((data) => requestUserLogin(data));
-  const setProfileData = useSetRecoilState(userProfileData);
 
   const onFinish = (values) => {
     const query = {
@@ -46,12 +40,6 @@ export default function Login() {
       history.push("/account");
     }
   }, [sucessfullyLoggedIn, loginData, history]);
-
-  React.useEffect(() => {
-    if (isFetchProfileData && profileData) {
-      setProfileData(profileData?.user);
-    }
-  }, [isFetchProfileData, profileData, setProfileData]);
 
   return (
     <Layout className="login-layout">

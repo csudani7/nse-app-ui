@@ -1,24 +1,33 @@
 import React from "react";
+import { useMutation } from "react-query";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { PieChartOutlined } from "@ant-design/icons";
 import { BiDroplet } from "react-icons/bi";
 
-import { useGetUserProfile } from "../../hooks";
+import { getUserProfileData } from "../../services/auth";
 import { userProfileData, userWalletCredit } from "../../recoils/profile";
 
 import "./Dashboard.css";
 
 export default function Dashboard() {
   const {
+    mutate: userProfileMutation,
     data: fetchedUserProfileData,
     isSuccess: sucessfullyFetchedProfileData,
-  } = useGetUserProfile();
+  } = useMutation((data) => getUserProfileData(data));
   const [profileData, setProfileData] = useRecoilState(userProfileData);
   const userTotalWalletCredit = useRecoilValue(userWalletCredit);
+  const token = localStorage.getItem("nseAuthToken");
+
+  React.useEffect(() => {
+    userProfileMutation({
+      token: token,
+    });
+  }, [userProfileMutation, token]);
 
   React.useEffect(() => {
     if (sucessfullyFetchedProfileData)
-      setProfileData(fetchedUserProfileData?.user);
+      setProfileData(fetchedUserProfileData?.data?.user);
   }, [sucessfullyFetchedProfileData, fetchedUserProfileData, setProfileData]);
 
   return (
