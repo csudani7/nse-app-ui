@@ -1,25 +1,25 @@
 var XtsMarketDataAPI = require("xts-marketdata-api").XtsMarketDataAPI;
 var XtsMarketDataWS = require("xts-marketdata-api").WS;
 
-let secretKey = process.env.REACT_APP_XTSSecretKey;
-let appKey = process.env.REACT_APP_XTSAppKey;
-let url = process.env.REACT_APP_XTSUrl;
+let xtsUrl = process.env.REACT_APP_XTS_URL;
+let xtsSecretKey = process.env.REACT_APP_XTS_SECRETKEY;
+let xtsAppKey = process.env.REACT_APP_XTS_APPKEY;
 let isTradeSymbol = false;
 var xtsMarketDataAPI = null;
 var xtsMarketDataWS = null;
 
 export const callMasterAPI = async (settingLiveData, eventCode) => {
-  xtsMarketDataAPI = new XtsMarketDataAPI(url);
+  xtsMarketDataAPI = new XtsMarketDataAPI(xtsUrl);
   var loginRequest = {
-    secretKey,
-    appKey,
+    xtsSecretKey,
+    xtsAppKey,
   };
 
   let logIn = await xtsMarketDataAPI.logIn(loginRequest);
 
   if (logIn && logIn.type === xtsMarketDataAPI.responseTypes.success) {
     let userID = logIn.result.userID;
-    xtsMarketDataWS = new XtsMarketDataWS(url);
+    xtsMarketDataWS = new XtsMarketDataWS(xtsUrl);
 
     var socketInitRequest = {
       userID: userID,
