@@ -4,6 +4,7 @@ var XtsMarketDataWS = require("xts-marketdata-api").WS;
 let xtsUrl = process.env.REACT_APP_XTS_URL;
 let xtsSecretKey = process.env.REACT_APP_XTS_SECRETKEY;
 let xtsAppKey = process.env.REACT_APP_XTS_APPKEY;
+let xtsWebSource = process.env.REACT_APP_XTS_SOURCE;
 let isTradeSymbol = false;
 var xtsMarketDataAPI = null;
 var xtsMarketDataWS = null;
@@ -11,27 +12,28 @@ var xtsMarketDataWS = null;
 export const callMasterAPI = async (settingLiveData, eventCode) => {
   xtsMarketDataAPI = new XtsMarketDataAPI(xtsUrl);
   var loginRequest = {
-    xtsSecretKey,
-    xtsAppKey,
+    secretKey: xtsSecretKey,
+    appKey: xtsAppKey,
+    source: xtsWebSource,
   };
 
   let logIn = await xtsMarketDataAPI.logIn(loginRequest);
 
   if (logIn && logIn.type === xtsMarketDataAPI.responseTypes.success) {
-    let userID = logIn.result.userID;
+    let userID = logIn?.result?.userID;
     xtsMarketDataWS = new XtsMarketDataWS(xtsUrl);
 
     var socketInitRequest = {
       userID: userID,
       publishFormat: "JSON",
       broadcastMode: "Full",
-      token: logIn.result.token, // Token Generated after successful LogIn
+      token: logIn?.result?.token, // Token Generated after successful LogIn
     };
     xtsMarketDataWS.init(socketInitRequest);
     await registerEvents(eventCode);
     fetch_live_data_based_on_token(settingLiveData, eventCode);
   } else {
-    console.error(logIn);
+    console.error(logIn, "Error in XTS Login");
   }
 };
 
@@ -54,7 +56,7 @@ async function fetch_live_data_based_on_token(settingLiveData, eventCode) {
         exchangeInstrumentID: settingLiveData[i].ExchangeInstrumentID,
       });
     } else {
-      console.log("Sorry!");
+      console.log("Sorry! Something went wrong!!!");
     }
   }
 
@@ -83,42 +85,42 @@ var getQuotes = async function (getQuotesRequest) {
 
 var registerEvents = async function (eventCode) {
   xtsMarketDataWS.onConnect((connectData) => {
-    console.log(connectData);
+    console.log(connectData, "connectData");
   });
 
   xtsMarketDataWS.onJoined((joinedData) => {
-    console.log(joinedData);
+    console.log(joinedData, "joinedData");
   });
 
   xtsMarketDataWS.onError((errorData) => {
-    console.log(errorData);
+    console.log(errorData, "errorData");
   });
 
   xtsMarketDataWS.onDisconnect((disconnectData) => {
-    console.log(disconnectData);
+    console.log(disconnectData, "disconnectData");
   });
 
   xtsMarketDataWS.onMarketDepthEvent((marketDepthData) => {
-    console.log(marketDepthData, eventCode);
+    console.log(marketDepthData, "marketDepthData", eventCode, "eventCode");
   });
 
   xtsMarketDataWS.onOpenInterestEvent((openInterestData) => {
-    console.log(openInterestData, eventCode);
+    console.log(openInterestData, "openInterestData", eventCode, "eventCode");
   });
 
   xtsMarketDataWS.onIndexDataEvent((indexData) => {
-    console.log(indexData, eventCode);
+    console.log(indexData, "indexData", eventCode, "eventCode");
   });
 
   xtsMarketDataWS.onMarketDepth100Event((marketDepth100Data) => {
-    console.log(marketDepth100Data);
+    console.log(marketDepth100Data, "marketDepth100Data");
   });
 
   xtsMarketDataWS.onCandleDataEvent((candleData) => {
-    console.log(candleData, eventCode);
+    console.log(candleData, "candleData", eventCode, "eventCode");
   });
 
   xtsMarketDataWS.onLogout((logoutData) => {
-    console.log(logoutData);
+    console.log(logoutData, "logoutData");
   });
 };
