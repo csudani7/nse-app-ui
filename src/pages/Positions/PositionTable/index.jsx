@@ -134,38 +134,11 @@ export default function PositionTable(props) {
                               {orders.LastTradedPrice}
                             </td>
                             <td className="average-price right">
-                              {/* {() => {
-                                let Avg =
-                                  orders.OrderPrice / orders.OrderQuantity;
-                                if (
-                                  orders.OrderQuantity < 0 &&
-                                  Avg < orders.LastTradedPrice
-                                ) {
-                                  return <>+(Avg-{orders.LastTradedPrice})</>;
-                                }
-                                if (
-                                  orders.OrderQuantity > 0 &&
-                                  Avg > orders.LastTradedPrice
-                                ) {
-                                  return <>(Avg-{orders.LastTradedPrice})</>;
-                                }
-                              }} */}
                             </td>
                             <td className="transaction-type">
                               <span
                                 className={clsx("text-label small uppercase")}
-                              >
-                                {/* {() => {
-                                {() => {
-                                  let Avg =
-                                    orders.OrderPrice / orders.OrderQuantity;
-                                  let P_L = orders.LastTradedPrice - Avg;
-                                  console.log(P_L);
-                                  var Chg = (P_L * 100) / Avg;
-                                  console.log(Chg);
-                                  return <>{Chg}</>;
-                                }} */}
-                              </span>
+                              ></span>
                             </td>
                           </tr>
                         );

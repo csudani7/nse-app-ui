@@ -29,14 +29,14 @@ export const callMasterAPI = async (settingLiveData, eventCode) => {
       token: logIn?.result?.token, // Token Generated after successful LogIn
     };
     xtsMarketDataWS.init(socketInitRequest);
-    await registerEvents(eventCode);
-    fetch_live_data_based_on_token(settingLiveData, eventCode);
+    await registerEvents(1502);
+    fetch_live_data_based_on_token(settingLiveData, 1502);
   } else {
     console.error(logIn, "Error in XTS Login");
   }
 };
 
-async function fetch_live_data_based_on_token(settingLiveData, eventCode) {
+async function fetch_live_data_based_on_token(settingLiveData) {
   var instrumentsData = [];
   for (var i = 0; i < settingLiveData.length; ++i) {
     if (settingLiveData[i].ExchangeSegment === "NSECM") {
