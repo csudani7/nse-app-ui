@@ -39,7 +39,7 @@ export default function SocketHandler() {
             },
           });
           socket.on("1502-json-full", function (data) {
-            console.log("data is " + data);
+            console.log("data is ", data);
           });
         } else {
           console.log(body.description, "body.description");
