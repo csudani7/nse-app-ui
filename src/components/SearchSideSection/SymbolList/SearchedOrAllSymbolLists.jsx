@@ -6,7 +6,7 @@ import Actions from "../ActionBar";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function AddedSymbolList(props) {
+export default function SearchedOrAllSymbolLists(props) {
   const { filteredSymbolListData } = props;
 
   return (

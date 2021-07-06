@@ -3,12 +3,23 @@ import clsx from "clsx";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
 import Actions from "../ActionBar";
+import Datafeed from "../../../services/XTSConnection";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function UserAddedSymbolLists(props) {
   const { userAddedSymbols } = props;
+  const dataFeed = new Datafeed();
 
+  React.useEffect(() => {
+    async function fetchData() {
+      if (userAddedSymbols) {
+        await dataFeed.callMasterAPI(userAddedSymbols);
+      }
+    }
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userAddedSymbols]);
   return (
     <>
       {userAddedSymbols?.map((symbols, index) => {
@@ -24,7 +35,7 @@ export default function UserAddedSymbolLists(props) {
               customRef.current.className = "hide";
             }}
           >
-            <div className={clsx("info ")}>
+            <div className={clsx("info")}>
               <span className="symbol">
                 <span className="nice-name">{symbols.Description} </span>
               </span>{" "}
