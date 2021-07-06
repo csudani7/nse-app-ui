@@ -1,4 +1,4 @@
-import AddedSymbolList from "./AddedSymbolList";
-import AllSymbolsList from "./AllSymbolsList";
+import SearchedOrAllSymbolLists from "./SearchedOrAllSymbolLists";
+import UserAddedSymbolLists from "./UserAddedSymbolLists";
 
-export { AddedSymbolList, AllSymbolsList };
+export { SearchedOrAllSymbolLists, UserAddedSymbolLists };

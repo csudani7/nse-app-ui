@@ -6,12 +6,12 @@ import Actions from "../ActionBar";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function AllSymbolsList(props) {
-  const { allSymbolsListData } = props;
+export default function UserAddedSymbolLists(props) {
+  const { userAddedSymbols } = props;
 
   return (
     <>
-      {allSymbolsListData?.map((symbols, index) => {
+      {userAddedSymbols?.map((symbols, index) => {
         let customRef = React.createRef();
         return (
           <div

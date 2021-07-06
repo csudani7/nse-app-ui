@@ -8,7 +8,7 @@ import { FaSearch } from "react-icons/fa";
 import { useGetAllSymbols, useGetAllUserAddedSymbols } from "../../hooks";
 import { addFundToWallet } from "../../services/funds";
 import { userProfileData } from "../../recoils/profile";
-import { AddedSymbolList, AllSymbolsList } from "./SymbolList";
+import { SearchedOrAllSymbolLists, UserAddedSymbolLists } from "./SymbolList";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
@@ -21,7 +21,7 @@ export default function SearchComponent() {
   const [fundValue, setFundValue] = React.useState(0);
   const setUpdatedProfile = useSetRecoilState(userProfileData);
   const { data: getAllSymbols } = useGetAllSymbols();
-  const { data: allSymbolsList } = useGetAllUserAddedSymbols();
+  const { data: userAddedSymbols } = useGetAllUserAddedSymbols();
   const {
     mutate: addFundsMutation,
     data: fundData,
@@ -139,7 +139,7 @@ export default function SearchComponent() {
               onChange={(e) => handleSearchInput(e)}
             />
             <span className="counts">
-              {allSymbolsList?.data?.length} / {getAllSymbols?.data?.length}
+              {userAddedSymbols?.data?.length} / {getAllSymbols?.data?.length}
             </span>
           </div>
         </div>
@@ -147,14 +147,16 @@ export default function SearchComponent() {
       {filteredSymbolListData !== undefined && isSymbolListOpen && (
         <div className="instruments">
           <div className="vddl-list list-flat">
-            <AddedSymbolList filteredSymbolListData={filteredSymbolListData} />
+            <SearchedOrAllSymbolLists
+              filteredSymbolListData={filteredSymbolListData}
+            />
           </div>
         </div>
       )}
       {!isSymbolListOpen && (
         <div className="instruments">
           <div className="vddl-list list-flat">
-            <AllSymbolsList allSymbolsListData={allSymbolsList?.data} />
+            <UserAddedSymbolLists userAddedSymbols={userAddedSymbols?.data} />
           </div>
         </div>
       )}
