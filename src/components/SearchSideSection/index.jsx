@@ -8,7 +8,7 @@ import { FaSearch } from "react-icons/fa";
 import { useGetAllSymbols, useGetAllUserAddedSymbols } from "../../hooks";
 import { addFundToWallet } from "../../services/funds";
 import { userProfileData } from "../../recoils/profile";
-import AddedSymbolList from "./SymbolList/AddedSymbolList";
+import { AddedSymbolList, AllSymbolsList } from "./SymbolList";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
@@ -21,7 +21,7 @@ export default function SearchComponent() {
   const [fundValue, setFundValue] = React.useState(0);
   const setUpdatedProfile = useSetRecoilState(userProfileData);
   const { data: getAllSymbols } = useGetAllSymbols();
-  const { data: getAllUserAddedSymbols } = useGetAllUserAddedSymbols();
+  const { data: allSymbolsList } = useGetAllUserAddedSymbols();
   const {
     mutate: addFundsMutation,
     data: fundData,
@@ -52,7 +52,7 @@ export default function SearchComponent() {
 
   const menuItems = (
     <Menu style={{ width: 200, paddingLeft: "20px" }}>
-      <Menu.Item>
+      <Menu.Item key={"icon"}>
         <span className="dim">Change</span>{" "}
         <span
           className="help"
@@ -63,14 +63,14 @@ export default function SearchComponent() {
           <span className="icon icon-info"></span>
         </span>
       </Menu.Item>
-      <Menu.Item>
+      <Menu.Item key={"Openprice"}>
         <Radio>
           <label htmlFor="radio-240" className="su-radio-label">
             Open price
           </label>
         </Radio>
       </Menu.Item>
-      <Menu.Item>
+      <Menu.Item key={"ClosePrice"}>
         <Radio>
           <label htmlFor="radio-240" className="su-radio-label">
             Close price
@@ -78,27 +78,27 @@ export default function SearchComponent() {
         </Radio>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item>
+      <Menu.Item key={"ChangeFormat"}>
         <span className="dim">Change Format</span>
       </Menu.Item>
-      <Menu.Item>
+      <Menu.Item key={"percentage"}>
         <label htmlFor="radio-243" className="su-radio-label">
           Percentage
         </label>
       </Menu.Item>
-      <Menu.Item>
+      <Menu.Item key={"absolute"}>
         <label htmlFor="radio-243" className="su-radio-label">
           absolute
         </label>
       </Menu.Item>
-      <Menu.Item>
+      <Menu.Item key={"AddFundsValue"}>
         <InputNumber
           min={1}
           value={fundValue}
           onChange={(enteredValue) => setFundValue(enteredValue)}
         />
       </Menu.Item>
-      <Menu.Item>
+      <Menu.Item key={"AddFunds"}>
         <Button type="primary" size="default" onClick={handleAddFunds}>
           Add Funds
         </Button>
@@ -111,7 +111,7 @@ export default function SearchComponent() {
     setIsSymbolListOpen(true);
   };
 
-  const filteredSymbolData = React.useMemo(() => {
+  const filteredSymbolListData = React.useMemo(() => {
     if (searchQuery && getAllSymbols) {
       const query = searchQuery.toUpperCase();
       if (searchQuery === " ") return getAllSymbols?.data;
@@ -139,30 +139,22 @@ export default function SearchComponent() {
               onChange={(e) => handleSearchInput(e)}
             />
             <span className="counts">
-              {getAllUserAddedSymbols?.data?.length} /{" "}
-              {getAllSymbols?.data?.length}
+              {allSymbolsList?.data?.length} / {getAllSymbols?.data?.length}
             </span>
           </div>
         </div>
       </div>
-      {filteredSymbolData !== undefined && isSymbolListOpen ? (
+      {filteredSymbolListData !== undefined && isSymbolListOpen && (
         <div className="instruments">
           <div className="vddl-list list-flat">
-            <AddedSymbolList
-              getAllUserAddedSymbols={filteredSymbolData}
-              isUserAddedSymbolList={false}
-              isUserSymbolList={false}
-            />
+            <AddedSymbolList filteredSymbolListData={filteredSymbolListData} />
           </div>
         </div>
-      ) : (
+      )}
+      {!isSymbolListOpen && (
         <div className="instruments">
           <div className="vddl-list list-flat">
-            <AddedSymbolList
-              getAllUserAddedSymbols={getAllUserAddedSymbols?.data}
-              isUserAddedSymbolList={true}
-              isUserSymbolList={true}
-            />
+            <AllSymbolsList allSymbolsListData={allSymbolsList?.data} />
           </div>
         </div>
       )}

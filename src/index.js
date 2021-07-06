@@ -2,9 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { RecoilRoot } from "recoil";
-import isNull from "lodash";
 
-import { callMasterAPI } from "./services/XTSConnection";
 import App from "./pages/App";
 
 import "antd/dist/antd.css";
@@ -15,10 +13,6 @@ import * as serviceWorker from "./serviceWorker";
 const queryClient = new QueryClient();
 
 function BaseApp() {
-  const isAuthenticated = localStorage.getItem("isUserLogged");
-  React.useEffect(() => {
-    if (isAuthenticated === "true" && !isNull(isAuthenticated)) callMasterAPI();
-  }, [isAuthenticated]);
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>

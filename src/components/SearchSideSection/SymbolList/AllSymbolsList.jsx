@@ -6,12 +6,12 @@ import Actions from "../ActionBar";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function AddedSymbolList(props) {
-  const { filteredSymbolListData } = props;
+export default function AllSymbolsList(props) {
+  const { allSymbolsListData } = props;
 
   return (
     <>
-      {filteredSymbolListData?.map((symbols, index) => {
+      {allSymbolsListData?.map((symbols, index) => {
         let customRef = React.createRef();
         return (
           <div
@@ -30,19 +30,19 @@ export default function AddedSymbolList(props) {
               </span>{" "}
               <span className="price">
                 <span className="dim">
-                  11.11
+                  11.12
                   <span className="text-xxsmall">%</span>
                 </span>
                 <span
                   className={clsx("change-indicator icon icon-chevron-down ")}
                 >
-                  {11.2 > 0 ? <FaAngleUp /> : <FaAngleDown />}
+                  {11 > 0 ? <FaAngleUp /> : <FaAngleDown />}
                 </span>
-                <span className={clsx("last-price")}>{symbols.LTP}</span>
+                <span className={clsx("last-price ")}>{symbols.LTP}</span>
               </span>
             </div>
             <div ref={customRef} className="hide">
-              <Actions currentSymbol={symbols} isAddActionAvailabe={true} />
+              <Actions currentSymbol={symbols} isAddActionAvailabe={false} />
             </div>
           </div>
         );

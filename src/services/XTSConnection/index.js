@@ -8,7 +8,7 @@ let xtsWebSource = process.env.REACT_APP_XTS_SOURCE;
 var xtsMarketDataAPI = null;
 var xtsMarketDataWS = null;
 
-export const callMasterAPI = async (settingLiveData, eventCode) => {
+export const callMasterAPI = async (settingLiveData, _eventCode) => {
   xtsMarketDataAPI = new XtsMarketDataAPI(xtsUrl);
   var loginRequest = {
     secretKey: xtsSecretKey,
@@ -30,7 +30,7 @@ export const callMasterAPI = async (settingLiveData, eventCode) => {
     };
     xtsMarketDataWS.init(socketInitRequest);
     await registerEvents(1502);
-    fetch_live_data_based_on_token(settingLiveData, 1502);
+    await fetch_live_data_based_on_token(settingLiveData, 1502);
   } else {
     console.error(logIn, "Error in XTS Login");
   }
@@ -118,7 +118,9 @@ var registerEvents = async function (eventCode) {
     console.log(candleData, "candleData", eventCode, "eventCode");
   });
 
-  xtsMarketDataWS.onLogout((logoutData) => {
-    console.log(logoutData, "logoutData");
-  });
+  if (!localStorage.getItem("isUserLogged")) {
+    xtsMarketDataWS.onLogout((logoutData) => {
+      console.log(logoutData, "logoutData");
+    });
+  }
 };

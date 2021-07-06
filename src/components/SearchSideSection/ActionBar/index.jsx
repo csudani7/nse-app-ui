@@ -14,7 +14,7 @@ import {
 import { BuyForm, SellForm } from "../BuySellForms";
 
 export default function Actions(props) {
-  const { currentSymbol, isUserAddedSymbolList, isUserSymbolList } = props;
+  const { currentSymbol, isAddActionAvailabe } = props;
   const token = localStorage.getItem("nseAuthToken");
   const draggleRef = React.createRef();
   const [buyVisible, setBuyVisible] = React.useState(false);
@@ -258,7 +258,7 @@ export default function Actions(props) {
             </span>
           </button>
         </span>
-        {isUserSymbolList && (
+        {!isAddActionAvailabe && (
           <span data-balloon="Delete" data-balloon-pos="up">
             <button
               type="button"
@@ -271,7 +271,7 @@ export default function Actions(props) {
             </button>
           </span>
         )}
-        {!isUserAddedSymbolList && (
+        {isAddActionAvailabe && (
           <span data-balloon="Add" data-balloon-pos="up">
             <button
               type="button"
