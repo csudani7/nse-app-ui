@@ -114,11 +114,13 @@ export default function SearchComponent() {
   const filteredSymbolListData = React.useMemo(() => {
     if (searchQuery && getAllSymbols) {
       const query = searchQuery.toUpperCase();
-      if (searchQuery === " ") return getAllSymbols?.data;
-      if (searchQuery !== " " || searchQuery !== undefined) {
+      if (searchQuery === " ") {
+        return getAllSymbols?.data;
+      } else if (searchQuery !== " " || searchQuery !== undefined) {
         return getAllSymbols?.data.filter((i) => i.Description.includes(query));
+      } else {
+        return getAllSymbols?.data;
       }
-      return getAllSymbols?.data;
     }
   }, [searchQuery, getAllSymbols]);
 
@@ -153,7 +155,7 @@ export default function SearchComponent() {
           </div>
         </div>
       )}
-      {!isSymbolListOpen && (
+      {(!isSymbolListOpen || searchQuery === "") && (
         <div className="instruments">
           <div className="vddl-list list-flat">
             <UserAddedSymbolLists userAddedSymbols={userAddedSymbols?.data} />
